@@ -15,6 +15,7 @@ var Drafts_component_1 = require('./Drafts.component');
 var OneRocketRoadComponent = (function () {
     function OneRocketRoadComponent() {
     }
+    OneRocketRoadComponent.prototype.ngOnInit = function () { };
     OneRocketRoadComponent = __decorate([
         core_1.Component({
             selector: 'one-rocket-road',

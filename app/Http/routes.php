@@ -21,6 +21,10 @@ Route::group(['namespace' => 'Api'], function() {
 
 // Catch-all route to handle routes which doesn't exist, implicitly
 // redirecting back to the homepage so Angular can redirect as appropriate.
+Route::get('/api/{any}', function($any) {
+    return response("Invalid API call", 404);
+})->where('any', '.*');
+
 Route::get('{any}', function($any) {
     return view('home');
 })->where('any', '.*');

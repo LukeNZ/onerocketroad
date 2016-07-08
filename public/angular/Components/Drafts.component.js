@@ -9,15 +9,39 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var Draft_class_1 = require("../Classes/Draft.class");
+var DraftService_service_1 = require("../Services/DraftService.service");
 var DraftsComponent = (function () {
-    function DraftsComponent() {
+    function DraftsComponent(draftService) {
+        this.draftService = draftService;
+        this.newDraftModel = new Draft_class_1.Draft();
+        this.isCreatingDraft = false;
+        this.drafts = [];
     }
+    DraftsComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.draftService.getAllDrafts().then(function (drafts) {
+            _this.drafts = drafts;
+        });
+    };
+    /**
+     * Creates a draft for an article, rendering only the title.
+     */
+    DraftsComponent.prototype.createDraft = function () {
+        var _this = this;
+        this.isCreatingDraft = true;
+        this.draftService.createDraft(this.newDraftModel).then(function (draft) {
+            _this.drafts.push(draft);
+            _this.isCreatingDraft = false;
+        });
+    };
     DraftsComponent = __decorate([
         core_1.Component({
             selector: 'drafts',
-            templateUrl: '/angular/views/drafts.template.html'
+            templateUrl: '/angular/views/drafts.template.html',
+            providers: [DraftService_service_1.DraftService]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [DraftService_service_1.DraftService])
     ], DraftsComponent);
     return DraftsComponent;
 }());

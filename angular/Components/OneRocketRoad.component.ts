@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {ROUTER_DIRECTIVES} from '@angular/router';
 import {ArticlesComponent} from './Articles.component';
 import {DraftsComponent} from './Drafts.component';
 
@@ -9,4 +9,8 @@ import {DraftsComponent} from './Drafts.component';
     directives: [ROUTER_DIRECTIVES],
     precompile: [DraftsComponent, ArticlesComponent]
 })
-export class OneRocketRoadComponent { }
+export class OneRocketRoadComponent implements OnInit {
+    constructor() {}
+
+    ngOnInit() {}
+}
