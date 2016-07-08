@@ -15,6 +15,12 @@
         <script>
             System.import('app').catch(function(err){ console.error(err); });
         </script>
+
+        <!-- 3. Styles -->
+
+        <!-- 4. Fonts -->
+        <link rel="stylesheet" type="text/css" href="/node_modules/font-awesome/css/font-awesome.css">
+
     </head>
     <body>
         <one-rocket-road>Loading... Launching...</one-rocket-road>
