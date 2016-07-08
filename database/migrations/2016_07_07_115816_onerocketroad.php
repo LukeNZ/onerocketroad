@@ -12,39 +12,85 @@ class Onerocketroad extends Migration
      */
     public function up()
     {
-        Schema::create('authors', function(Blueprint $table) {
-            $table->increments('id');
-            $table->string('firstname');
-            $table->string('lastname');
-            $table->string('email');
-            $table->string('password');
-            $table->string('twitter');
-            $table->timestamps();
+        // Schema create
+        if (!Schema::hasTable('users')) {
+            Schema::create('users', function(Blueprint $table) {
+                $table->increments('id');
+                $table->string('firstname');
+                $table->string('lastname');
+                $table->string('email');
+                $table->string('password');
+                $table->string('twitter');
+                $table->timestamps();
+            });
+        }
+
+        if (!Schema::hasTable('articles')) {
+            Schema::create('articles', function(Blueprint $table) {
+                $table->increments('id');
+                $table->string('title');
+                $table->text('body');
+                $table->integer('author_id')->unsigned()->nullable();
+                $table->string('author_name');
+                $table->integer('hero_image_id')->unsigned();
+                $table->dateTime('published_at');
+                $table->timestamps();
+            });
+        }
+
+        if (!Schema::hasTable('drafts')) {
+            Schema::create('drafts', function(Blueprint $table) {
+                $table->increments('id');
+                $table->string('title');
+                $table->text('body');
+                $table->integer('author_id')->unsigned()->nullable();
+                $table->string('author_name');
+                $table->integer('hero_image_id')->unsigned();
+                $table->timestamps();
+            });
+        }
+
+        if (!Schema::hasTable('images')) {
+            Schema::create('images', function(Blueprint $table) {
+                $table->increments('id');
+                $table->string('filename');
+                $table->string('summary');
+                $table->string('author');
+                $table->integer('size')->unsigned();
+                $table->timestamps();
+            });
+        }
+        if (!Schema::hasTable('tags')) {
+            Schema::create('tags', function(Blueprint $table) {
+                $table->increments('id');
+                $table->string('key')->nullable();
+                $table->string('value');
+                $table->timestamps();
+            });
+        }
+
+        if (!Schema::hasTable('taggables')) {
+            Schema::create('taggables', function(Blueprint $table) {
+                $table->increments('id');
+                $table->integer('tag_id')->unsigned();
+                $table->integer('taggable_id')->unsigned();
+                $table->string('taggable_type');
+            });
+        }
+
+        // Foreign keys
+        Schema::table('articles', function(Blueprint $table) {
+            $table->foreign('hero_image_id')->references('id')->on('images')->onDelete('restrict');
+            $table->foreign('author_id')->references('id')->on('users')->onDelete('set null');
         });
 
-        Schema::create('articles', function(Blueprint $table) {
-            $table->increments('id');
-            $table->string('title');
-            $table->integer('hero_image_id')->unsigned();
-            $table->timestamps();
-
-            $table->foreign('hero_image_id')->references('id')
-                ->on('images')
-                ->onDelete('restrict');
+        Schema::table('drafts', function(Blueprint $table) {
+            $table->foreign('hero_image_id')->references('id')->on('images')->onDelete('restrict');
+            $table->foreign('author_id')->references('id')->on('users')->onDelete('set null');
         });
 
-        Schema::create('drafts', function(Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
-        });
-
-        Schema::create('images', function(Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
-        });
-
-        Schema::create('tags', function(Blueprint $table) {
-
+        Schema::table('taggables', function(Blueprint $table) {
+            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
         });
     }
 
@@ -55,9 +101,13 @@ class Onerocketroad extends Migration
      */
     public function down()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
         Schema::drop('authors');
         Schema::drop('articles');
         Schema::drop('drafts');
         Schema::drop('images');
+        Schema::drop('tags');
+        Schema::drop('taggables');
+        DB::statement('SET FOREIGN_KEY_CHECKS=1');
     }
 }
