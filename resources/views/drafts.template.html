@@ -10,12 +10,12 @@
                #title="ngModel"
                required />
 
-        <button type="button"
+        <button type="submit"
                 [disabled]="!createDraftForm.form.valid || isCreatingDraft">Create</button>
     </form>
 </section>
 
-<h2>Current Drafts</h2>
+<h2>Current Drafts <i class="fa fa-trash"></i></h2>
 <section>
     <ol>
         <li *ngFor="let draft of drafts">

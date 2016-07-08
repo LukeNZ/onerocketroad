@@ -26,13 +26,15 @@ export class DraftsComponent implements OnInit {
     }
 
     /**
-     * Creates a draft for an article, rendering only the title.
+     * Creates a draft for an article, rendering only the title and the author.
      */
     public createDraft() {
         this.isCreatingDraft = true;
         this.draftService.createDraft(this.newDraftModel).then(draft => {
             this.drafts.push(draft);
             this.isCreatingDraft = false;
+        }).catch(err => {
+           // do nothing
         });
     }
 }

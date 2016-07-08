@@ -1,11 +1,14 @@
 import {Injectable} from "@angular/core";
 import {Http, Response} from "@angular/http";
+import {AbstractService} from '../Services/AbstractService.service';
 import {Draft} from "../Classes/Draft.class";
 
 @Injectable()
-export class DraftService {
+export class DraftService extends AbstractService {
 
-    constructor(private http: Http) {}
+    constructor(private http: Http) {
+        super();
+    }
 
     /**
      * Get all drafts from the server.
@@ -16,7 +19,8 @@ export class DraftService {
     public getAllDrafts() : Promise<Draft[]> {
         return this.http.get('/api/drafts/all')
             .toPromise()
-            .then(res => res.json());
+            .then(res => res.json())
+            .catch(this.handleError);
     }
 
     /**
@@ -29,7 +33,8 @@ export class DraftService {
     public createDraft(draft : Draft) : Promise<Draft> {
         return this.http.put('/api/drafts/create', draft)
             .toPromise()
-            .then(res => res.json());
+            .then(res => res.json())
+            .catch(this.handleError);
     }
 
     /**
@@ -42,7 +47,8 @@ export class DraftService {
     public updateDraft(draft : Draft) : Promise<number> {
         return this.http.patch('/api/drafts/update', draft)
             .toPromise()
-            .then(res => res.status);
+            .then(res => res.status)
+            .catch(this.handleError);
     }
 
     /**
@@ -55,7 +61,8 @@ export class DraftService {
     public deleteDraft(draft: Draft) : Promise<number> {
         return this.http.delete('/api/drafts/delete/' + draft.id)
             .toPromise()
-            .then(res => res.status);
+            .then(res => res.status)
+            .catch(this.handleError);
     }
 
     /**
@@ -67,6 +74,7 @@ export class DraftService {
     public publishDraft(draft: Draft) : Promise<number> {
         return this.http.post('/api/drafts/publish', draft)
             .toPromise()
-            .then(res => res.status);
+            .then(res => res.status)
+            .catch(this.handleError);
     }
 }

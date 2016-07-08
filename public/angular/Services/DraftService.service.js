@@ -1,4 +1,9 @@
 "use strict";
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -10,8 +15,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
-var DraftService = (function () {
+var AbstractService_service_1 = require('../Services/AbstractService.service');
+var DraftService = (function (_super) {
+    __extends(DraftService, _super);
     function DraftService(http) {
+        _super.call(this);
         this.http = http;
     }
     /**
@@ -23,7 +31,8 @@ var DraftService = (function () {
     DraftService.prototype.getAllDrafts = function () {
         return this.http.get('/api/drafts/all')
             .toPromise()
-            .then(function (res) { return res.json(); });
+            .then(function (res) { return res.json(); })
+            .catch(this.handleError);
     };
     /**
      * Create an initial draft on the server.
@@ -35,7 +44,8 @@ var DraftService = (function () {
     DraftService.prototype.createDraft = function (draft) {
         return this.http.put('/api/drafts/create', draft)
             .toPromise()
-            .then(function (res) { return res.json(); });
+            .then(function (res) { return res.json(); })
+            .catch(this.handleError);
     };
     /**
      * Update an existing draft with new information.
@@ -47,7 +57,8 @@ var DraftService = (function () {
     DraftService.prototype.updateDraft = function (draft) {
         return this.http.patch('/api/drafts/update', draft)
             .toPromise()
-            .then(function (res) { return res.status; });
+            .then(function (res) { return res.status; })
+            .catch(this.handleError);
     };
     /**
      * Delete a draft from the server with the given id.
@@ -59,7 +70,8 @@ var DraftService = (function () {
     DraftService.prototype.deleteDraft = function (draft) {
         return this.http.delete('/api/drafts/delete/' + draft.id)
             .toPromise()
-            .then(function (res) { return res.status; });
+            .then(function (res) { return res.status; })
+            .catch(this.handleError);
     };
     /**
      * Publish a draft, creating an article.
@@ -70,12 +82,13 @@ var DraftService = (function () {
     DraftService.prototype.publishDraft = function (draft) {
         return this.http.post('/api/drafts/publish', draft)
             .toPromise()
-            .then(function (res) { return res.status; });
+            .then(function (res) { return res.status; })
+            .catch(this.handleError);
     };
     DraftService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])
     ], DraftService);
     return DraftService;
-}());
+}(AbstractService_service_1.AbstractService));
 exports.DraftService = DraftService;

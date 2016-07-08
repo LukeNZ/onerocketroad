@@ -25,7 +25,7 @@ var DraftsComponent = (function () {
         });
     };
     /**
-     * Creates a draft for an article, rendering only the title.
+     * Creates a draft for an article, rendering only the title and the author.
      */
     DraftsComponent.prototype.createDraft = function () {
         var _this = this;
@@ -33,6 +33,8 @@ var DraftsComponent = (function () {
         this.draftService.createDraft(this.newDraftModel).then(function (draft) {
             _this.drafts.push(draft);
             _this.isCreatingDraft = false;
+        }).catch(function (err) {
+            // do nothing
         });
     };
     DraftsComponent = __decorate([

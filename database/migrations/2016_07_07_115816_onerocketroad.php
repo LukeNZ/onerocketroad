@@ -32,7 +32,7 @@ class Onerocketroad extends Migration
                 $table->text('body');
                 $table->integer('author_id')->unsigned()->nullable();
                 $table->string('author_name');
-                $table->integer('hero_image_id')->unsigned();
+                $table->integer('hero_id')->unsigned()->nullable();
                 $table->dateTime('published_at');
                 $table->timestamps();
             });
@@ -45,7 +45,8 @@ class Onerocketroad extends Migration
                 $table->text('body');
                 $table->integer('author_id')->unsigned()->nullable();
                 $table->string('author_name');
-                $table->integer('hero_image_id')->unsigned();
+                $table->integer('hero_id')->unsigned()->nullable();
+                $table->dateTime('due_at')->nullable();
                 $table->timestamps();
             });
         }
@@ -80,12 +81,12 @@ class Onerocketroad extends Migration
 
         // Foreign keys
         Schema::table('articles', function(Blueprint $table) {
-            $table->foreign('hero_image_id')->references('id')->on('images')->onDelete('restrict');
+            $table->foreign('hero_id')->references('id')->on('images')->onDelete('restrict');
             $table->foreign('author_id')->references('id')->on('users')->onDelete('set null');
         });
 
         Schema::table('drafts', function(Blueprint $table) {
-            $table->foreign('hero_image_id')->references('id')->on('images')->onDelete('restrict');
+            $table->foreign('hero_id')->references('id')->on('images')->onDelete('restrict');
             $table->foreign('author_id')->references('id')->on('users')->onDelete('set null');
         });
 
@@ -102,7 +103,7 @@ class Onerocketroad extends Migration
     public function down()
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
-        Schema::drop('authors');
+        Schema::drop('users');
         Schema::drop('articles');
         Schema::drop('drafts');
         Schema::drop('images');
