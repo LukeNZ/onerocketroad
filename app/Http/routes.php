@@ -20,6 +20,7 @@ Route::get('/', function () {
 Route::group(['namespace' => 'Api', 'prefix' => 'api'], function() {
     Route::group(['prefix' => 'drafts'], function() {
         Route::get('all', 'DraftsController@all');
+        Route::get('get/{id}', 'DraftsController@get');
         Route::put('create', 'DraftsController@create');
         Route::patch('update', 'DraftsController@update');
         Route::delete('delete/{id}', 'DraftsController@delete');

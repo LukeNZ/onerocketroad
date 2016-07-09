@@ -1,10 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {Draft} from "../Classes/Draft.class";
 import {DraftService} from "../Services/DraftService.service";
+import {ROUTER_DIRECTIVES} from '@angular/router';
 
 @Component({
     selector: 'drafts',
     templateUrl: '/angular/views/drafts.template.html',
+    directives: [ROUTER_DIRECTIVES],
     providers: [DraftService]
 })
 

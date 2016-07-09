@@ -27,6 +27,17 @@ class DraftsController extends Controller
     }
 
     /**
+     * Fetches a single draft by id from the backing store and returns it.
+     * GET: /api/drafts/get/{id}
+     *
+     * @param $draftId
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function get($draftId) {
+        return response()->json($this->drafts->find($draftId), 200);
+    }
+
+    /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */

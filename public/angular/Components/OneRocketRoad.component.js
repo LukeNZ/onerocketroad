@@ -10,8 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
-var Articles_component_1 = require('./Articles.component');
-var Drafts_component_1 = require('./Drafts.component');
 var OneRocketRoadComponent = (function () {
     function OneRocketRoadComponent() {
     }
@@ -20,8 +18,7 @@ var OneRocketRoadComponent = (function () {
         core_1.Component({
             selector: 'one-rocket-road',
             templateUrl: '/angular/views/onerocketroad.template.html',
-            directives: [router_1.ROUTER_DIRECTIVES],
-            precompile: [Drafts_component_1.DraftsComponent, Articles_component_1.ArticlesComponent]
+            directives: [router_1.ROUTER_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [])
     ], OneRocketRoadComponent);

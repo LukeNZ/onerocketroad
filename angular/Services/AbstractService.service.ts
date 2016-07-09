@@ -1,5 +1,3 @@
-import {Observable}  from 'rxjs/Observable';
-
 export abstract class AbstractService {
     protected handleError(error: any) {
         let errMsg = (error.message) ? error.message :

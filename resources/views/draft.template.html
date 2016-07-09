@@ -1,1 +1,8 @@
-<h1>Draft</h1>
+<h1 contenteditable>{{ draft.title }}</h1>
+<p>By {{ draft.author_name }}</p>
+<ul>
+    <li>Edit</li>
+    <li>Preview</li>
+</ul>
+<p>Length: {{ draft.chars() }}</p>
+<textarea [value]="draft.body"></textarea>

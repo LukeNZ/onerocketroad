@@ -24,6 +24,20 @@ export class DraftService extends AbstractService {
     }
 
     /**
+     * Get a draft by its ID from the server.
+     * GET: /api/drafts/get/:id
+     *
+     * @param draftId   The id of the draft to be fetched.
+     * @returns {Promise<Draft>}    The draft specified by the id.
+     */
+    public getDraft(draftId : number) : Promise<Draft> {
+        return this.http.get('/api/drafts/get/' + draftId)
+            .toPromise()
+            .then(res => res.json())
+            .catch(this.handleError);
+    }
+
+    /**
      * Create an initial draft on the server.
      * PUT: /api/drafts/create.
      *

@@ -10,18 +10,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var DraftService_service_1 = require("../Services/DraftService.service");
+var Draft_class_1 = require("../Classes/Draft.class");
 var router_1 = require("@angular/router");
 var DraftComponent = (function () {
     function DraftComponent(draftService, route, router) {
         this.draftService = draftService;
         this.route = route;
         this.router = router;
+        this.draft = new Draft_class_1.Draft(); // initialize to an empty draft
+        this.isSaving = false;
+        this.isPublishing = false;
     }
     DraftComponent.prototype.ngOnInit = function () {
         // Could either fetch data from the server again or simply pass data from the parent component?
         // http://stackoverflow.com/questions/33308340/how-to-inject-data-into-angular2-component-created-from-a-router
-    };
-    DraftComponent.prototype.ngOnDestroy = function () {
+        // No way in router 3.0.0-beta.2 to pass data across components. Possibly best to refetch as data passed through
+        // may be outdated by the time it is used.
+        var _this = this;
+        var id = +this.route.snapshot.params['id'];
+        this.draftService.getDraft(id).then(function (draft) {
+            _this.draft = draft;
+        }).catch(function (err) {
+            // do nothing
+        });
     };
     DraftComponent = __decorate([
         core_1.Component({
