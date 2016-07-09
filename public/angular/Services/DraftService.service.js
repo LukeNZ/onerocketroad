@@ -26,12 +26,11 @@ var DraftService = (function (_super) {
      * Get all drafts from the server.
      * GET: /api/drafts/all;
      *
-     * @returns {Promise<Draft[]>}  All drafts from the server.
+     * @returns {Observable<Draft[]>}  All drafts from the server.
      */
     DraftService.prototype.getAllDrafts = function () {
         return this.http.get('/api/drafts/all')
-            .toPromise()
-            .then(function (res) { return res.json(); })
+            .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
     /**
@@ -39,12 +38,11 @@ var DraftService = (function (_super) {
      * GET: /api/drafts/get/:id
      *
      * @param draftId   The id of the draft to be fetched.
-     * @returns {Promise<Draft>}    The draft specified by the id.
+     * @returns {Observable<Draft>}    The draft specified by the id.
      */
     DraftService.prototype.getDraft = function (draftId) {
         return this.http.get('/api/drafts/get/' + draftId)
-            .toPromise()
-            .then(function (res) { return res.json(); })
+            .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
     /**
@@ -52,12 +50,11 @@ var DraftService = (function (_super) {
      * PUT: /api/drafts/create.
      *
      * @param draft The draft to be created on the server.
-     * @returns {Promise<Draft>}    The draft returned from the server, as a promise.
+     * @returns {Observable<Draft>}    The draft returned from the server, as a promise.
      */
     DraftService.prototype.createDraft = function (draft) {
         return this.http.put('/api/drafts/create', draft)
-            .toPromise()
-            .then(function (res) { return res.json(); })
+            .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
     /**
@@ -65,37 +62,35 @@ var DraftService = (function (_super) {
      * PATCH: /api/drafts/update.
      *
      * @param draft The draft to update.
-     * @returns {Promise<number>}   A status code indicating the outcome of the operation.
+     * @returns {Observable<number>}   A status code indicating the outcome of the operation.
      */
     DraftService.prototype.updateDraft = function (draft) {
         return this.http.patch('/api/drafts/update', draft)
-            .toPromise()
-            .then(function (res) { return res.status; })
+            .map(function (res) { return res.status; })
             .catch(this.handleError);
     };
     /**
      * Delete a draft from the server with the given id.
      * DELETE: /api/drafts/delete/:id.
      *
-     * @param draft
-     * @returns {Promise<number>}   A status code indicating the outcome of the operation.
+     * @param draft The draft to delete.
+     * @returns {Observable<number>}   A status code indicating the outcome of the operation.
      */
     DraftService.prototype.deleteDraft = function (draft) {
         return this.http.delete('/api/drafts/delete/' + draft.id)
-            .toPromise()
-            .then(function (res) { return res.status; })
+            .map(function (res) { return res.status; })
             .catch(this.handleError);
     };
     /**
      * Publish a draft, creating an article.
      * POST: /api/drafts/publish.
      *
-     * @param draft
+     * @param draft The draft to publish.
+     * @return {Observable<string>} The
      */
     DraftService.prototype.publishDraft = function (draft) {
         return this.http.post('/api/drafts/publish', draft)
-            .toPromise()
-            .then(function (res) { return res.status; })
+            .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
     DraftService = __decorate([

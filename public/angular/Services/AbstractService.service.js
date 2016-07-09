@@ -1,4 +1,5 @@
 "use strict";
+var Rx_1 = require("rxjs/Rx");
 var AbstractService = (function () {
     function AbstractService() {
     }
@@ -6,7 +7,7 @@ var AbstractService = (function () {
         var errMsg = (error.message) ? error.message :
             error.status ? error.status + " - " + error.statusText : 'Server error';
         console.error(errMsg); // log to console instead
-        return Promise.reject(errMsg);
+        return Rx_1.Observable.throw(errMsg);
     };
     return AbstractService;
 }());

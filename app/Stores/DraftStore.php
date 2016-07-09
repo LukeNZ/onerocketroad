@@ -26,6 +26,12 @@ class DraftStore implements DraftStoreInterface {
     }
 
     function update(array $data) {
+        $draft = Draft::find($data['id']);
+        $draft->title = $data['title'];
+        $draft->body = $data['body'];
+        $draft->save();
+
+        return $draft;
     }
 
     function delete($id) {

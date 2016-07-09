@@ -22,9 +22,10 @@ export class DraftsComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.draftService.getAllDrafts().then(drafts => {
-            this.drafts = drafts;
-        })
+        this.draftService.getAllDrafts().subscribe(
+            drafts => this.drafts = drafts,
+            error => console.log(error)
+        );
     }
 
     /**
@@ -32,11 +33,9 @@ export class DraftsComponent implements OnInit {
      */
     public createDraft() {
         this.isCreatingDraft = true;
-        this.draftService.createDraft(this.newDraftModel).then(draft => {
+        this.draftService.createDraft(this.newDraftModel).subscribe(draft => {
             this.drafts.push(draft);
             this.isCreatingDraft = false;
-        }).catch(err => {
-           // do nothing
-        });
+        }, error => console.log(error));
     }
 }

@@ -54,7 +54,8 @@ class DraftsController extends Controller
      */
     public function update(Request $request) {
         $json = $request->json()->all();
-        return response()->json(null, 200);
+        $this->drafts->update($json);
+        return response()->json(null, 204);
     }
 
     /**

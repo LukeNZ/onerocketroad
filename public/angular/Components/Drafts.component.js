@@ -21,9 +21,7 @@ var DraftsComponent = (function () {
     }
     DraftsComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.draftService.getAllDrafts().then(function (drafts) {
-            _this.drafts = drafts;
-        });
+        this.draftService.getAllDrafts().subscribe(function (drafts) { return _this.drafts = drafts; }, function (error) { return console.log(error); });
     };
     /**
      * Creates a draft for an article, rendering only the title and the author.
@@ -31,12 +29,10 @@ var DraftsComponent = (function () {
     DraftsComponent.prototype.createDraft = function () {
         var _this = this;
         this.isCreatingDraft = true;
-        this.draftService.createDraft(this.newDraftModel).then(function (draft) {
+        this.draftService.createDraft(this.newDraftModel).subscribe(function (draft) {
             _this.drafts.push(draft);
             _this.isCreatingDraft = false;
-        }).catch(function (err) {
-            // do nothing
-        });
+        }, function (error) { return console.log(error); });
     };
     DraftsComponent = __decorate([
         core_1.Component({

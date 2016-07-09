@@ -15,5 +15,7 @@ interface StoreInterface {
 
     function delete($id);
 
+    function update(array $data);
+
     function find($id, $columns = array('*'));
 }
