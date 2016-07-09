@@ -1,21 +1,25 @@
 <a [routerLink]="['/drafts']">Back to Drafts</a>
 
-<h1 [(contentEditableModel)]="draft.title"></h1>
-<p>By {{ draft.author_name }}</p>
-<ul>
-    <li (click)="setViewState(draftViewState.Edit)">Edit</li>
-    <li (click)="setViewState(draftViewState.Preview)">Preview</li>
-</ul>
+<div *ngIf="draft">
+    <h1 [(contentEditableModel)]="draft.title"></h1>
+    <p>By {{ draft.authorName }}</p>
+    <ul>
+        <li (click)="setViewState(draftViewState.Edit)">Edit</li>
+        <li (click)="setViewState(draftViewState.Preview)">Preview</li>
+    </ul>
 
-<p [hidden]="!isSaving">Saving...</p>
+    <p [style.color]="showWordCountWarning()">{{ draft.wordCount() }} words</p>
 
-<textarea [(ngModel)]="draft.body" [formControl]="bodyFormControl" [hidden]="viewState == draftViewState.Preview">
-</textarea>
+    <p [hidden]="!isSaving">Saving...</p>
 
-<section id="markdown-preview" *ngIf="viewState != draftViewState.Edit" [innerHTML]="bodyFormControl.value | markdown">
-</section>
+    <textarea [(ngModel)]="draft.body" [formControl]="bodyFormControl" [hidden]="viewState == draftViewState.Preview">
+    </textarea>
 
-<h2>Tags</h2>
+    <section id="markdown-preview" *ngIf="viewState != draftViewState.Edit" [innerHTML]="bodyFormControl.value | markdown">
+    </section>
 
-<button type="submit" (click)="publish()">Publish</button>
-<button type="submit" (click)="delete()">Delete</button>
+    <h2>Tags</h2>
+
+    <button type="submit" (click)="publish()">Publish</button>
+    <button type="submit" (click)="delete()">Delete</button>
+</div>

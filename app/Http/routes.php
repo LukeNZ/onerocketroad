@@ -24,11 +24,13 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api'], function() {
         Route::put('create', 'DraftsController@create');
         Route::patch('update', 'DraftsController@update');
         Route::delete('delete/{id}', 'DraftsController@delete');
-        Route::post('publish', 'DraftsController@publish');
     });
 
     Route::group(['prefix' => 'articles'], function() {
-
+        Route::get('get/{id}', 'ArticlesController@get');
+        Route::put('create', 'ArticlesController@create');
+        Route::patch('update', 'ArticlesController@update');
+        Route::patch('delete/{id}', 'ArticlesController@delete');
     });
 
     Route::group(['prefix' => 'images'], function() {

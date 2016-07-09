@@ -66,13 +66,4 @@ class DraftsController extends Controller
         $this->drafts->delete($draftId);
         return response()->json(null, 204);
     }
-
-    /**
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function publish(Request $request) {
-        $json = $request->json()->all();
-        return response()->json(null, 200);
-    }
 }

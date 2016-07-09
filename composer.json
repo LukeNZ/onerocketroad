@@ -1,12 +1,11 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
-    "license": "MIT",
+    "name": "luke-nz/onerocketroad",
+    "description": "One Rocket Road.",
     "type": "project",
     "require": {
         "php": ">=5.5.9",
-        "laravel/framework": "5.2.*"
+        "laravel/framework": "5.2.*",
+        "league/fractal": "^0.13.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

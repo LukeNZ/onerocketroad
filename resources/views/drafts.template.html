@@ -20,8 +20,8 @@
     <ol>
         <li *ngFor="let draft of drafts">
             <p>
-                <a [routerLink]="['/draft', draft.id]">{{ draft.title }}</a> by {{ draft.author_name }},
-                last edited at {{ draft.updated_at | date:'HH:mm MMMM d, yyyy' }}
+                <a [routerLink]="['/draft', draft.id]">{{ draft.title }}</a> by {{ draft.authorName }},
+                last edited at {{ draft.updatedAt | date:'HH:mm MMMM d, yyyy' }}
             </p>
         </li>
     </ol>

@@ -32,7 +32,11 @@ export class DraftService extends AbstractService {
      */
     public getDraft(draftId : number) : Observable<Draft> {
         return this.http.get('/api/drafts/get/' + draftId)
-            .map(res => res.json())
+            .map(res => {
+                let model = res.json();
+                return new Draft(model.id, model.title, model.body, null, model.authorName,
+                    model.dueAt, model.createdAt, model.updatedAt);
+            })
             .catch(this.handleError);
     }
 

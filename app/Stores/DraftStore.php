@@ -5,6 +5,13 @@ use Illuminate\Support\Facades\Auth;
 use OneRocketRoad\Models\Draft;
 
 class DraftStore implements DraftStoreInterface {
+
+    /**
+     * Retrieve all drafts.
+     *
+     * @param array $columns    The columns of the draft to retrieve.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     function all($columns = array('*')) {
         return Draft::all($columns);
     }
@@ -19,7 +26,7 @@ class DraftStore implements DraftStoreInterface {
         $draft = new Draft();
         $draft->title = $data['title'];
         /* $draft->author = Auth::user(); */
-        $draft->author_name = /* Auth::user()->fullname(); */ "Esteban Winsmore";
+        $draft->author_name = "Esteban Winsmore"; // Auth::user()->fullname()
         $draft->save();
 
         return $draft;

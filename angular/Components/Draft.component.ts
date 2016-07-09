@@ -21,7 +21,7 @@ import {MarkdownPipe} from "../Pipes/MarkdownPipe.pipe";
     pipes: [MarkdownPipe]
 })
 export class DraftComponent implements OnInit {
-    public draft: Draft = new Draft(); // initialize to an empty draft
+    public draft: Draft;
     public isSaving: boolean = false;
     public isPublishing: boolean = false;
     public draftViewState = DraftViewState;
@@ -44,6 +44,7 @@ export class DraftComponent implements OnInit {
         this.draftService.getDraft(id).subscribe(
             draft => {
                 this.draft = draft;
+                console.log(draft);
 
                 // This is a poor substitute for object change detection. Ideally, we would see if any changes
                 // have been made to the draft property, and debounce and subscribe to that. This does not appear
@@ -52,24 +53,46 @@ export class DraftComponent implements OnInit {
                     .valueChanges
                     .debounceTime(3000)
                     .subscribe(() => {
-                        this.isSaving = true;
-                        this.draftService.updateDraft(this.draft).subscribe(() => this.isSaving = false);
+                        this.autosave();
                     });
             },
             error => console.log(error)
         );
     }
 
+    /***
+     * Sets the view state on the draft component. Is either one of DraftViewState.Edit or
+     * DraftViewState.View.
+     *
+     * @param state The state to set.
+     */
     public setViewState(state : DraftViewState) {
         this.viewState = state;
     }
 
-    public save() {
+    /**
+     * If the body of the draft is less than 200 words, highlight the word count tracker in
+     * red to represent an extremely short draft (less than approximately 3 paragraphs).
+     *
+     * @returns {string}
+     */
+    public showWordCountWarning() {
+        return this.draft.wordCount() > 200 ? "black" : "red";
+    }
 
+    /**
+     *
+     */
+    public autosave() {
+        this.isSaving = true;
+        this.draftService.updateDraft(this.draft).subscribe(() => this.isSaving = false);
     }
 
     public publish() {
-
+        this.isPublishing = true;
+        this.draftService.publishDraft(this.draft).subscribe(
+            article => this.router.navigate(['/articles', article.id ])
+        );
     }
 
     public delete() {

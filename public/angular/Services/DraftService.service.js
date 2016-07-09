@@ -16,6 +16,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var AbstractService_service_1 = require('../Services/AbstractService.service');
+var Draft_class_1 = require("../Classes/Draft.class");
 var DraftService = (function (_super) {
     __extends(DraftService, _super);
     function DraftService(http) {
@@ -42,7 +43,10 @@ var DraftService = (function (_super) {
      */
     DraftService.prototype.getDraft = function (draftId) {
         return this.http.get('/api/drafts/get/' + draftId)
-            .map(function (res) { return res.json(); })
+            .map(function (res) {
+            var model = res.json();
+            return new Draft_class_1.Draft(model.id, model.title, model.body, null, model.authorName, model.dueAt, model.createdAt, model.updatedAt);
+        })
             .catch(this.handleError);
     };
     /**

@@ -15,7 +15,7 @@ var router_1 = require('@angular/router');
 var DraftsComponent = (function () {
     function DraftsComponent(draftService) {
         this.draftService = draftService;
-        this.newDraftModel = new Draft_class_1.Draft();
+        this.newDraftModel = new Draft_class_1.Draft(null, "", "", null, null, null, null, null);
         this.isCreatingDraft = false;
         this.drafts = [];
     }

@@ -2,9 +2,7 @@
 
 namespace OneRocketRoad\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Article extends Model
+class Article extends OneRocketRoadModel
 {
     protected $table = 'articles';
 

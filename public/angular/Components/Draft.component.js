@@ -12,7 +12,6 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var forms_1 = require('@angular/forms');
 var DraftService_service_1 = require("../Services/DraftService.service");
-var Draft_class_1 = require("../Classes/Draft.class");
 var ContentEditable_directive_1 = require("../Directives/ContentEditable.directive");
 var DraftViewState_enum_1 = require("../Enums/DraftViewState.enum");
 var MarkdownPipe_pipe_1 = require("../Pipes/MarkdownPipe.pipe");
@@ -21,7 +20,6 @@ var DraftComponent = (function () {
         this.draftService = draftService;
         this.route = route;
         this.router = router;
-        this.draft = new Draft_class_1.Draft(); // initialize to an empty draft
         this.isSaving = false;
         this.isPublishing = false;
         this.draftViewState = DraftViewState_enum_1.DraftViewState;
@@ -37,6 +35,7 @@ var DraftComponent = (function () {
         var id = +this.route.snapshot.params['id'];
         this.draftService.getDraft(id).subscribe(function (draft) {
             _this.draft = draft;
+            console.log(draft);
             // This is a poor substitute for object change detection. Ideally, we would see if any changes
             // have been made to the draft property, and debounce and subscribe to that. This does not appear
             // to be possible, so we subscribe to changes off the form control for the body only.
@@ -44,17 +43,40 @@ var DraftComponent = (function () {
                 .valueChanges
                 .debounceTime(3000)
                 .subscribe(function () {
-                _this.isSaving = true;
-                _this.draftService.updateDraft(_this.draft).subscribe(function () { return _this.isSaving = false; });
+                _this.autosave();
             });
         }, function (error) { return console.log(error); });
     };
+    /***
+     * Sets the view state on the draft component. Is either one of DraftViewState.Edit or
+     * DraftViewState.View.
+     *
+     * @param state The state to set.
+     */
     DraftComponent.prototype.setViewState = function (state) {
         this.viewState = state;
     };
-    DraftComponent.prototype.save = function () {
+    /**
+     * If the body of the draft is less than 200 words, highlight the word count tracker in
+     * red to represent an extremely short draft (less than approximately 3 paragraphs).
+     *
+     * @returns {string}
+     */
+    DraftComponent.prototype.showWordCountWarning = function () {
+        return this.draft.wordCount() > 200 ? "black" : "red";
+    };
+    /**
+     *
+     */
+    DraftComponent.prototype.autosave = function () {
+        var _this = this;
+        this.isSaving = true;
+        this.draftService.updateDraft(this.draft).subscribe(function () { return _this.isSaving = false; });
     };
     DraftComponent.prototype.publish = function () {
+        var _this = this;
+        this.isPublishing = true;
+        this.draftService.publishDraft(this.draft).subscribe(function (article) { return _this.router.navigate(['/articles', article.id]); });
     };
     DraftComponent.prototype.delete = function () {
     };

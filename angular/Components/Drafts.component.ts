@@ -14,7 +14,7 @@ import {ROUTER_DIRECTIVES} from '@angular/router';
  * Represents the component which handles multiple Draft instances.
  */
 export class DraftsComponent implements OnInit {
-    public newDraftModel : Draft = new Draft();
+    public newDraftModel : Draft = new Draft(null, "", "", null, null, null, null, null);
     public isCreatingDraft : boolean = false;
     public drafts : Draft[] = [];
 
