@@ -1,4 +1,5 @@
 import {Component, OnInit} from "@angular/core";
+import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, Router, ROUTER_DIRECTIVES} from "@angular/router";
 import {
     FORM_DIRECTIVES,
@@ -31,8 +32,10 @@ export class DraftComponent implements OnInit {
 
     constructor(
         private draftService: DraftService,
+        private titleService: Title,
         private route : ActivatedRoute,
-        private router : Router) {}
+        private router : Router) {
+    }
 
     ngOnInit() {
         // Could either fetch data from the server again or simply pass data from the parent component?
@@ -44,7 +47,7 @@ export class DraftComponent implements OnInit {
         this.draftService.getDraft(id).subscribe(
             draft => {
                 this.draft = draft;
-                console.log(draft);
+                this.titleService.setTitle("One Rocket Road | Draft: " + draft.title);
 
                 // This is a poor substitute for object change detection. Ideally, we would see if any changes
                 // have been made to the draft property, and debounce and subscribe to that. This does not appear
@@ -88,14 +91,11 @@ export class DraftComponent implements OnInit {
         this.draftService.updateDraft(this.draft).subscribe(() => this.isSaving = false);
     }
 
-    public publish() {
+    public publishDraft() {
         this.isPublishing = true;
-        this.draftService.publishDraft(this.draft).subscribe(
-            article => this.router.navigate(['/articles', article.id ])
-        );
     }
 
-    public delete() {
+    public deleteDraft() {
 
     }
 }

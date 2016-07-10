@@ -9,15 +9,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var platform_browser_1 = require('@angular/platform-browser');
 var Draft_class_1 = require("../Classes/Draft.class");
 var DraftService_service_1 = require("../Services/DraftService.service");
 var router_1 = require('@angular/router');
 var DraftsComponent = (function () {
-    function DraftsComponent(draftService) {
+    function DraftsComponent(draftService, titleService) {
         this.draftService = draftService;
+        this.titleService = titleService;
         this.newDraftModel = new Draft_class_1.Draft(null, "", "", null, null, null, null, null);
         this.isCreatingDraft = false;
         this.drafts = [];
+        this.titleService.setTitle("One Rocket Road | Drafts");
     }
     DraftsComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -41,7 +44,7 @@ var DraftsComponent = (function () {
             directives: [router_1.ROUTER_DIRECTIVES],
             providers: [DraftService_service_1.DraftService]
         }), 
-        __metadata('design:paramtypes', [DraftService_service_1.DraftService])
+        __metadata('design:paramtypes', [DraftService_service_1.DraftService, platform_browser_1.Title])
     ], DraftsComponent);
     return DraftsComponent;
 }());

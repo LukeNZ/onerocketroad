@@ -20,6 +20,6 @@
 
     <h2>Tags</h2>
 
-    <button type="submit" (click)="publish()">Publish</button>
-    <button type="submit" (click)="delete()">Delete</button>
+    <button type="submit" [disabled]="!draft.isPublishable()" (click)="publishDraft()">Publish</button>
+    <button type="submit" (click)="deleteDraft()">Delete</button>
 </div>

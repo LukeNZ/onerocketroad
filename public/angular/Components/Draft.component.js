@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var platform_browser_1 = require('@angular/platform-browser');
 var router_1 = require("@angular/router");
 var forms_1 = require('@angular/forms');
 var DraftService_service_1 = require("../Services/DraftService.service");
@@ -16,8 +17,9 @@ var ContentEditable_directive_1 = require("../Directives/ContentEditable.directi
 var DraftViewState_enum_1 = require("../Enums/DraftViewState.enum");
 var MarkdownPipe_pipe_1 = require("../Pipes/MarkdownPipe.pipe");
 var DraftComponent = (function () {
-    function DraftComponent(draftService, route, router) {
+    function DraftComponent(draftService, titleService, route, router) {
         this.draftService = draftService;
+        this.titleService = titleService;
         this.route = route;
         this.router = router;
         this.isSaving = false;
@@ -35,7 +37,7 @@ var DraftComponent = (function () {
         var id = +this.route.snapshot.params['id'];
         this.draftService.getDraft(id).subscribe(function (draft) {
             _this.draft = draft;
-            console.log(draft);
+            _this.titleService.setTitle("One Rocket Road | Draft: " + draft.title);
             // This is a poor substitute for object change detection. Ideally, we would see if any changes
             // have been made to the draft property, and debounce and subscribe to that. This does not appear
             // to be possible, so we subscribe to changes off the form control for the body only.
@@ -73,12 +75,10 @@ var DraftComponent = (function () {
         this.isSaving = true;
         this.draftService.updateDraft(this.draft).subscribe(function () { return _this.isSaving = false; });
     };
-    DraftComponent.prototype.publish = function () {
-        var _this = this;
+    DraftComponent.prototype.publishDraft = function () {
         this.isPublishing = true;
-        this.draftService.publishDraft(this.draft).subscribe(function (article) { return _this.router.navigate(['/articles', article.id]); });
     };
-    DraftComponent.prototype.delete = function () {
+    DraftComponent.prototype.deleteDraft = function () {
     };
     DraftComponent = __decorate([
         core_1.Component({
@@ -88,7 +88,7 @@ var DraftComponent = (function () {
             providers: [DraftService_service_1.DraftService],
             pipes: [MarkdownPipe_pipe_1.MarkdownPipe]
         }), 
-        __metadata('design:paramtypes', [DraftService_service_1.DraftService, router_1.ActivatedRoute, router_1.Router])
+        __metadata('design:paramtypes', [DraftService_service_1.DraftService, platform_browser_1.Title, router_1.ActivatedRoute, router_1.Router])
     ], DraftComponent);
     return DraftComponent;
 }());

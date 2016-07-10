@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 import {ArticleService} from "../Services/ArticleService.service";
 import {MarkdownPipe} from "../Pipes/MarkdownPipe.pipe";
+import {Article} from "../Classes/Article.class";
 
 @Component({
     selector: 'article',

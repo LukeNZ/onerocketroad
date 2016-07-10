@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Title} from '@angular/platform-browser';
 import {Draft} from "../Classes/Draft.class";
 import {DraftService} from "../Services/DraftService.service";
 import {ROUTER_DIRECTIVES} from '@angular/router';
@@ -18,7 +19,8 @@ export class DraftsComponent implements OnInit {
     public isCreatingDraft : boolean = false;
     public drafts : Draft[] = [];
 
-    constructor(private draftService: DraftService) {
+    constructor(private draftService: DraftService, private titleService: Title) {
+        this.titleService.setTitle("One Rocket Road | Drafts");
     }
 
     ngOnInit() {
