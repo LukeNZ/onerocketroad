@@ -30,6 +30,7 @@ class Onerocketroad extends Migration
                 $table->increments('id');
                 $table->string('title');
                 $table->text('body');
+                $table->string('summary')->nullable();
                 $table->integer('author_id')->unsigned()->nullable();
                 $table->string('author_name');
                 $table->integer('hero_id')->unsigned()->nullable();
@@ -43,6 +44,7 @@ class Onerocketroad extends Migration
                 $table->increments('id');
                 $table->string('title');
                 $table->text('body');
+                $table->string('summary')->nullable();
                 $table->integer('author_id')->unsigned()->nullable();
                 $table->string('author_name');
                 $table->integer('hero_id')->unsigned()->nullable();

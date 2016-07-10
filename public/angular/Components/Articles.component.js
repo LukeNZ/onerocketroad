@@ -9,15 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var platform_browser_1 = require("@angular/platform-browser");
+var ArticleService_service_1 = require("../Services/ArticleService.service");
 var ArticlesComponent = (function () {
-    function ArticlesComponent() {
+    function ArticlesComponent(articleService, titleService) {
+        this.articleService = articleService;
+        this.titleService = titleService;
+        this.articles = [];
+        this.titleService.setTitle("One Rocket Road | Articles");
     }
+    ArticlesComponent.prototype.ngOnInit = function () {
+        this.articleService;
+    };
     ArticlesComponent = __decorate([
         core_1.Component({
             selector: 'articles',
             templateUrl: '/angular/views/articles.template.html'
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [ArticleService_service_1.ArticleService, platform_browser_1.Title])
     ], ArticlesComponent);
     return ArticlesComponent;
 }());

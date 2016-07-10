@@ -96,6 +96,8 @@ export class DraftComponent implements OnInit {
     }
 
     public deleteDraft() {
-
+        this.draftService.deleteDraft(this.draft).subscribe(response => {
+            this.router.navigate(['drafts']);
+        });
     }
 }

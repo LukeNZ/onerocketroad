@@ -78,17 +78,4 @@ export class DraftService extends AbstractService {
             .map(res => res.status)
             .catch(this.handleError);
     }
-
-    /**
-     * Publish a draft, creating an article.
-     * POST: /api/drafts/publish.
-     *
-     * @param draft The draft to publish.
-     * @return {Observable<string>} The
-     */
-    public publishDraft(draft: Draft) : Observable<string> {
-        return this.http.post('/api/drafts/publish', draft)
-            .map(res => res.json())
-            .catch(this.handleError);
-    }
 }

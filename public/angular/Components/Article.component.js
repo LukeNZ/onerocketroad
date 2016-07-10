@@ -11,9 +11,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var ArticleService_service_1 = require("../Services/ArticleService.service");
 var MarkdownPipe_pipe_1 = require("../Pipes/MarkdownPipe.pipe");
+var platform_browser_1 = require("@angular/platform-browser");
 var ArticleComponent = (function () {
-    function ArticleComponent() {
+    function ArticleComponent(articleService, titleService) {
+        this.articleService = articleService;
+        this.titleService = titleService;
     }
+    ArticleComponent.prototype.ngOnInit = function () {
+    };
     ArticleComponent = __decorate([
         core_1.Component({
             selector: 'article',
@@ -21,7 +26,7 @@ var ArticleComponent = (function () {
             providers: [ArticleService_service_1.ArticleService],
             pipes: [MarkdownPipe_pipe_1.MarkdownPipe]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [ArticleService_service_1.ArticleService, platform_browser_1.Title])
     ], ArticleComponent);
     return ArticleComponent;
 }());

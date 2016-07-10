@@ -85,18 +85,6 @@ var DraftService = (function (_super) {
             .map(function (res) { return res.status; })
             .catch(this.handleError);
     };
-    /**
-     * Publish a draft, creating an article.
-     * POST: /api/drafts/publish.
-     *
-     * @param draft The draft to publish.
-     * @return {Observable<string>} The
-     */
-    DraftService.prototype.publishDraft = function (draft) {
-        return this.http.post('/api/drafts/publish', draft)
-            .map(function (res) { return res.json(); })
-            .catch(this.handleError);
-    };
     DraftService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])

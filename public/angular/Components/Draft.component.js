@@ -79,6 +79,10 @@ var DraftComponent = (function () {
         this.isPublishing = true;
     };
     DraftComponent.prototype.deleteDraft = function () {
+        var _this = this;
+        this.draftService.deleteDraft(this.draft).subscribe(function (response) {
+            _this.router.navigate(['drafts']);
+        });
     };
     DraftComponent = __decorate([
         core_1.Component({

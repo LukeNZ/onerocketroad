@@ -21,7 +21,7 @@ export class Draft {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
-
+    
     public wordCount() : number {
         return this.body ? this.body.split(" ").length : 0;
     }
