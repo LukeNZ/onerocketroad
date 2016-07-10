@@ -16,7 +16,7 @@ import {Subscription, Observable} from "rxjs/Rx";
     selector: 'draft',
     templateUrl: '/angular/views/draft.template.html',
     directives: [ContentEditableDirective, ROUTER_DIRECTIVES, FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
-    providers: [DraftService],
+    providers: [DraftService, ArticleService],
     pipes: [MarkdownPipe]
 })
 export class DraftComponent implements OnInit {
@@ -114,7 +114,8 @@ export class DraftComponent implements OnInit {
         // In turn, create the article, then delete the draft.
         this.articleService.createArticle(article)
             .subscribe(articleFromServer => {
-                // Only attempt to delete the draft once we are sure the article was created successfully
+                // Only attempt to delete the draft once we are sure the article was created successfully.
+                this.draftSubscription.unsubscribe();
                 this.draftService.deleteDraft(this.draft).subscribe(() => {
                     // Everything succeeded. Navigate away to the newly created article.
                     article = articleFromServer;

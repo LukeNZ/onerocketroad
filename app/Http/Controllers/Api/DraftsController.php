@@ -28,7 +28,7 @@ class DraftsController extends Controller
 
     /**
      * Fetches a single draft by id from the backing store and returns it.
-     * GET: /api/drafts/get/{id}
+     * GET: /api/drafts/get/{draftId}
      *
      * @param $draftId
      * @return \Illuminate\Http\JsonResponse
@@ -38,6 +38,8 @@ class DraftsController extends Controller
     }
 
     /**
+     * PUT: /api/articles/create
+     *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -49,6 +51,8 @@ class DraftsController extends Controller
     }
 
     /**
+     * PATCH: /api/articles/update
+     *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -59,6 +63,8 @@ class DraftsController extends Controller
     }
 
     /**
+     * DELETE: /api/articles/delete/{draftId}
+     *
      * @param $draftId
      * @return \Illuminate\Http\JsonResponse
      */

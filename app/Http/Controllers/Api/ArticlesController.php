@@ -16,13 +16,31 @@ class ArticlesController extends Controller
     }
 
     /**
-     * Fetches a single article by id from the backing store and returns it.
+     * Fetches a single article by the date of publication and the slug from the backing store and returns it.
      * GET: /api/articles/get/{year}/{month}/{day}/{slug}
      *
-     * @param $articleId
+     * @param $year     string  The year of the article.
+     * @param $month    string  The month of the article.
+     * @param $day      string  The day of the article.
+     * @param $slug     string  The slug of the article.
+     *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function get($articleId) {
-        return response()->json($this->articles->find($articleId), 200);
+    public function get($year, $month, $day, $slug) {
+        $article = $this->articles->retrieveByUrl($year, $month, $day, $slug);
+        return response()->json($article, 200);
+    }
+
+    /**
+     * PUT: /api/articles/create
+     * 
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function create(Request $request) {
+        $json = $request->json()->all();
+        $article = $this->articles->create($json);
+
+        return response()->json($article, 200);
     }
 }

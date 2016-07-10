@@ -19,7 +19,10 @@
     </section>
 
     <h2>Tags</h2>
+    <!-- Insert tag data here -->
 
-    <button type="submit" [disabled]="!draft.isPublishable()" (click)="publishDraft()">Publish</button>
+    <button type="submit" [disabled]="!draft.isPublishable() || isPublishing" (click)="publishDraft()">
+        {{ isPublishing ? 'Publishing...' : 'Publish' }}
+    </button>
     <button type="submit" (click)="deleteDraft()">Delete</button>
 </div>

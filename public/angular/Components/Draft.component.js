@@ -100,7 +100,8 @@ var DraftComponent = (function () {
         // In turn, create the article, then delete the draft.
         this.articleService.createArticle(article)
             .subscribe(function (articleFromServer) {
-            // Only attempt to delete the draft once we are sure the article was created successfully
+            // Only attempt to delete the draft once we are sure the article was created successfully.
+            _this.draftSubscription.unsubscribe();
             _this.draftService.deleteDraft(_this.draft).subscribe(function () {
                 // Everything succeeded. Navigate away to the newly created article.
                 article = articleFromServer;
@@ -126,7 +127,7 @@ var DraftComponent = (function () {
             selector: 'draft',
             templateUrl: '/angular/views/draft.template.html',
             directives: [ContentEditable_directive_1.ContentEditableDirective, router_1.ROUTER_DIRECTIVES, forms_1.FORM_DIRECTIVES, forms_1.REACTIVE_FORM_DIRECTIVES],
-            providers: [DraftService_service_1.DraftService],
+            providers: [DraftService_service_1.DraftService, ArticleService_service_1.ArticleService],
             pipes: [MarkdownPipe_pipe_1.MarkdownPipe]
         }), 
         __metadata('design:paramtypes', [DraftService_service_1.DraftService, ArticleService_service_1.ArticleService, platform_browser_1.Title, router_1.ActivatedRoute, router_1.Router])
