@@ -34,7 +34,7 @@ class Onerocketroad extends Migration
                 $table->integer('author_id')->unsigned()->nullable();
                 $table->string('author_name');
                 $table->integer('hero_id')->unsigned()->nullable();
-                $table->dateTime('published_at');
+                $table->dateTime('published_at')->nullable();
                 $table->timestamps();
             });
         }

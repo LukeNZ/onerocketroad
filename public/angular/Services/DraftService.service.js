@@ -25,7 +25,7 @@ var DraftService = (function (_super) {
     }
     /**
      * Get all drafts from the server.
-     * GET: /api/drafts/all;
+     * GET: /api/drafts/all
      *
      * @returns {Observable<Draft[]>}  All drafts from the server.
      */
@@ -35,7 +35,7 @@ var DraftService = (function (_super) {
             .catch(this.handleError);
     };
     /**
-     * Get a draft by its ID from the server.
+     * Get a draft by its id from the server.
      * GET: /api/drafts/get/:id
      *
      * @param draftId   The id of the draft to be fetched.
@@ -51,10 +51,10 @@ var DraftService = (function (_super) {
     };
     /**
      * Create an initial draft on the server.
-     * PUT: /api/drafts/create.
+     * PUT: /api/drafts/create
      *
      * @param draft The draft to be created on the server.
-     * @returns {Observable<Draft>}    The draft returned from the server, as a promise.
+     * @returns {Observable<Draft>}    The draft returned from the server.
      */
     DraftService.prototype.createDraft = function (draft) {
         return this.http.put('/api/drafts/create', draft)
@@ -63,7 +63,7 @@ var DraftService = (function (_super) {
     };
     /**
      * Update an existing draft with new information.
-     * PATCH: /api/drafts/update.
+     * PATCH: /api/drafts/update
      *
      * @param draft The draft to update.
      * @returns {Observable<number>}   A status code indicating the outcome of the operation.
@@ -75,7 +75,7 @@ var DraftService = (function (_super) {
     };
     /**
      * Delete a draft from the server with the given id.
-     * DELETE: /api/drafts/delete/:id.
+     * DELETE: /api/drafts/delete/:id
      *
      * @param draft The draft to delete.
      * @returns {Observable<number>}   A status code indicating the outcome of the operation.

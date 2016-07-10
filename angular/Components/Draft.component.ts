@@ -1,18 +1,16 @@
 import {Component, OnInit} from "@angular/core";
 import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, Router, ROUTER_DIRECTIVES} from "@angular/router";
-import {
-    FORM_DIRECTIVES,
-    REACTIVE_FORM_DIRECTIVES,
-    FormBuilder,
-    FormGroup,
-    FormControl
-} from '@angular/forms';
+import {FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES, FormBuilder, FormGroup, FormControl} from '@angular/forms';
 import {DraftService} from "../Services/DraftService.service";
 import {Draft} from "../Classes/Draft.class";
 import {ContentEditableDirective} from "../Directives/ContentEditable.directive";
 import {DraftViewState} from "../Enums/DraftViewState.enum";
 import {MarkdownPipe} from "../Pipes/MarkdownPipe.pipe";
+import {Article} from "../Classes/Article.class";
+import {ArticleService} from "../Services/ArticleService.service";
+
+import {Subscription, Observable} from "rxjs/Rx";
 
 @Component({
     selector: 'draft',
@@ -29,9 +27,11 @@ export class DraftComponent implements OnInit {
     public viewState: DraftViewState = DraftViewState.Edit;
 
     public bodyFormControl = new FormControl();
+    public draftSubscription: Subscription;
 
     constructor(
         private draftService: DraftService,
+        private articleService: ArticleService,
         private titleService: Title,
         private route : ActivatedRoute,
         private router : Router) {
@@ -52,7 +52,7 @@ export class DraftComponent implements OnInit {
                 // This is a poor substitute for object change detection. Ideally, we would see if any changes
                 // have been made to the draft property, and debounce and subscribe to that. This does not appear
                 // to be possible, so we subscribe to changes off the form control for the body only.
-                this.bodyFormControl
+                this.draftSubscription = this.bodyFormControl
                     .valueChanges
                     .debounceTime(3000)
                     .subscribe(() => {
@@ -63,7 +63,7 @@ export class DraftComponent implements OnInit {
         );
     }
 
-    /***
+    /**
      * Sets the view state on the draft component. Is either one of DraftViewState.Edit or
      * DraftViewState.View.
      *
@@ -77,7 +77,7 @@ export class DraftComponent implements OnInit {
      * If the body of the draft is less than 200 words, highlight the word count tracker in
      * red to represent an extremely short draft (less than approximately 3 paragraphs).
      *
-     * @returns {string}
+     * @returns {string} The color the word count should be highlighted in.
      */
     public showWordCountWarning() : string {
         return this.draft.wordCount() > 200 ? "black" : "red";
@@ -103,11 +103,34 @@ export class DraftComponent implements OnInit {
         this.draftService.updateDraft(this.draft).subscribe(() => this.isSaving = false);
     }
 
+    /**
+     * Publishes a draft as an article. This creates an article from the draft, puts the article on the server,
+     * then once complete, deletes the original draft and redirects to the newly created article.
+     */
     public publishDraft() {
         this.isPublishing = true;
+        let article = Article.createFromDraft(this.draft);
+
+        // In turn, create the article, then delete the draft.
+        this.articleService.createArticle(article)
+            .subscribe(articleFromServer => {
+                // Only attempt to delete the draft once we are sure the article was created successfully
+                this.draftService.deleteDraft(this.draft).subscribe(() => {
+                    // Everything succeeded. Navigate away to the newly created article.
+                    article = articleFromServer;
+                    this.router.navigate(['article', article.publicationYear(),
+                        article.publicationMonth(), article.publicationDay(), article.slug()])
+                });
+            });
     }
 
+    /**
+     * Deletes a draft on the server, and navigates back to the drafts listing page.
+     */
     public deleteDraft() {
+        // Unsubscribe before we delete the draft because there may be debounced changes waiting to
+        // take place, causing a race condition. If we are deleting we don't care about those changes anyway.
+        this.draftSubscription.unsubscribe();
         this.draftService.deleteDraft(this.draft).subscribe(response => {
             this.router.navigate(['drafts']);
         });

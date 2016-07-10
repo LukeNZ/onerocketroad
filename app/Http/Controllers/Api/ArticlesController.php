@@ -17,7 +17,7 @@ class ArticlesController extends Controller
 
     /**
      * Fetches a single article by id from the backing store and returns it.
-     * GET: /api/articles/get/{id}
+     * GET: /api/articles/get/{year}/{month}/{day}/{slug}
      *
      * @param $articleId
      * @return \Illuminate\Http\JsonResponse

@@ -13,7 +13,7 @@ export class DraftService extends AbstractService {
 
     /**
      * Get all drafts from the server.
-     * GET: /api/drafts/all;
+     * GET: /api/drafts/all
      *
      * @returns {Observable<Draft[]>}  All drafts from the server.
      */
@@ -24,7 +24,7 @@ export class DraftService extends AbstractService {
     }
 
     /**
-     * Get a draft by its ID from the server.
+     * Get a draft by its id from the server.
      * GET: /api/drafts/get/:id
      *
      * @param draftId   The id of the draft to be fetched.
@@ -42,10 +42,10 @@ export class DraftService extends AbstractService {
 
     /**
      * Create an initial draft on the server.
-     * PUT: /api/drafts/create.
+     * PUT: /api/drafts/create
      *
      * @param draft The draft to be created on the server.
-     * @returns {Observable<Draft>}    The draft returned from the server, as a promise.
+     * @returns {Observable<Draft>}    The draft returned from the server.
      */
     public createDraft(draft : Draft) : Observable<Draft> {
         return this.http.put('/api/drafts/create', draft)
@@ -55,7 +55,7 @@ export class DraftService extends AbstractService {
 
     /**
      * Update an existing draft with new information.
-     * PATCH: /api/drafts/update.
+     * PATCH: /api/drafts/update
      *
      * @param draft The draft to update.
      * @returns {Observable<number>}   A status code indicating the outcome of the operation.
@@ -68,7 +68,7 @@ export class DraftService extends AbstractService {
 
     /**
      * Delete a draft from the server with the given id.
-     * DELETE: /api/drafts/delete/:id.
+     * DELETE: /api/drafts/delete/:id
      *
      * @param draft The draft to delete.
      * @returns {Observable<number>}   A status code indicating the outcome of the operation.

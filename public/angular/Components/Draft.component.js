@@ -16,9 +16,12 @@ var DraftService_service_1 = require("../Services/DraftService.service");
 var ContentEditable_directive_1 = require("../Directives/ContentEditable.directive");
 var DraftViewState_enum_1 = require("../Enums/DraftViewState.enum");
 var MarkdownPipe_pipe_1 = require("../Pipes/MarkdownPipe.pipe");
+var Article_class_1 = require("../Classes/Article.class");
+var ArticleService_service_1 = require("../Services/ArticleService.service");
 var DraftComponent = (function () {
-    function DraftComponent(draftService, titleService, route, router) {
+    function DraftComponent(draftService, articleService, titleService, route, router) {
         this.draftService = draftService;
+        this.articleService = articleService;
         this.titleService = titleService;
         this.route = route;
         this.router = router;
@@ -41,7 +44,7 @@ var DraftComponent = (function () {
             // This is a poor substitute for object change detection. Ideally, we would see if any changes
             // have been made to the draft property, and debounce and subscribe to that. This does not appear
             // to be possible, so we subscribe to changes off the form control for the body only.
-            _this.bodyFormControl
+            _this.draftSubscription = _this.bodyFormControl
                 .valueChanges
                 .debounceTime(3000)
                 .subscribe(function () {
@@ -49,7 +52,7 @@ var DraftComponent = (function () {
             });
         }, function (error) { return console.log(error); });
     };
-    /***
+    /**
      * Sets the view state on the draft component. Is either one of DraftViewState.Edit or
      * DraftViewState.View.
      *
@@ -62,7 +65,7 @@ var DraftComponent = (function () {
      * If the body of the draft is less than 200 words, highlight the word count tracker in
      * red to represent an extremely short draft (less than approximately 3 paragraphs).
      *
-     * @returns {string}
+     * @returns {string} The color the word count should be highlighted in.
      */
     DraftComponent.prototype.showWordCountWarning = function () {
         return this.draft.wordCount() > 200 ? "black" : "red";
@@ -86,11 +89,34 @@ var DraftComponent = (function () {
         this.isSaving = true;
         this.draftService.updateDraft(this.draft).subscribe(function () { return _this.isSaving = false; });
     };
+    /**
+     * Publishes a draft as an article. This creates an article from the draft, puts the article on the server,
+     * then once complete, deletes the original draft and redirects to the newly created article.
+     */
     DraftComponent.prototype.publishDraft = function () {
+        var _this = this;
         this.isPublishing = true;
+        var article = Article_class_1.Article.createFromDraft(this.draft);
+        // In turn, create the article, then delete the draft.
+        this.articleService.createArticle(article)
+            .subscribe(function (articleFromServer) {
+            // Only attempt to delete the draft once we are sure the article was created successfully
+            _this.draftService.deleteDraft(_this.draft).subscribe(function () {
+                // Everything succeeded. Navigate away to the newly created article.
+                article = articleFromServer;
+                _this.router.navigate(['article', article.publicationYear(),
+                    article.publicationMonth(), article.publicationDay(), article.slug()]);
+            });
+        });
     };
+    /**
+     * Deletes a draft on the server, and navigates back to the drafts listing page.
+     */
     DraftComponent.prototype.deleteDraft = function () {
         var _this = this;
+        // Unsubscribe before we delete the draft because there may be debounced changes waiting to
+        // take place, causing a race condition. If we are deleting we don't care about those changes anyway.
+        this.draftSubscription.unsubscribe();
         this.draftService.deleteDraft(this.draft).subscribe(function (response) {
             _this.router.navigate(['drafts']);
         });
@@ -103,7 +129,7 @@ var DraftComponent = (function () {
             providers: [DraftService_service_1.DraftService],
             pipes: [MarkdownPipe_pipe_1.MarkdownPipe]
         }), 
-        __metadata('design:paramtypes', [DraftService_service_1.DraftService, platform_browser_1.Title, router_1.ActivatedRoute, router_1.Router])
+        __metadata('design:paramtypes', [DraftService_service_1.DraftService, ArticleService_service_1.ArticleService, platform_browser_1.Title, router_1.ActivatedRoute, router_1.Router])
     ], DraftComponent);
     return DraftComponent;
 }());
