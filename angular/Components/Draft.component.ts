@@ -79,8 +79,20 @@ export class DraftComponent implements OnInit {
      *
      * @returns {string}
      */
-    public showWordCountWarning() {
+    public showWordCountWarning() : string {
         return this.draft.wordCount() > 200 ? "black" : "red";
+    }
+
+    /**
+     *
+     * @returns {string}
+     */
+    public wordCountStatement() : string {
+        let wordCount = this.draft.wordCount();
+        if (wordCount == 1) {
+            return "1 word";
+        }
+        return wordCount + " words";
     }
 
     /**

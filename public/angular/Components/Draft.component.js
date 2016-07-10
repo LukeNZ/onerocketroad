@@ -69,6 +69,17 @@ var DraftComponent = (function () {
     };
     /**
      *
+     * @returns {string}
+     */
+    DraftComponent.prototype.wordCountStatement = function () {
+        var wordCount = this.draft.wordCount();
+        if (wordCount == 1) {
+            return "1 word";
+        }
+        return wordCount + " words";
+    };
+    /**
+     *
      */
     DraftComponent.prototype.autosave = function () {
         var _this = this;

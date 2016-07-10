@@ -21,9 +21,10 @@ export class Draft {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
-    
+
     public wordCount() : number {
-        return this.body ? this.body.split(" ").length : 0;
+        var matches = this.body.match(/[\w\d]+/gi);
+        return matches ? matches.length : 0;
     }
 
     public isPublishable() {

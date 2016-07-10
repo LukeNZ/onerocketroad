@@ -11,7 +11,8 @@ var Draft = (function () {
         this.updatedAt = updatedAt;
     }
     Draft.prototype.wordCount = function () {
-        return this.body ? this.body.split(" ").length : 0;
+        var matches = this.body.match(/[\w\d]+/gi);
+        return matches ? matches.length : 0;
     };
     Draft.prototype.isPublishable = function () {
         return this.title != null && this.body != null && this.title.length > 0 && this.body.length > 0;

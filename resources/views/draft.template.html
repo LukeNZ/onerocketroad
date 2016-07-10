@@ -8,7 +8,7 @@
         <li (click)="setViewState(draftViewState.Preview)">Preview</li>
     </ul>
 
-    <p [style.color]="showWordCountWarning()">{{ draft.wordCount() }} words</p>
+    <p [style.color]="showWordCountWarning()">{{ wordCountStatement() }}</p>
 
     <p [hidden]="!isSaving">Saving...</p>
 

@@ -1,6 +1,6 @@
 "use strict";
 var Article = (function () {
-    function Article(id, title, body, authorName, publishedAt, createdAt, uploadedAt) {
+    function Article(id, title, body, authorName, publishedAt, createdAt, updatedAt) {
         this.id = id;
         this.title = title;
         this.body = body;

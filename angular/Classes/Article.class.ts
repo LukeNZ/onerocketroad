@@ -14,7 +14,7 @@ export class Article {
         return new Article(draft.id, draft.title, draft.body, draft.authorName, now, now, now);
     }
 
-    constructor(id: number, title: string, body: string, authorName: string, publishedAt: Date, createdAt: Date, uploadedAt: Date) {
+    constructor(id: number, title: string, body: string, authorName: string, publishedAt: Date, createdAt: Date, updatedAt: Date) {
         this.id = id;
         this.title = title;
         this.body = body;
