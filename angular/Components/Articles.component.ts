@@ -24,10 +24,17 @@ export class ArticlesComponent {
     }
 
     ngOnInit() {
-        this.articleService.getRecentArticles().subscribe(articles => {
+        this.getMoreArticles();
+    }
+
+    /**
+     * Get more recent articles from the article service, and add them to the component
+     * article array, and increment the component cursor value;
+     */
+    public getMoreArticles() : void {
+        this.articleService.getRecentArticles(this.cursor).subscribe(articles => {
+            this.cursor += articles.length;
             this.articles.push.apply(this.articles, articles);
-            console.log(articles);
-            console.log(this.articles);
         });
     }
 }

@@ -32,7 +32,7 @@ export class Draft {
         return matches ? matches.length : 0;
     }
 
-    public isPublishable() {
+    public isPublishable() : boolean {
         return this.title != null && this.body != null && this.title.length > 0 && this.body.length > 0;
     }
 }

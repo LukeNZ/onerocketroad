@@ -6,3 +6,7 @@
     <p [innerHTML]="article.snippet() | markdown"></p>
     <span><a [routerLink]="['article', article.id]">Read More...</a></span>
 </article>
+
+<div>
+    <button (click)="getMoreArticles()">More articles</button>
+</div>

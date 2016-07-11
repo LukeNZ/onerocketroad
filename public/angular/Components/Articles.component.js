@@ -24,11 +24,17 @@ var ArticlesComponent = (function () {
         this.titleService.setTitle("One Rocket Road | Articles");
     }
     ArticlesComponent.prototype.ngOnInit = function () {
+        this.getMoreArticles();
+    };
+    /**
+     * Get more recent articles from the article service, and add them to the component
+     * article array, and increment the component cursor value;
+     */
+    ArticlesComponent.prototype.getMoreArticles = function () {
         var _this = this;
-        this.articleService.getRecentArticles().subscribe(function (articles) {
+        this.articleService.getRecentArticles(this.cursor).subscribe(function (articles) {
+            _this.cursor += articles.length;
             _this.articles.push.apply(_this.articles, articles);
-            console.log(articles);
-            console.log(_this.articles);
         });
     };
     ArticlesComponent = __decorate([

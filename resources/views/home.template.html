@@ -1,3 +1,17 @@
 <p>Home!</p>
 <a [routerLink]="['/articles']">Articles</a>
 <a [routerLink]="['/drafts']">Drafts</a>
+
+<div *ngIf="home">
+    <p>The latest</p>
+
+    <p>Also...</p>
+
+    <p>More</p>
+
+    <p><a [routerLink]="['/articles']">All articles...</a></p>
+
+    <!-- Most read? -->
+
+    <!-- tweets -->
+</div>

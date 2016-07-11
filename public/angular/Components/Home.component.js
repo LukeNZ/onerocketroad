@@ -10,18 +10,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require("@angular/router");
+var HomeService_service_1 = require("../Services/HomeService.service");
 var HomeComponent = (function () {
-    function HomeComponent(route, router) {
+    function HomeComponent(homeService, route, router) {
+        this.homeService = homeService;
         this.route = route;
         this.router = router;
     }
+    HomeComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.homeService.getHome().subscribe(function (home) {
+            _this.home = home;
+        });
+    };
     HomeComponent = __decorate([
         core_1.Component({
             selector: 'home',
             directives: [router_1.ROUTER_DIRECTIVES],
-            templateUrl: '/angular/views/home.template.html'
+            templateUrl: '/angular/views/home.template.html',
+            providers: [HomeService_service_1.HomeService]
         }), 
-        __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router])
+        __metadata('design:paramtypes', [HomeService_service_1.HomeService, router_1.ActivatedRoute, router_1.Router])
     ], HomeComponent);
     return HomeComponent;
 }());

@@ -18,6 +18,10 @@ Route::get('/', function () {
 
 // API routes
 Route::group(['namespace' => 'Api', 'prefix' => 'api'], function() {
+    Route::group(['prefix' => 'home'], function() {
+        Route::get('get', 'HomeController@get');
+    });
+
     Route::group(['prefix' => 'drafts'], function() {
         Route::get('all', 'DraftsController@all');
         Route::get('get/{id}', 'DraftsController@get');
