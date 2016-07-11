@@ -13,6 +13,7 @@ var platform_browser_1 = require("@angular/platform-browser");
 var ArticleService_service_1 = require("../Services/ArticleService.service");
 var router_1 = require("@angular/router");
 var MarkdownPipe_pipe_1 = require("../Pipes/MarkdownPipe.pipe");
+var ArticleRouterLink_directive_1 = require("../Directives/ArticleRouterLink.directive");
 var ArticlesComponent = (function () {
     function ArticlesComponent(articleService, titleService, route, router) {
         this.articleService = articleService;
@@ -20,6 +21,7 @@ var ArticlesComponent = (function () {
         this.route = route;
         this.router = router;
         this.cursor = 0;
+        this.hasMoreArticles = true;
         this.articles = [];
         this.titleService.setTitle("One Rocket Road | Articles");
     }
@@ -28,13 +30,18 @@ var ArticlesComponent = (function () {
     };
     /**
      * Get more recent articles from the article service, and add them to the component
-     * article array, and increment the component cursor value;
+     * article array, and increment the component cursor value. If the number of returned
+     * articles is less than 10, we can safely assume the server is out of articles, and hide
+     * the button to load more articles.
      */
     ArticlesComponent.prototype.getMoreArticles = function () {
         var _this = this;
         this.articleService.getRecentArticles(this.cursor).subscribe(function (articles) {
             _this.cursor += articles.length;
             _this.articles.push.apply(_this.articles, articles);
+            if (articles.length < 10) {
+                _this.hasMoreArticles = false;
+            }
         });
     };
     ArticlesComponent = __decorate([
@@ -42,7 +49,7 @@ var ArticlesComponent = (function () {
             selector: 'articles',
             templateUrl: '/angular/views/articles.template.html',
             pipes: [MarkdownPipe_pipe_1.MarkdownPipe],
-            directives: [router_1.ROUTER_DIRECTIVES],
+            directives: [router_1.ROUTER_DIRECTIVES, ArticleRouterLink_directive_1.ArticleRouterLinkDirective],
             providers: [ArticleService_service_1.ArticleService]
         }), 
         __metadata('design:paramtypes', [ArticleService_service_1.ArticleService, platform_browser_1.Title, router_1.ActivatedRoute, router_1.Router])

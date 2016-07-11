@@ -33,6 +33,8 @@ var ArticleComponent = (function () {
             // Fetch the article and set the title
             _this.article = article;
             _this.titleService.setTitle("One Rocket Road | " + article.title);
+        }, function (error) {
+            _this.router.navigate(['/articles']);
         });
     };
     ArticleComponent = __decorate([

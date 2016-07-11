@@ -33,6 +33,8 @@ export class ArticleComponent implements OnInit {
                 // Fetch the article and set the title
                 this.article = article;
                 this.titleService.setTitle("One Rocket Road | " + article.title);
-            })
+            }, error => {
+                this.router.navigate(['/articles']);
+            });
     }
 }

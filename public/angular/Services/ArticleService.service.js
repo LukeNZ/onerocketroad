@@ -17,6 +17,7 @@ var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var AbstractService_service_1 = require("./AbstractService.service");
 var Article_class_1 = require("../Classes/Article.class");
+var Rx_1 = require("rxjs/Rx");
 var ArticleService = (function (_super) {
     __extends(ArticleService, _super);
     function ArticleService(http) {
@@ -37,11 +38,12 @@ var ArticleService = (function (_super) {
     ArticleService.prototype.getRecentArticles = function (cursor) {
         cursor = cursor == null ? 0 : cursor;
         return this.http.get('/api/articles/getrecent/' + cursor)
-            .map(function (articles) {
-            return articles.json().map(function (article) {
+            .map(function (response) {
+            return response.json().map(function (article) {
                 return new Article_class_1.Article(article.id, article.title, article.body, article.authorName, article.createdAt, article.updatedAt);
             });
-        });
+        })
+            .catch(this.handleError);
     };
     /**
      * Get an article by its year, month, & day of publication, as well as its slug. All three are
@@ -55,12 +57,18 @@ var ArticleService = (function (_super) {
      * @returns {Observable<Article>}   The article specified by the above parameters.
      */
     ArticleService.prototype.getArticle = function (year, month, day, slug) {
+        var _this = this;
         return this.http.get('/api/articles/get/' + year + '/' + month + '/' + day + "/" + slug)
-            .map(function (res) {
-            var model = res.json();
+            .map(function (response) {
+            var model = response.json();
             return new Article_class_1.Article(model.id, model.title, model.body, model.authorName, model.createdAt, model.updatedAt);
         })
-            .catch(this.handleError);
+            .catch(function (response) {
+            if (response.status = 400) {
+                return Rx_1.Observable.throw("Article not found");
+            }
+            return _this.handleError(response);
+        });
     };
     ArticleService.prototype.getNeighbourArticles = function () {
         return null;
@@ -74,8 +82,8 @@ var ArticleService = (function (_super) {
      */
     ArticleService.prototype.createArticle = function (article) {
         return this.http.put('/api/articles/create', article)
-            .map(function (res) {
-            var model = res.json();
+            .map(function (response) {
+            var model = response.json();
             return new Article_class_1.Article(model.id, model.title, model.body, model.authorName, model.createdAt, model.updatedAt);
         })
             .catch(this.handleError);

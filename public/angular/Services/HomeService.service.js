@@ -24,13 +24,21 @@ var HomeService = (function (_super) {
         _super.call(this);
         this.http = http;
     }
+    /**
+     * Fetches homepage data from the server before constructing and returning a Home object.
+     * GET: /api/home/get
+     *
+     * @returns {Observable<Home>}
+     */
     HomeService.prototype.getHome = function () {
-        return this.http.get('/api/home/get').map(function (res) {
-            var articles = res.json().map(function (article) {
+        return this.http.get('/api/home/get')
+            .map(function (response) {
+            var articles = response.json().map(function (article) {
                 return new Article_class_1.Article(article.id, article.title, article.body, article.authorName, article.createdAt, article.updatedAt);
             });
             return new Home_class_1.Home(articles);
-        });
+        })
+            .catch(this.handleError);
     };
     HomeService = __decorate([
         core_1.Injectable(), 

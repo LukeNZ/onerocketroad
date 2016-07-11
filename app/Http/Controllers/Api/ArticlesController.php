@@ -18,6 +18,7 @@ class ArticlesController extends Controller
 
     /**
      * Fetches a single article by the date of publication and the slug from the backing store and returns it.
+     * If the article is not found, return 404 Not Found.
      * GET: /api/articles/get/{year}/{month}/{day}/{slug}
      *
      * @param $year     string  The year of the article.
@@ -29,11 +30,16 @@ class ArticlesController extends Controller
      */
     public function get($year, $month, $day, $slug) {
         $article = $this->articles->retrieveByUrl($year, $month, $day, $slug);
-        return response()->json($article, 200);
+
+        if ($article != null) {
+            return response()->json($article, 200);
+        }
+        return response()->json(null, 404);
     }
 
     /**
      * Fetches a set number of articles from a specified cursor offset, ordered by created_at date.
+     * If no articles are found, return 204 No Content.
      * GET: /api/articles/getrecent/{cursor}
      *
      * @param $cursor   int     The offset in the database to fetch articles from.
@@ -42,10 +48,15 @@ class ArticlesController extends Controller
      */
     public function getRecent($cursor) {
         $articles = $this->articles->getRecent($cursor, $this->articlesPerRequest);
-        return response()->json($articles, 200);
+
+        if (count($articles) > 0) {
+            return response()->json($articles, 200);
+        }
+        return response()->json(null, 204);
     }
 
     /**
+     * Creates an article from the provided request and inserts it into the backing store, before returning it.
      * PUT: /api/articles/create
      * 
      * @param Request $request

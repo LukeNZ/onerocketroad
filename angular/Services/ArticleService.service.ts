@@ -28,12 +28,13 @@ export class ArticleService extends AbstractService {
         cursor = cursor == null ? 0 : cursor;
 
         return this.http.get('/api/articles/getrecent/' + cursor)
-            .map(articles => {
-                return articles.json().map(article => {
+            .map(response => {
+                return response.json().map(article => {
                     return new Article(article.id, article.title, article.body, article.authorName,
                         article.createdAt, article.updatedAt);
                 });
-            });
+            })
+            .catch(this.handleError);
     }
 
     /**
@@ -49,12 +50,17 @@ export class ArticleService extends AbstractService {
      */
     public getArticle(year: string, month: string, day: string, slug: string) : Observable<Article> {
         return this.http.get('/api/articles/get/' + year + '/' + month + '/' + day + "/" + slug)
-            .map(res => {
-                let model = res.json();
+            .map(response => {
+                let model = response.json();
                 return new Article(model.id, model.title, model.body, model.authorName,
                     model.createdAt, model.updatedAt);
             })
-            .catch(this.handleError);
+            .catch(response => {
+                if (response.status = 400) {
+                    return Observable.throw("Article not found");
+                }
+                return this.handleError(response);
+            });
     }
 
     public getNeighbourArticles() : Observable<Article[]> {
@@ -70,8 +76,8 @@ export class ArticleService extends AbstractService {
      */
     public createArticle(article : Article) : Observable<Article> {
         return this.http.put('/api/articles/create', article)
-            .map(res => {
-                let model = res.json();
+            .map(response => {
+                let model = response.json();
                 return new Article(model.id, model.title, model.body, model.authorName,
                     model.createdAt, model.updatedAt);
             })

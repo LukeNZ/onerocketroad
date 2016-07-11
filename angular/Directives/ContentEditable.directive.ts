@@ -22,7 +22,8 @@ export class ContentEditableDirective implements OnChanges {
         this.lastModel = this.model;
     }
 
-    @HostListener('onblur') onBlur() {
+    @HostListener('onblur')
+    public onBlur() {
         let value = this.el.nativeElement.textContent;
         this.lastModel = value;
         this.update.emit(value);

@@ -31,7 +31,7 @@ var DraftService = (function (_super) {
      */
     DraftService.prototype.getAllDrafts = function () {
         return this.http.get('/api/drafts/all')
-            .map(function (res) { return res.json(); })
+            .map(function (response) { return response.json(); })
             .catch(this.handleError);
     };
     /**
@@ -43,8 +43,8 @@ var DraftService = (function (_super) {
      */
     DraftService.prototype.getDraft = function (draftId) {
         return this.http.get('/api/drafts/get/' + draftId)
-            .map(function (res) {
-            var model = res.json();
+            .map(function (response) {
+            var model = response.json();
             return new Draft_class_1.Draft(model.id, model.title, model.body, null, model.authorName, model.dueAt, model.createdAt, model.updatedAt);
         })
             .catch(this.handleError);
@@ -58,7 +58,7 @@ var DraftService = (function (_super) {
      */
     DraftService.prototype.createDraft = function (draft) {
         return this.http.put('/api/drafts/create', draft)
-            .map(function (res) { return res.json(); })
+            .map(function (response) { return response.json(); })
             .catch(this.handleError);
     };
     /**
@@ -70,7 +70,7 @@ var DraftService = (function (_super) {
      */
     DraftService.prototype.updateDraft = function (draft) {
         return this.http.patch('/api/drafts/update', draft)
-            .map(function (res) { return res.status; })
+            .map(function (response) { return response.status; })
             .catch(this.handleError);
     };
     /**
@@ -82,7 +82,7 @@ var DraftService = (function (_super) {
      */
     DraftService.prototype.deleteDraft = function (draft) {
         return this.http.delete('/api/drafts/delete/' + draft.id)
-            .map(function (res) { return res.status; })
+            .map(function (response) { return response.status; })
             .catch(this.handleError);
     };
     DraftService = __decorate([

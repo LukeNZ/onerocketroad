@@ -1,12 +1,12 @@
 <h1>Articles</h1>
 
 <article *ngFor="let article of articles">
-    <h2><a [routerLink]="['/article', article.publicationYear(), article.publicationMonth(), article.publicationDay(), article.slug()]">{{ article.title }}</a></h2>
+    <h2><a [articleRouterLink]="article">{{ article.title }}</a></h2>
     <p>By {{ article.authorName }}</p>
     <p [innerHTML]="article.snippet() | markdown"></p>
     <span><a [routerLink]="['article', article.id]">Read More...</a></span>
 </article>
 
 <div>
-    <button (click)="getMoreArticles()">More articles</button>
+    <button *ngIf="hasMoreArticles" (click)="getMoreArticles()">More articles</button>
 </div>

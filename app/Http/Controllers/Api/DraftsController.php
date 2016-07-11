@@ -17,7 +17,7 @@ class DraftsController extends Controller
 
     /**
      * Fetches all drafts from the backing store and returns them.
-     * GET: /api/drafts/all.
+     * GET: /api/drafts/all
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -26,17 +26,24 @@ class DraftsController extends Controller
     }
 
     /**
-     * Fetches a single draft by id from the backing store and returns it.
+     * Fetches a single draft by id from the backing store and returns it. If the draft is not found, return
+     * 404 Not Found.
      * GET: /api/drafts/get/{draftId}
      *
      * @param $draftId
      * @return \Illuminate\Http\JsonResponse
      */
     public function get($draftId) {
-        return response()->json($this->drafts->find($draftId), 200);
+        $draft = $this->drafts->find($draftId);
+
+        if ($draft != null) {
+            return response()->json($draft, 200);
+        }
+        return response()->json(null, 404);
     }
 
     /**
+     * Creates an draft from the provided request and inserts it into the backing store, before returning it.
      * PUT: /api/articles/create
      *
      * @param Request $request
