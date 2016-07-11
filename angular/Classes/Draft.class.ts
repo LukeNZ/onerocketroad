@@ -22,6 +22,11 @@ export class Draft {
         this.updatedAt = updatedAt;
     }
 
+    /**
+     * Calculates and returns number of words present within the draft.
+     *
+     * @returns {number}
+     */
     public wordCount() : number {
         var matches = this.body.match(/[\w\d]+/gi);
         return matches ? matches.length : 0;

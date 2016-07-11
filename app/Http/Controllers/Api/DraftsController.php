@@ -5,7 +5,6 @@ namespace OneRocketRoad\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use OneRocketRoad\Http\Requests;
 use OneRocketRoad\Http\Controllers\Controller;
-use OneRocketRoad\Models\Draft;
 use OneRocketRoad\Stores\DraftStoreInterface;
 
 class DraftsController extends Controller

@@ -10,6 +10,7 @@ use OneRocketRoad\Stores\ArticleStoreInterface;
 class ArticlesController extends Controller
 {
     protected $articles;
+    protected $articlesPerRequest = 10;
 
     public function __construct(ArticleStoreInterface $articleStore) {
         $this->articles = $articleStore;
@@ -29,6 +30,19 @@ class ArticlesController extends Controller
     public function get($year, $month, $day, $slug) {
         $article = $this->articles->retrieveByUrl($year, $month, $day, $slug);
         return response()->json($article, 200);
+    }
+
+    /**
+     * Fetches a set number of articles from a specified cursor offset, ordered by created_at date.
+     * GET: /api/articles/getrecent/{cursor}
+     *
+     * @param $cursor   int     The offset in the database to fetch articles from.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getRecent($cursor) {
+        $articles = $this->articles->getRecent($cursor, $this->articlesPerRequest);
+        return response()->json($articles, 200);
     }
 
     /**

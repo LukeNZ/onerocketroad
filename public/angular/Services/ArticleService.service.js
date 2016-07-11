@@ -26,8 +26,22 @@ var ArticleService = (function (_super) {
     ArticleService.prototype.getArticles = function () {
         return null;
     };
-    ArticleService.prototype.getRecentArticles = function (from) {
-        return null;
+    /**
+     * Get the next 10 articles from a predefined offset cursor, sorted in descending
+     * order by publication date.
+     *
+     * @param cursor    An optional parameter defining the offset for where to start
+     *  retrieving articles from. If optional, cursor will default to 0.
+     * @returns {Observable<Article[]>}
+     */
+    ArticleService.prototype.getRecentArticles = function (cursor) {
+        cursor = cursor == null ? 0 : cursor;
+        return this.http.get('/api/articles/getrecent/' + cursor)
+            .map(function (articles) {
+            return articles.json().map(function (article) {
+                return new Article_class_1.Article(article.id, article.title, article.body, article.authorName, article.createdAt, article.updatedAt);
+            });
+        });
     };
     /**
      * Get an article by its year, month, & day of publication, as well as its slug. All three are

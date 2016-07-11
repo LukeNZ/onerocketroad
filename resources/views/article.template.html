@@ -1,4 +1,11 @@
 <div *ngIf="article">
     <h1>{{ article.title }}</h1>
+    <aside>
+        <ul>
+            <li>By {{ article.authorName }}</li>
+            <li>{{ article.acronymCount() }} acronyms</li>
+            <li>{{ article.readingLength() }}</li>
+        </ul>
+    </aside>
     <section id="content" [innerHTML]="article.body | markdown"></section>
 </div>

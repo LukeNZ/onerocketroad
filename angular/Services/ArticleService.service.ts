@@ -16,8 +16,24 @@ export class ArticleService extends AbstractService {
         return null;
     }
 
-    public getRecentArticles(from: number) : Observable<Article[]> {
-        return null;
+    /**
+     * Get the next 10 articles from a predefined offset cursor, sorted in descending
+     * order by publication date.
+     *
+     * @param cursor    An optional parameter defining the offset for where to start
+     *  retrieving articles from. If optional, cursor will default to 0.
+     * @returns {Observable<Article[]>}
+     */
+    public getRecentArticles(cursor?: number) : Observable<Article[]> {
+        cursor = cursor == null ? 0 : cursor;
+
+        return this.http.get('/api/articles/getrecent/' + cursor)
+            .map(articles => {
+                return articles.json().map(article => {
+                    return new Article(article.id, article.title, article.body, article.authorName,
+                        article.createdAt, article.updatedAt);
+                });
+            });
     }
 
     /**

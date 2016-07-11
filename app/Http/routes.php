@@ -28,6 +28,7 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api'], function() {
 
     Route::group(['prefix' => 'articles'], function() {
         Route::get('get/{year}/{month}/{day}/{slug}', 'ArticlesController@get');
+        Route::get('getrecent/{offset}', 'ArticlesController@getRecent');
         Route::put('create', 'ArticlesController@create');
         Route::patch('update', 'ArticlesController@update');
         Route::patch('delete/{id}', 'ArticlesController@delete');

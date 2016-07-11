@@ -63,4 +63,8 @@ class ArticleStore implements ArticleStoreInterface {
                 return $slug === str_slug($article->title);
             });
     }
+
+    function getRecent($cursor, $take) {
+        return Article::orderBy('created_at', 'desc')->take($take)->offset($cursor)->get();
+    }
 }
