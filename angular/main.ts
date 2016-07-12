@@ -5,7 +5,6 @@ import {Title} from '@angular/platform-browser';
 import {HTTP_PROVIDERS} from '@angular/http';
 import {disableDeprecatedForms, provideForms} from '@angular/forms';
 import {APP_ROUTER_PROVIDERS} from './routes';
-
 // Rx.js
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
@@ -23,5 +22,5 @@ bootstrap(OneRocketRoadComponent, [
     HTTP_PROVIDERS,
     disableDeprecatedForms(),
     provideForms(),
-    Title
+    Title,
 ]).catch((err: any) => console.error(err));

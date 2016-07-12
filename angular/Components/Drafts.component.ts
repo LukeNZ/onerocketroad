@@ -1,12 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {Title} from '@angular/platform-browser';
+import {ROUTER_DIRECTIVES} from '@angular/router';
 import {Draft} from "../classes";
 import {DraftService} from "../services";
 
 @Component({
     selector: 'drafts',
     templateUrl: '/angular/views/drafts.template.html',
-    providers: [DraftService]
+    directives: [ROUTER_DIRECTIVES],
+    providers: [DraftService],
 })
 
 /**
@@ -17,7 +19,8 @@ export class DraftsComponent implements OnInit {
     public isCreatingDraft : boolean = false;
     public drafts : Draft[] = [];
 
-    constructor(private draftService: DraftService, private titleService: Title) {
+    constructor(private draftService: DraftService,
+                private titleService: Title) {
         this.titleService.setTitle("One Rocket Road | Drafts");
     }
 

@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {Title} from '@angular/platform-browser';
-import {ActivatedRoute, Router} from "@angular/router";
-import {FORM_DIRECTIVES, FormControl, REACTIVE_FORM_DIRECTIVES} from '@angular/forms';
+import {ActivatedRoute, Router, ROUTER_DIRECTIVES} from "@angular/router";
+import {FORM_DIRECTIVES, FormControl} from '@angular/forms';
 import {DraftService, ArticleService} from "../services";
 import {Draft, Article} from "../classes";
 import {ContentEditableDirective} from "../directives";
@@ -13,7 +13,7 @@ import {Subscription, Observable, Subject} from "rxjs/Rx";
 @Component({
     selector: 'draft',
     templateUrl: '/angular/views/draft.template.html',
-    directives: [ContentEditableDirective, FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
+    directives: [ContentEditableDirective, ROUTER_DIRECTIVES, FORM_DIRECTIVES],
     providers: [DraftService, ArticleService],
     pipes: [MarkdownPipe]
 })

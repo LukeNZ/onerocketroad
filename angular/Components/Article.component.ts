@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {Title} from "@angular/platform-browser";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, Router, ROUTER_DIRECTIVES} from "@angular/router";
 import {ArticleService} from "../services";
 import {MarkdownPipe} from "../pipes";
 import {Article} from "../classes";
@@ -8,6 +8,7 @@ import {Article} from "../classes";
 @Component({
     selector: 'article',
     templateUrl: '/angular/views/article.template.html',
+    directives: [ROUTER_DIRECTIVES],
     providers: [ArticleService],
     pipes: [MarkdownPipe]
 })
