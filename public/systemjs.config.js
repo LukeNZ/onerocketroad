@@ -11,8 +11,7 @@
         'rxjs':                       '/node_modules/rxjs',
         'marked':                     '/node_modules/marked',
         'moment':                     '/node_modules/moment',
-        'ng2-dnd':                    '/node_modules/ng2-dnd/bundles',
-
+        
         'classes':                    '/angular/classes',
         'components':                 '/angular/components',
         'directives':                 '/angular/directives',
@@ -27,7 +26,6 @@
         'angular2-in-memory-web-api': { main: 'index.js', defaultExtension: 'js' },
         'marked':                     { main: 'marked.min.js', defaultExtension: 'js' },
         'moment':                     { main: 'moment.js', defaultExtension: 'js' },
-        "ng2-dnd":                    { main: 'ng2-dnd.min.js', defaultExtension: "js"},
 
         'classes':                    { main: 'index.js', defaultExtension: 'js' },
         'components':                 { main: 'index.js', defaultExtension: 'js' },
