@@ -11,7 +11,13 @@
         'rxjs':                       '/node_modules/rxjs',
         'marked':                     '/node_modules/marked',
         'moment':                     '/node_modules/moment',
-        'classes':                    '/angular/classes'
+
+        'classes':                    '/angular/classes',
+        'components':                 '/angular/components',
+        'directives':                 '/angular/directives',
+        'enums':                      '/angular/enums',
+        'pipes':                      '/angular/pipes',
+        'services':                   '/angular/services'
     };
     // packages tells the System loader how to load when no filename and/or no extension
     var packages = {
@@ -20,7 +26,13 @@
         'angular2-in-memory-web-api': { main: 'index.js', defaultExtension: 'js' },
         'marked':                     { main: 'marked.min.js', defaultExtension: 'js' },
         'moment':                     { main: 'moment.js', defaultExtension: 'js' },
-        'classes':                    { main: 'index.js', defaultExtension: 'js' }
+
+        'classes':                    { main: 'index.js', defaultExtension: 'js' },
+        'components':                 { main: 'index.js', defaultExtension: 'js' },
+        'directives':                 { main: 'index.js', defaultExtension: 'js' },
+        'enums':                      { main: 'index.js', defaultExtension: 'js' },
+        'pipes':                      { main: 'index.js', defaultExtension: 'js' },
+        'services':                   { main: 'index.js', defaultExtension: 'js' }
     };
     var ngPackageNames = [
         'common',

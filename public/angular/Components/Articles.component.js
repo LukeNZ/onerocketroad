@@ -49,7 +49,7 @@ var ArticlesComponent = (function () {
             selector: 'articles',
             templateUrl: '/angular/views/articles.template.html',
             pipes: [pipes_1.MarkdownPipe],
-            directives: [router_1.ROUTER_DIRECTIVES, directives_1.ArticleRouterLinkDirective],
+            directives: [directives_1.ArticleRouterLinkDirective],
             providers: [services_1.ArticleService]
         }), 
         __metadata('design:paramtypes', [services_1.ArticleService, platform_browser_1.Title, router_1.ActivatedRoute, router_1.Router])

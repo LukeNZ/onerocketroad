@@ -26,7 +26,6 @@ var HomeComponent = (function () {
     HomeComponent = __decorate([
         core_1.Component({
             selector: 'home',
-            directives: [router_1.ROUTER_DIRECTIVES],
             templateUrl: '/angular/views/home.template.html',
             providers: [services_1.HomeService]
         }), 

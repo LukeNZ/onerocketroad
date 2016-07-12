@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Title} from "@angular/platform-browser";
-import {ActivatedRoute, Router, ROUTER_DIRECTIVES} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Article} from "../classes";
 import {ArticleService} from "../services";
 import {MarkdownPipe} from "../pipes";
@@ -10,7 +10,7 @@ import {ArticleRouterLinkDirective} from "../directives";
     selector: 'articles',
     templateUrl: '/angular/views/articles.template.html',
     pipes: [MarkdownPipe],
-    directives: [ROUTER_DIRECTIVES, ArticleRouterLinkDirective],
+    directives: [ArticleRouterLinkDirective],
     providers: [ArticleService]
 })
 export class ArticlesComponent {

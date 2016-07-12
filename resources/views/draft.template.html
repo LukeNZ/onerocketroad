@@ -22,7 +22,7 @@
     <!-- Insert tag data here -->
 
     <button type="submit" [disabled]="!draft.isPublishable() || isPublishing" (click)="publishDraft()">
-        {{ isPublishing ? 'Publishing...' : 'Publish' }}
+        {{ isPublishing ? 'Publishing...' : 'Publish as Article' }}
     </button>
-    <button type="submit" (click)="deleteDraft()">Delete</button>
+    <button type="submit" (click)="deleteDraft()">Delete Draft</button>
 </div>

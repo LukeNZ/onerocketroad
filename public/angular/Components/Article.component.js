@@ -41,7 +41,6 @@ var ArticleComponent = (function () {
         core_1.Component({
             selector: 'article',
             templateUrl: '/angular/views/article.template.html',
-            directives: [router_1.ROUTER_DIRECTIVES],
             providers: [services_1.ArticleService],
             pipes: [pipes_1.MarkdownPipe]
         }), 

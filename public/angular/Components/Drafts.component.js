@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
-var router_1 = require('@angular/router');
 var classes_1 = require("../classes");
 var services_1 = require("../services");
 var DraftsComponent = (function () {
@@ -41,7 +40,6 @@ var DraftsComponent = (function () {
         core_1.Component({
             selector: 'drafts',
             templateUrl: '/angular/views/drafts.template.html',
-            directives: [router_1.ROUTER_DIRECTIVES],
             providers: [services_1.DraftService]
         }), 
         __metadata('design:paramtypes', [services_1.DraftService, platform_browser_1.Title])

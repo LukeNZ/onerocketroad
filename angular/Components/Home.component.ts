@@ -1,11 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router, ROUTER_DIRECTIVES} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {HomeService} from "../services";
 import {Home} from "../classes";
 
 @Component({
     selector: 'home',
-    directives: [ROUTER_DIRECTIVES],
     templateUrl: '/angular/views/home.template.html',
     providers: [HomeService]
 })
