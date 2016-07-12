@@ -15,8 +15,8 @@ require('rxjs/add/operator/map');
 require('rxjs/add/operator/switchMap');
 require('rxjs/add/operator/toPromise');
 // Root component
-var OneRocketRoad_component_1 = require('./Components/OneRocketRoad.component');
-platform_browser_dynamic_1.bootstrap(OneRocketRoad_component_1.OneRocketRoadComponent, [
+var components_1 = require('./components');
+platform_browser_dynamic_1.bootstrap(components_1.OneRocketRoadComponent, [
     routes_1.APP_ROUTER_PROVIDERS,
     http_1.HTTP_PROVIDERS,
     forms_1.disableDeprecatedForms(),

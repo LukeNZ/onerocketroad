@@ -15,7 +15,7 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/toPromise';
 
 // Root component
-import {OneRocketRoadComponent} from './Components/OneRocketRoad.component';
+import {OneRocketRoadComponent} from './components';
 
 bootstrap(OneRocketRoadComponent, [
     APP_ROUTER_PROVIDERS,
