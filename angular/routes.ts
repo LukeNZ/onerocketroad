@@ -1,11 +1,6 @@
 import {provideRouter, RouterConfig} from '@angular/router';
-import {DraftsComponent} from './components/Drafts.component';
-import {DraftComponent} from './components/Draft.component';
-import {ArticlesComponent} from './components/Articles.component';
-import {HomeComponent} from "./Components/Home.component";
-import {ArticleComponent} from "./Components/Article.component";
-import {SignUpComponent} from "./Components/SignUp.component";
-import {LoginComponent} from "./Components/Login.component";
+import {DraftComponent, DraftsComponent, ArticleComponent, ArticlesComponent,
+    HomeComponent, SignUpComponent, LoginComponent} from "./components";
 
 // At a future release, we should hopefully be able to specify routes
 export const routes: RouterConfig = [
