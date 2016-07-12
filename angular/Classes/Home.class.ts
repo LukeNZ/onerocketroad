@@ -1,4 +1,4 @@
-import {Article} from './Article.class';
+import {Article} from '../classes';
 
 export class Home {
     public articles: Article[];

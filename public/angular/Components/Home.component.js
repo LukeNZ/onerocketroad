@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require("@angular/router");
-var HomeService_service_1 = require("../Services/HomeService.service");
+var services_1 = require("../services");
 var HomeComponent = (function () {
     function HomeComponent(homeService, route, router) {
         this.homeService = homeService;
@@ -28,9 +28,9 @@ var HomeComponent = (function () {
             selector: 'home',
             directives: [router_1.ROUTER_DIRECTIVES],
             templateUrl: '/angular/views/home.template.html',
-            providers: [HomeService_service_1.HomeService]
+            providers: [services_1.HomeService]
         }), 
-        __metadata('design:paramtypes', [HomeService_service_1.HomeService, router_1.ActivatedRoute, router_1.Router])
+        __metadata('design:paramtypes', [services_1.HomeService, router_1.ActivatedRoute, router_1.Router])
     ], HomeComponent);
     return HomeComponent;
 }());

@@ -1,9 +1,9 @@
 import {Component, OnInit} from "@angular/core";
 import {Title} from "@angular/platform-browser";
 import {ActivatedRoute, Router, ROUTER_DIRECTIVES} from "@angular/router";
-import {ArticleService} from "../Services/ArticleService.service";
-import {MarkdownPipe} from "../Pipes/MarkdownPipe.pipe";
-import {Article} from "../Classes/Article.class";
+import {ArticleService} from "../services";
+import {MarkdownPipe} from "../pipes";
+import {Article} from "../classes";
 
 @Component({
     selector: 'article',

@@ -1,33 +1,43 @@
 import {Component, OnInit} from "@angular/core";
 import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, Router, ROUTER_DIRECTIVES} from "@angular/router";
-import {FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES, FormBuilder, FormGroup, FormControl} from '@angular/forms';
-import {DraftService} from "../Services/DraftService.service";
-import {Draft} from "../Classes/Draft.class";
-import {ContentEditableDirective} from "../Directives/ContentEditable.directive";
-import {DraftViewState} from "../Enums/DraftViewState.enum";
-import {MarkdownPipe} from "../Pipes/MarkdownPipe.pipe";
-import {Article} from "../Classes/Article.class";
-import {ArticleService} from "../Services/ArticleService.service";
+import {FORM_DIRECTIVES, FormControl} from '@angular/forms';
+import {DraftService, ArticleService} from "../services";
+import {Draft, Article} from "../classes";
+import {ContentEditableDirective} from "../directives";
+import {DraftViewState} from "../enums";
+import {MarkdownPipe} from "../pipes";
 
-import {Subscription, Observable} from "rxjs/Rx";
+import {Subscription, Observable, Subject} from "rxjs/Rx";
 
 @Component({
     selector: 'draft',
     templateUrl: '/angular/views/draft.template.html',
-    directives: [ContentEditableDirective, ROUTER_DIRECTIVES, FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
+    directives: [ContentEditableDirective, ROUTER_DIRECTIVES, FORM_DIRECTIVES],
     providers: [DraftService, ArticleService],
     pipes: [MarkdownPipe]
 })
 export class DraftComponent implements OnInit {
-    public draft: Draft;
+    private _draft: Draft;
     public isSaving: boolean = false;
     public isPublishing: boolean = false;
     public draftViewState = DraftViewState;
     public viewState: DraftViewState = DraftViewState.Edit;
 
     public bodyFormControl = new FormControl();
-    public draftSubscription: Subscription;
+
+    public draftSubject : Subject<Draft> = new Subject<Draft>();
+    public draftStream : Observable<Draft> = this.draftSubject.asObservable();
+    public draftSubscription : Subscription;
+
+    get draft() : Draft {
+        return this._draft;
+    }
+
+    set draft(draft: Draft) {
+        this._draft = draft;
+        this.draftSubject.next(draft);
+    }
 
     constructor(
         private draftService: DraftService,
@@ -49,15 +59,10 @@ export class DraftComponent implements OnInit {
                 this.draft = draft;
                 this.titleService.setTitle("One Rocket Road | Draft: " + draft.title);
 
-                // This is a poor substitute for object change detection. Ideally, we would see if any changes
-                // have been made to the draft property, and debounce and subscribe to that. This does not appear
-                // to be possible, so we subscribe to changes off the form control for the body only.
-                this.draftSubscription = this.bodyFormControl
-                    .valueChanges
-                    .debounceTime(3000)
-                    .subscribe(() => {
-                        this.autosave();
-                    });
+                // Subscribe to changes and autosave when changes are detected after debouncing
+                this.draftSubscription = this.draftStream
+                    .debounceTime(1000)
+                    .subscribe(() => this.autosave());
             },
             error => console.log(error)
         );
@@ -107,7 +112,7 @@ export class DraftComponent implements OnInit {
      * Publishes a draft as an article. This creates an article from the draft, puts the article on the server,
      * then once complete, deletes the original draft and redirects to the newly created article.
      */
-    public publishDraft() {
+    public publishDraft() : void {
         this.isPublishing = true;
         let article = Article.createFromDraft(this.draft);
 
@@ -128,12 +133,22 @@ export class DraftComponent implements OnInit {
     /**
      * Deletes a draft on the server, and navigates back to the drafts listing page.
      */
-    public deleteDraft() {
+    public deleteDraft() : void {
         // Unsubscribe before we delete the draft because there may be debounced changes waiting to
         // take place, causing a race condition. If we are deleting we don't care about those changes anyway.
         this.draftSubscription.unsubscribe();
         this.draftService.deleteDraft(this.draft).subscribe(response => {
             this.router.navigate(['drafts']);
         });
+    }
+
+    public autosaveDraftBody(body: string) {
+        this.draft = new Draft(this.draft.id, this.draft.title, body, this.draft.author,
+            this.draft.authorName, this.draft.dueAt, this.draft.createdAt, this.draft.updatedAt);
+    }
+
+    public autosaveDraftTitle(title: string) {
+        this.draft = new Draft(this.draft.id, title, this.draft.body, this.draft.author,
+            this.draft.authorName, this.draft.dueAt, this.draft.createdAt, this.draft.updatedAt);
     }
 }

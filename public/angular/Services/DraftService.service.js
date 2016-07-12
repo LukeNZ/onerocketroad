@@ -15,8 +15,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
-var AbstractService_service_1 = require('../Services/AbstractService.service');
-var Draft_class_1 = require("../Classes/Draft.class");
+var services_1 = require('../services');
+var classes_1 = require("../classes");
 var DraftService = (function (_super) {
     __extends(DraftService, _super);
     function DraftService(http) {
@@ -45,7 +45,7 @@ var DraftService = (function (_super) {
         return this.http.get('/api/drafts/get/' + draftId)
             .map(function (response) {
             var model = response.json();
-            return new Draft_class_1.Draft(model.id, model.title, model.body, null, model.authorName, model.dueAt, model.createdAt, model.updatedAt);
+            return new classes_1.Draft(model.id, model.title, model.body, null, model.authorName, model.dueAt, model.createdAt, model.updatedAt);
         })
             .catch(this.handleError);
     };
@@ -90,5 +90,5 @@ var DraftService = (function (_super) {
         __metadata('design:paramtypes', [http_1.Http])
     ], DraftService);
     return DraftService;
-}(AbstractService_service_1.AbstractService));
+}(services_1.AbstractService));
 exports.DraftService = DraftService;

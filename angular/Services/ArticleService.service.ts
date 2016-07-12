@@ -1,8 +1,8 @@
 import {Injectable} from "@angular/core";
 import {Http} from "@angular/http";
 
-import {AbstractService} from "./AbstractService.service";
-import {Article} from "../Classes/Article.class";
+import {AbstractService} from "../services";
+import {Article} from "../classes";
 
 import {Observable} from "rxjs/Rx";
 

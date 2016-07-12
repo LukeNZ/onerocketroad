@@ -15,8 +15,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
-var AbstractService_service_1 = require("./AbstractService.service");
-var Article_class_1 = require("../Classes/Article.class");
+var services_1 = require("../services");
+var classes_1 = require("../classes");
 var Rx_1 = require("rxjs/Rx");
 var ArticleService = (function (_super) {
     __extends(ArticleService, _super);
@@ -40,7 +40,7 @@ var ArticleService = (function (_super) {
         return this.http.get('/api/articles/getrecent/' + cursor)
             .map(function (response) {
             return response.json().map(function (article) {
-                return new Article_class_1.Article(article.id, article.title, article.body, article.authorName, article.createdAt, article.updatedAt);
+                return new classes_1.Article(article.id, article.title, article.body, article.authorName, article.createdAt, article.updatedAt);
             });
         })
             .catch(this.handleError);
@@ -61,7 +61,7 @@ var ArticleService = (function (_super) {
         return this.http.get('/api/articles/get/' + year + '/' + month + '/' + day + "/" + slug)
             .map(function (response) {
             var model = response.json();
-            return new Article_class_1.Article(model.id, model.title, model.body, model.authorName, model.createdAt, model.updatedAt);
+            return new classes_1.Article(model.id, model.title, model.body, model.authorName, model.createdAt, model.updatedAt);
         })
             .catch(function (response) {
             if (response.status = 400) {
@@ -84,7 +84,7 @@ var ArticleService = (function (_super) {
         return this.http.put('/api/articles/create', article)
             .map(function (response) {
             var model = response.json();
-            return new Article_class_1.Article(model.id, model.title, model.body, model.authorName, model.createdAt, model.updatedAt);
+            return new classes_1.Article(model.id, model.title, model.body, model.authorName, model.createdAt, model.updatedAt);
         })
             .catch(this.handleError);
     };
@@ -99,5 +99,5 @@ var ArticleService = (function (_super) {
         __metadata('design:paramtypes', [http_1.Http])
     ], ArticleService);
     return ArticleService;
-}(AbstractService_service_1.AbstractService));
+}(services_1.AbstractService));
 exports.ArticleService = ArticleService;

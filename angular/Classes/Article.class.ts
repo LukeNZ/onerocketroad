@@ -1,4 +1,4 @@
-import {Draft} from "./Draft.class";
+import {Draft} from "../classes";
 import * as moment from "moment";
 
 export class Article {

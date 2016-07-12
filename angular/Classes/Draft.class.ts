@@ -1,4 +1,4 @@
-import {User} from "./User.class";
+import {User} from "../classes";
 
 export class Draft {
     public id: number;

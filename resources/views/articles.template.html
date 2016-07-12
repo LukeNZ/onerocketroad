@@ -4,7 +4,7 @@
     <h2><a [articleRouterLink]="article">{{ article.title }}</a></h2>
     <p>By {{ article.authorName }}</p>
     <p [innerHTML]="article.snippet() | markdown"></p>
-    <span><a [routerLink]="['article', article.id]">Read More...</a></span>
+    <span><a [articleRouterLink]="article">Read More...</a></span>
 </article>
 
 <div>

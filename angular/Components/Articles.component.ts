@@ -1,10 +1,10 @@
 import {Component} from '@angular/core';
 import {Title} from "@angular/platform-browser";
-import {Article} from "../Classes/Article.class";
-import {ArticleService} from "../Services/ArticleService.service";
 import {ActivatedRoute, Router, ROUTER_DIRECTIVES} from "@angular/router";
-import {MarkdownPipe} from "../Pipes/MarkdownPipe.pipe";
-import {ArticleRouterLinkDirective} from "../Directives/ArticleRouterLink.directive";
+import {Article} from "../classes";
+import {ArticleService} from "../services";
+import {MarkdownPipe} from "../pipes";
+import {ArticleRouterLinkDirective} from "../directives";
 
 @Component({
     selector: 'articles',

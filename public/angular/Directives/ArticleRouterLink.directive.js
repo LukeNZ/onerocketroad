@@ -1,9 +1,4 @@
 "use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -15,32 +10,66 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require("@angular/router");
-var Article_class_1 = require("../Classes/Article.class");
-var ArticleRouterLinkDirective = (function (_super) {
-    __extends(ArticleRouterLinkDirective, _super);
-    function ArticleRouterLinkDirective(router, route) {
+var common_1 = require("@angular/common");
+var classes_1 = require("../classes");
+var ArticleRouterLinkDirective = (function () {
+    function ArticleRouterLinkDirective(router, route, locationStrategy) {
+        var _this = this;
         this.router = router;
         this.route = route;
+        this.locationStrategy = locationStrategy;
+        this.commands = [];
+        this.subscription = router.events.subscribe(function (s) {
+            if (s instanceof router_1.NavigationEnd) {
+                _this.updateTargetUrlAndHref();
+            }
+        });
     }
-    ArticleRouterLinkDirective.prototype.onClick = function () {
-        this.router.navigate([this.model.slug()]);
-        this.router.
-        ;
+    Object.defineProperty(ArticleRouterLinkDirective.prototype, "articleRouterLink", {
+        set: function (article) {
+            if (article != null) {
+                this.commands = ['/article', article.publicationYear(), article.publicationMonth(), article.publicationDay(), article.slug()];
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ArticleRouterLinkDirective.prototype.ngOnChanges = function (changes) { this.updateTargetUrlAndHref(); };
+    ArticleRouterLinkDirective.prototype.ngOnDestroy = function () { this.subscription.unsubscribe(); };
+    ArticleRouterLinkDirective.prototype.onClick = function (button, ctrlKey, metaKey) {
+        if (button !== 0 || ctrlKey || metaKey) {
+            return true;
+        }
+        if (this.model instanceof classes_1.Article === false) {
+            return true;
+        }
+        this.router.navigateByUrl(this.urlTree);
         return false;
+    };
+    ArticleRouterLinkDirective.prototype.updateTargetUrlAndHref = function () {
+        this.urlTree = this.router.createUrlTree(this.commands);
+        if (this.urlTree) {
+            this.href = this.locationStrategy.prepareExternalUrl(this.router.serializeUrl(this.urlTree));
+        }
     };
     __decorate([
         core_1.Input('articleRouterLink'), 
-        __metadata('design:type', Article_class_1.Article)
+        __metadata('design:type', classes_1.Article)
     ], ArticleRouterLinkDirective.prototype, "model", void 0);
     __decorate([
         core_1.HostBinding(), 
         __metadata('design:type', String)
     ], ArticleRouterLinkDirective.prototype, "href", void 0);
     __decorate([
+        core_1.Input(), 
+        __metadata('design:type', classes_1.Article), 
+        __metadata('design:paramtypes', [classes_1.Article])
+    ], ArticleRouterLinkDirective.prototype, "articleRouterLink", null);
+    __decorate([
         core_1.HostListener('click', ['$event.button', '$event.ctrlKey', '$event.metaKey']), 
         __metadata('design:type', Function), 
-        __metadata('design:paramtypes', []), 
-        __metadata('design:returntype', void 0)
+        __metadata('design:paramtypes', [Number, Boolean, Boolean]), 
+        __metadata('design:returntype', Boolean)
     ], ArticleRouterLinkDirective.prototype, "onClick", null);
     ArticleRouterLinkDirective = __decorate([
         core_1.Directive({
@@ -49,8 +78,8 @@ var ArticleRouterLinkDirective = (function (_super) {
                 'click': 'onClick()'
             }
         }), 
-        __metadata('design:paramtypes', [router_1.Router, router_1.ActivatedRoute])
+        __metadata('design:paramtypes', [router_1.Router, router_1.ActivatedRoute, common_1.LocationStrategy])
     ], ArticleRouterLinkDirective);
     return ArticleRouterLinkDirective;
-}(router_1.RouterLinkWithHref));
+}());
 exports.ArticleRouterLinkDirective = ArticleRouterLinkDirective;

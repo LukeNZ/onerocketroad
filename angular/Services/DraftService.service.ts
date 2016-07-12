@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
-import {Http, Response} from "@angular/http";
-import {AbstractService} from '../Services/AbstractService.service';
-import {Draft} from "../Classes/Draft.class";
+import {Http} from "@angular/http";
+import {AbstractService} from '../services';
+import {Draft} from "../classes";
 import {Observable} from "rxjs/Rx";
 
 @Injectable()

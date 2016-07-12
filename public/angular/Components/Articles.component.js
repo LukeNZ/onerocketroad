@@ -10,10 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var platform_browser_1 = require("@angular/platform-browser");
-var ArticleService_service_1 = require("../Services/ArticleService.service");
 var router_1 = require("@angular/router");
-var MarkdownPipe_pipe_1 = require("../Pipes/MarkdownPipe.pipe");
-var ArticleRouterLink_directive_1 = require("../Directives/ArticleRouterLink.directive");
+var services_1 = require("../services");
+var pipes_1 = require("../pipes");
+var directives_1 = require("../directives");
 var ArticlesComponent = (function () {
     function ArticlesComponent(articleService, titleService, route, router) {
         this.articleService = articleService;
@@ -48,11 +48,11 @@ var ArticlesComponent = (function () {
         core_1.Component({
             selector: 'articles',
             templateUrl: '/angular/views/articles.template.html',
-            pipes: [MarkdownPipe_pipe_1.MarkdownPipe],
-            directives: [router_1.ROUTER_DIRECTIVES, ArticleRouterLink_directive_1.ArticleRouterLinkDirective],
-            providers: [ArticleService_service_1.ArticleService]
+            pipes: [pipes_1.MarkdownPipe],
+            directives: [router_1.ROUTER_DIRECTIVES, directives_1.ArticleRouterLinkDirective],
+            providers: [services_1.ArticleService]
         }), 
-        __metadata('design:paramtypes', [ArticleService_service_1.ArticleService, platform_browser_1.Title, router_1.ActivatedRoute, router_1.Router])
+        __metadata('design:paramtypes', [services_1.ArticleService, platform_browser_1.Title, router_1.ActivatedRoute, router_1.Router])
     ], ArticlesComponent);
     return ArticlesComponent;
 }());

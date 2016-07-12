@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router, ROUTER_DIRECTIVES} from "@angular/router";
-import {HomeService} from "../Services/HomeService.service";
-import {Home} from "../Classes/Home.class";
+import {HomeService} from "../services";
+import {Home} from "../classes";
 
 @Component({
     selector: 'home',

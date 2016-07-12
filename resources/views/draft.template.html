@@ -1,7 +1,7 @@
 <a [routerLink]="['/drafts']">Back to Drafts</a>
 
 <div *ngIf="draft">
-    <h1 [(contentEditableModel)]="draft.title"></h1>
+    <h1 [contentEditableModel]="draft.title" (contentEditableModelChange)="autosaveDraftTitle($event)"></h1>
     <p>By {{ draft.authorName }}</p>
     <ul>
         <li (click)="setViewState(draftViewState.Edit)">Edit</li>
@@ -12,7 +12,7 @@
 
     <p [hidden]="!isSaving">Saving...</p>
 
-    <textarea [(ngModel)]="draft.body" [formControl]="bodyFormControl" [hidden]="viewState == draftViewState.Preview">
+    <textarea [ngModel]="draft.body" (ngModelChange)="autosaveDraftBody($event)" [formControl]="bodyFormControl" [hidden]="viewState == draftViewState.Preview">
     </textarea>
 
     <section id="markdown-preview" *ngIf="viewState != draftViewState.Edit" [innerHTML]="bodyFormControl.value | markdown">

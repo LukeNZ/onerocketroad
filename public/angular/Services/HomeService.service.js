@@ -15,9 +15,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
-var AbstractService_service_1 = require("./AbstractService.service");
-var Home_class_1 = require("../Classes/Home.class");
-var Article_class_1 = require("../Classes/Article.class");
+var services_1 = require("../services");
+var classes_1 = require("../classes");
 var HomeService = (function (_super) {
     __extends(HomeService, _super);
     function HomeService(http) {
@@ -34,9 +33,9 @@ var HomeService = (function (_super) {
         return this.http.get('/api/home/get')
             .map(function (response) {
             var articles = response.json().map(function (article) {
-                return new Article_class_1.Article(article.id, article.title, article.body, article.authorName, article.createdAt, article.updatedAt);
+                return new classes_1.Article(article.id, article.title, article.body, article.authorName, article.createdAt, article.updatedAt);
             });
-            return new Home_class_1.Home(articles);
+            return new classes_1.Home(articles);
         })
             .catch(this.handleError);
     };
@@ -45,5 +44,5 @@ var HomeService = (function (_super) {
         __metadata('design:paramtypes', [http_1.Http])
     ], HomeService);
     return HomeService;
-}(AbstractService_service_1.AbstractService));
+}(services_1.AbstractService));
 exports.HomeService = HomeService;

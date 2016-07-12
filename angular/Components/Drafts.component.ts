@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Title} from '@angular/platform-browser';
-import {Draft} from "../Classes/Draft.class";
-import {DraftService} from "../Services/DraftService.service";
 import {ROUTER_DIRECTIVES} from '@angular/router';
+import {Draft} from "../classes";
+import {DraftService} from "../services";
 
 @Component({
     selector: 'drafts',

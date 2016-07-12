@@ -12,12 +12,12 @@ var core_1 = require("@angular/core");
 var platform_browser_1 = require('@angular/platform-browser');
 var router_1 = require("@angular/router");
 var forms_1 = require('@angular/forms');
-var DraftService_service_1 = require("../Services/DraftService.service");
-var ContentEditable_directive_1 = require("../Directives/ContentEditable.directive");
-var DraftViewState_enum_1 = require("../Enums/DraftViewState.enum");
-var MarkdownPipe_pipe_1 = require("../Pipes/MarkdownPipe.pipe");
-var Article_class_1 = require("../Classes/Article.class");
-var ArticleService_service_1 = require("../Services/ArticleService.service");
+var services_1 = require("../services");
+var classes_1 = require("../classes");
+var directives_1 = require("../directives");
+var enums_1 = require("../enums");
+var pipes_1 = require("../pipes");
+var Rx_1 = require("rxjs/Rx");
 var DraftComponent = (function () {
     function DraftComponent(draftService, articleService, titleService, route, router) {
         this.draftService = draftService;
@@ -27,10 +27,23 @@ var DraftComponent = (function () {
         this.router = router;
         this.isSaving = false;
         this.isPublishing = false;
-        this.draftViewState = DraftViewState_enum_1.DraftViewState;
-        this.viewState = DraftViewState_enum_1.DraftViewState.Edit;
+        this.draftViewState = enums_1.DraftViewState;
+        this.viewState = enums_1.DraftViewState.Edit;
         this.bodyFormControl = new forms_1.FormControl();
+        this.draftSubject = new Rx_1.Subject();
+        this.draftStream = this.draftSubject.asObservable();
     }
+    Object.defineProperty(DraftComponent.prototype, "draft", {
+        get: function () {
+            return this._draft;
+        },
+        set: function (draft) {
+            this._draft = draft;
+            this.draftSubject.next(draft);
+        },
+        enumerable: true,
+        configurable: true
+    });
     DraftComponent.prototype.ngOnInit = function () {
         // Could either fetch data from the server again or simply pass data from the parent component?
         // http://stackoverflow.com/questions/33308340/how-to-inject-data-into-angular2-component-created-from-a-router
@@ -41,15 +54,10 @@ var DraftComponent = (function () {
         this.draftService.getDraft(id).subscribe(function (draft) {
             _this.draft = draft;
             _this.titleService.setTitle("One Rocket Road | Draft: " + draft.title);
-            // This is a poor substitute for object change detection. Ideally, we would see if any changes
-            // have been made to the draft property, and debounce and subscribe to that. This does not appear
-            // to be possible, so we subscribe to changes off the form control for the body only.
-            _this.draftSubscription = _this.bodyFormControl
-                .valueChanges
-                .debounceTime(3000)
-                .subscribe(function () {
-                _this.autosave();
-            });
+            // Subscribe to changes and autosave when changes are detected after debouncing
+            _this.draftSubscription = _this.draftStream
+                .debounceTime(1000)
+                .subscribe(function () { return _this.autosave(); });
         }, function (error) { return console.log(error); });
     };
     /**
@@ -96,7 +104,7 @@ var DraftComponent = (function () {
     DraftComponent.prototype.publishDraft = function () {
         var _this = this;
         this.isPublishing = true;
-        var article = Article_class_1.Article.createFromDraft(this.draft);
+        var article = classes_1.Article.createFromDraft(this.draft);
         // In turn, create the article, then delete the draft.
         this.articleService.createArticle(article)
             .subscribe(function (articleFromServer) {
@@ -122,15 +130,21 @@ var DraftComponent = (function () {
             _this.router.navigate(['drafts']);
         });
     };
+    DraftComponent.prototype.autosaveDraftBody = function (body) {
+        this.draft = new classes_1.Draft(this.draft.id, this.draft.title, body, this.draft.author, this.draft.authorName, this.draft.dueAt, this.draft.createdAt, this.draft.updatedAt);
+    };
+    DraftComponent.prototype.autosaveDraftTitle = function (title) {
+        this.draft = new classes_1.Draft(this.draft.id, title, this.draft.body, this.draft.author, this.draft.authorName, this.draft.dueAt, this.draft.createdAt, this.draft.updatedAt);
+    };
     DraftComponent = __decorate([
         core_1.Component({
             selector: 'draft',
             templateUrl: '/angular/views/draft.template.html',
-            directives: [ContentEditable_directive_1.ContentEditableDirective, router_1.ROUTER_DIRECTIVES, forms_1.FORM_DIRECTIVES, forms_1.REACTIVE_FORM_DIRECTIVES],
-            providers: [DraftService_service_1.DraftService, ArticleService_service_1.ArticleService],
-            pipes: [MarkdownPipe_pipe_1.MarkdownPipe]
+            directives: [directives_1.ContentEditableDirective, router_1.ROUTER_DIRECTIVES, forms_1.FORM_DIRECTIVES],
+            providers: [services_1.DraftService, services_1.ArticleService],
+            pipes: [pipes_1.MarkdownPipe]
         }), 
-        __metadata('design:paramtypes', [DraftService_service_1.DraftService, ArticleService_service_1.ArticleService, platform_browser_1.Title, router_1.ActivatedRoute, router_1.Router])
+        __metadata('design:paramtypes', [services_1.DraftService, services_1.ArticleService, platform_browser_1.Title, router_1.ActivatedRoute, router_1.Router])
     ], DraftComponent);
     return DraftComponent;
 }());
