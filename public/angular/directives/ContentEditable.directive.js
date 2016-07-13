@@ -14,7 +14,7 @@ var ContentEditableDirective = (function () {
         this.el = el;
         this.update = new core_1.EventEmitter();
         el.nativeElement.setAttribute("contenteditable", "");
-        this.el.nativeElement.textContent = this.model;
+        el.nativeElement.textContent = this.model;
     }
     ContentEditableDirective.prototype.ngOnChanges = function (changes) {
         this.el.nativeElement.textContent = this.model;

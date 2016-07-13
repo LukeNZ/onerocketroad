@@ -3,12 +3,13 @@ import {Title} from '@angular/platform-browser';
 import {ROUTER_DIRECTIVES} from '@angular/router';
 import {Draft, Article} from "../classes";
 import {DraftService, ArticleService} from "../services";
+import {DraggableDirective, DroppableDirective} from "../directives";
 import {Observable} from "rxjs/Rx";
 
 @Component({
     selector: 'drafts',
     templateUrl: '/angular/views/drafts.template.html',
-    directives: [ROUTER_DIRECTIVES],
+    directives: [ROUTER_DIRECTIVES, DraggableDirective, DroppableDirective],
     providers: [DraftService, ArticleService],
 })
 
@@ -47,5 +48,16 @@ export class DraftsComponent implements OnInit {
             this.drafts.push(draft);
             this.isCreatingDraft = false;
         }, error => console.log(error));
+    }
+
+    /**
+     * Deletes a draft permanently.
+     *
+     * @param draft
+     */
+    public deleteDraft(draft: Draft) : void {
+        this.draftService.deleteDraft(draft).subscribe(response => {
+            this.drafts.splice(this.drafts.indexOf(draft), 1);
+        });
     }
 }

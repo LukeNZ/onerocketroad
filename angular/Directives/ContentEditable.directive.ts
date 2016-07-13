@@ -14,7 +14,7 @@ export class ContentEditableDirective implements OnChanges {
 
     constructor(private el: ElementRef) {
         el.nativeElement.setAttribute("contenteditable", "");
-        this.el.nativeElement.textContent = this.model;
+        el.nativeElement.textContent = this.model;
     }
 
     ngOnChanges(changes) {

@@ -15,10 +15,10 @@
     </form>
 </section>
 
-<h2>Current Drafts <i class="fa fa-trash"></i></h2>
+<h2>Current Drafts<i class="fa fa-trash" isDroppable (dropped)="deleteDraft($event)"></i></h2>
 <section>
     <ol>
-        <li *ngFor="let draft of drafts">
+        <li *ngFor="let draft of drafts" [isDraggable]="draft">
             <p>
                 <a [routerLink]="['/draft', draft.id]">{{ draft.title }}</a> by {{ draft.authorName }},
                 last edited at {{ draft.updatedAt | date:'HH:mm MMMM d, yyyy' }}

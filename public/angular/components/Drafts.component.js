@@ -13,6 +13,7 @@ var platform_browser_1 = require('@angular/platform-browser');
 var router_1 = require('@angular/router');
 var classes_1 = require("../classes");
 var services_1 = require("../services");
+var directives_1 = require("../directives");
 var Rx_1 = require("rxjs/Rx");
 var DraftsComponent = (function () {
     function DraftsComponent(draftService, articleService, titleService) {
@@ -43,11 +44,22 @@ var DraftsComponent = (function () {
             _this.isCreatingDraft = false;
         }, function (error) { return console.log(error); });
     };
+    /**
+     * Deletes a draft permanently.
+     *
+     * @param draft
+     */
+    DraftsComponent.prototype.deleteDraft = function (draft) {
+        var _this = this;
+        this.draftService.deleteDraft(draft).subscribe(function (response) {
+            _this.drafts.splice(_this.drafts.indexOf(draft), 1);
+        });
+    };
     DraftsComponent = __decorate([
         core_1.Component({
             selector: 'drafts',
             templateUrl: '/angular/views/drafts.template.html',
-            directives: [router_1.ROUTER_DIRECTIVES],
+            directives: [router_1.ROUTER_DIRECTIVES, directives_1.DraggableDirective, directives_1.DroppableDirective],
             providers: [services_1.DraftService, services_1.ArticleService],
         }), 
         __metadata('design:paramtypes', [services_1.DraftService, services_1.ArticleService, platform_browser_1.Title])
