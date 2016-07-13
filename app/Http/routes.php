@@ -12,6 +12,8 @@
 */
 
 // Home
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return view('home');
 });
@@ -39,7 +41,7 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api'], function() {
     });
 
     Route::group(['prefix' => 'images'], function() {
-
+        Route::get('all', 'ImagesController@all');
     });
 });
 

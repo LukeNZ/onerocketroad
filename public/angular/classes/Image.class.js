@@ -1,6 +1,8 @@
 "use strict";
 var Image = (function () {
-    function Image() {
+    function Image(summary, attribution) {
+        this.summary = summary;
+        this.attribution = attribution;
     }
     return Image;
 }());

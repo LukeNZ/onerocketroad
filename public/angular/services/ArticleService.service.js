@@ -38,10 +38,9 @@ var ArticleService = (function (_super) {
     ArticleService.prototype.getRecentArticles = function (cursor) {
         cursor = cursor == null ? 0 : cursor;
         return this.http.get('/api/articles/getrecent/' + cursor)
-            .map(function (response) {
-            return response.json().map(function (article) {
-                return new classes_1.Article(article.id, article.title, article.body, article.authorName, article.createdAt, article.updatedAt);
-            });
+            .map(function (response) { return response.json(); })
+            .map(function (article) {
+            return new classes_1.Article(article.id, article.title, article.body, article.authorName, article.createdAt, article.updatedAt);
         })
             .catch(this.handleError);
     };
@@ -59,8 +58,8 @@ var ArticleService = (function (_super) {
     ArticleService.prototype.getArticle = function (year, month, day, slug) {
         var _this = this;
         return this.http.get('/api/articles/get/' + year + '/' + month + '/' + day + "/" + slug)
-            .map(function (response) {
-            var model = response.json();
+            .map(function (response) { return response.json(); })
+            .map(function (model) {
             return new classes_1.Article(model.id, model.title, model.body, model.authorName, model.createdAt, model.updatedAt);
         })
             .catch(function (response) {
@@ -82,8 +81,8 @@ var ArticleService = (function (_super) {
      */
     ArticleService.prototype.createArticle = function (article) {
         return this.http.put('/api/articles/create', article)
-            .map(function (response) {
-            var model = response.json();
+            .map(function (response) { return response.json(); })
+            .map(function (model) {
             return new classes_1.Article(model.id, model.title, model.body, model.authorName, model.createdAt, model.updatedAt);
         })
             .catch(this.handleError);

@@ -14,7 +14,12 @@ export class ImageService extends AbstractService {
     }
 
     public getImages() : Observable<Image[]> {
-        return this.http.get('/api/images/get/all')
+        return this.http.get('/api/images/all')
+            .map(response => response.json())
+            .map(model => {
+                return new Image(model.summary, model.attribution);
+            })
+            .catch(this.handleError);
     }
 
     public getImage() : Observable<Image[]> {

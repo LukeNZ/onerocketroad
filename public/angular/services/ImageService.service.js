@@ -16,6 +16,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var services_1 = require("../services");
+var classes_1 = require("../classes");
 var ImageService = (function (_super) {
     __extends(ImageService, _super);
     function ImageService(http) {
@@ -23,7 +24,12 @@ var ImageService = (function (_super) {
         this.http = http;
     }
     ImageService.prototype.getImages = function () {
-        return null;
+        return this.http.get('/api/images/all')
+            .map(function (response) { return response.json(); })
+            .map(function (model) {
+            return new classes_1.Image(model.summary, model.attribution);
+        })
+            .catch(this.handleError);
     };
     ImageService.prototype.getImage = function () {
         return null;

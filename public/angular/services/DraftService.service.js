@@ -43,8 +43,8 @@ var DraftService = (function (_super) {
      */
     DraftService.prototype.getDraft = function (draftId) {
         return this.http.get('/api/drafts/get/' + draftId)
-            .map(function (response) {
-            var model = response.json();
+            .map(function (response) { return response.json(); })
+            .map(function (model) {
             return new classes_1.Draft(model.id, model.title, model.body, null, model.authorName, model.dueAt, model.createdAt, model.updatedAt);
         })
             .catch(this.handleError);

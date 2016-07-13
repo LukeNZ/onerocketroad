@@ -28,11 +28,10 @@ export class ArticleService extends AbstractService {
         cursor = cursor == null ? 0 : cursor;
 
         return this.http.get('/api/articles/getrecent/' + cursor)
-            .map(response => {
-                return response.json().map(article => {
-                    return new Article(article.id, article.title, article.body, article.authorName,
-                        article.createdAt, article.updatedAt);
-                });
+            .map(response => response.json())
+            .map(article => {
+                return new Article(article.id, article.title, article.body, article.authorName,
+                    article.createdAt, article.updatedAt);
             })
             .catch(this.handleError);
     }
@@ -50,8 +49,8 @@ export class ArticleService extends AbstractService {
      */
     public getArticle(year: string, month: string, day: string, slug: string) : Observable<Article> {
         return this.http.get('/api/articles/get/' + year + '/' + month + '/' + day + "/" + slug)
-            .map(response => {
-                let model = response.json();
+            .map(response => response.json())
+            .map(model => {
                 return new Article(model.id, model.title, model.body, model.authorName,
                     model.createdAt, model.updatedAt);
             })
@@ -76,8 +75,8 @@ export class ArticleService extends AbstractService {
      */
     public createArticle(article : Article) : Observable<Article> {
         return this.http.put('/api/articles/create', article)
-            .map(response => {
-                let model = response.json();
+            .map(response => response.json())
+            .map(model => {
                 return new Article(model.id, model.title, model.body, model.authorName,
                     model.createdAt, model.updatedAt);
             })
