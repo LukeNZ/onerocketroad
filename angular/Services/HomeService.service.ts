@@ -8,6 +8,7 @@ import {Observable} from "rxjs/Rx";
 
 @Injectable()
 export class HomeService extends AbstractService {
+    
     constructor(private http: Http) {
         super();
     }

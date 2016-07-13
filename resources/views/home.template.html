@@ -1,17 +1,38 @@
-<p>Home!</p>
+<h1>Welcome to One Rocket Road</h1>
 <a [routerLink]="['/articles']">Articles</a>
 <a [routerLink]="['/drafts']">Drafts</a>
 
 <div *ngIf="home">
-    <p>The latest</p>
+    <h2>The latest</h2>
+    <article>
+        <p><a [articleRouterLink]="home.leadArticle">{{ home.leadArticle.title }}</a></p>
+    </article>
 
-    <p>Also...</p>
+    <h2>Also...</h2>
+    <section>
+        <article>
+            <p><a [articleRouterLink]="home.midTierArticles.first">{{ home.midTierArticles.first.title }}</a></p>
+        </article>
+        <article>
+            <p><a [articleRouterLink]="home.midTierArticles.second">{{ home.midTierArticles.second.title }}</a></p>
+        </article>
+    </section>
 
-    <p>More</p>
+    <h2>More</h2>
+    <section>
+        <article>
+            <p><a [articleRouterLink]="home.moreArticles.first">{{ home.moreArticles.first.title }}</a></p>
+        </article>
+        <article>
+            <p><a [articleRouterLink]="home.moreArticles.second">{{ home.moreArticles.second.title }}</a></p>
+        </article>
+        <article>
+            <p><a [articleRouterLink]="home.moreArticles.third">{{ home.moreArticles.third.title }}</a></p>
+        </article>
+    </section>
 
     <p><a [routerLink]="['/articles']">All articles...</a></p>
 
     <!-- Most read? -->
-
     <!-- tweets -->
 </div>

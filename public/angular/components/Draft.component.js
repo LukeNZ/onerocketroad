@@ -140,7 +140,7 @@ var DraftComponent = (function () {
         core_1.Component({
             selector: 'draft',
             templateUrl: '/angular/views/draft.template.html',
-            directives: [directives_1.ContentEditableDirective, router_1.ROUTER_DIRECTIVES, forms_1.FORM_DIRECTIVES],
+            directives: [directives_1.ContentEditableDirective, router_1.ROUTER_DIRECTIVES, forms_1.FORM_DIRECTIVES, forms_1.REACTIVE_FORM_DIRECTIVES],
             providers: [services_1.DraftService, services_1.ArticleService],
             pipes: [pipes_1.MarkdownPipe]
         }), 

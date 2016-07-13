@@ -10,12 +10,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require("@angular/router");
+var platform_browser_1 = require("@angular/platform-browser");
 var services_1 = require("../services");
+var directives_1 = require("../directives");
 var HomeComponent = (function () {
-    function HomeComponent(homeService, route, router) {
+    function HomeComponent(homeService, route, router, titleService) {
         this.homeService = homeService;
         this.route = route;
         this.router = router;
+        this.titleService = titleService;
+        this.titleService.setTitle("One Rocket Road");
     }
     HomeComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -26,11 +30,11 @@ var HomeComponent = (function () {
     HomeComponent = __decorate([
         core_1.Component({
             selector: 'home',
-            directives: [router_1.ROUTER_DIRECTIVES],
             templateUrl: '/angular/views/home.template.html',
+            directives: [router_1.ROUTER_DIRECTIVES, directives_1.ArticleRouterLinkDirective],
             providers: [services_1.HomeService]
         }), 
-        __metadata('design:paramtypes', [services_1.HomeService, router_1.ActivatedRoute, router_1.Router])
+        __metadata('design:paramtypes', [services_1.HomeService, router_1.ActivatedRoute, router_1.Router, platform_browser_1.Title])
     ], HomeComponent);
     return HomeComponent;
 }());
