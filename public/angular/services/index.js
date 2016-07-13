@@ -7,3 +7,4 @@ __export(require('./ArticleService.service'));
 __export(require('./DraftService.service'));
 __export(require('./HomeService.service'));
 __export(require('./UserService.service'));
+__export(require('./ImageService.service'));

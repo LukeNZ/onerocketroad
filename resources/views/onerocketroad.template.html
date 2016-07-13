@@ -1,4 +1,14 @@
-<div>
-    <p><a [routerLink]="['']">One Rocket Road</a></p>
-    <router-outlet></router-outlet>
-</div>
+<header>
+    <p>One Rocket Road</p>
+</header>
+<nav>
+    <ul>
+        <li [routerLink]="['']">Home</li>
+        <li [routerLink]="['/articles']">Articles</li>
+        <li [routerLink]="['/drafts']">Drafts</li>
+        <li [routerLink]="['/images']">Images</li>
+        <li [routerLink]="['/about']">About</li>
+    </ul>
+</nav>
+
+<router-outlet></router-outlet>

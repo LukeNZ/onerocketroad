@@ -1,0 +1,26 @@
+<h1>Images</h1>
+
+<h2>Upload Image</h2>
+<form>
+    <ul>
+        <li>
+            <dropzone></dropzone>
+        </li>
+        <li>
+            <span>Summary</span>
+            <textarea [(ngModel)]="imageToUpload.summary" required></textarea>
+        </li>
+        <li>
+            <span>Attribution</span>
+            <input [(ngModel)]="imageToUpload.attribution" type="text" name="attribution" required />
+        </li>
+        <li>
+            <button type="submit" [disabled]="">Upload</button>
+        </li>
+    </ul>
+</form>
+
+<h2>Recently Added</h2>
+<div *ngFor="let image of images">
+    <p>Some Image</p>
+</div>

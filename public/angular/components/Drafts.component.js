@@ -51,7 +51,7 @@ var DraftsComponent = (function () {
      */
     DraftsComponent.prototype.deleteDraft = function (draft) {
         var _this = this;
-        this.draftService.deleteDraft(draft).subscribe(function (response) {
+        this.draftService.deleteDraft(draft).subscribe(function () {
             _this.drafts.splice(_this.drafts.indexOf(draft), 1);
         });
     };

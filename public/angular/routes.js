@@ -8,6 +8,8 @@ exports.routes = [
     { path: 'draft/:id', component: components_1.DraftComponent },
     { path: 'articles', component: components_1.ArticlesComponent },
     { path: 'article/:year/:month/:day/:slug', component: components_1.ArticleComponent },
+    { path: 'images', component: components_1.ImagesComponent },
+    { path: 'about', component: components_1.AboutComponent },
     { path: 'signup', component: components_1.SignUpComponent },
     { path: 'login', component: components_1.LoginComponent }
 ];

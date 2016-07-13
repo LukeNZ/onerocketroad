@@ -11,6 +11,7 @@
         'rxjs':                       '/node_modules/rxjs',
         'marked':                     '/node_modules/marked',
         'moment':                     '/node_modules/moment',
+        'dropzone':                   '/node_modules/dropzone/dist',
         
         'classes':                    '/angular/classes',
         'components':                 '/angular/components',
@@ -26,6 +27,7 @@
         'angular2-in-memory-web-api': { main: 'index.js', defaultExtension: 'js' },
         'marked':                     { main: 'marked.min.js', defaultExtension: 'js' },
         'moment':                     { main: 'moment.js', defaultExtension: 'js' },
+        'dropzone':                   { main: 'dropzone.js', defaultExtension: 'js' },
 
         'classes':                    { main: 'index.js', defaultExtension: 'js' },
         'components':                 { main: 'index.js', defaultExtension: 'js' },

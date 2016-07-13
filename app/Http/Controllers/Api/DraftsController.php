@@ -57,6 +57,7 @@ class DraftsController extends Controller
     }
 
     /**
+     * Updates a given draft and returns 204 No Content.
      * PATCH: /api/articles/update
      *
      * @param Request $request
@@ -69,6 +70,7 @@ class DraftsController extends Controller
     }
 
     /**
+     * Deletes a given draft by id from the back store and returns 204 No Content.
      * DELETE: /api/articles/delete/{draftId}
      *
      * @param $draftId

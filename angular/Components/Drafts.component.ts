@@ -56,7 +56,7 @@ export class DraftsComponent implements OnInit {
      * @param draft
      */
     public deleteDraft(draft: Draft) : void {
-        this.draftService.deleteDraft(draft).subscribe(response => {
+        this.draftService.deleteDraft(draft).subscribe(() => {
             this.drafts.splice(this.drafts.indexOf(draft), 1);
         });
     }
