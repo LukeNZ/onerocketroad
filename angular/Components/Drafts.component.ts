@@ -1,14 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {ROUTER_DIRECTIVES} from '@angular/router';
-import {Draft} from "../classes";
-import {DraftService} from "../services";
+import {Draft, Article} from "../classes";
+import {DraftService, ArticleService} from "../services";
+import {Observable} from "rxjs/Rx";
 
 @Component({
     selector: 'drafts',
     templateUrl: '/angular/views/drafts.template.html',
     directives: [ROUTER_DIRECTIVES],
-    providers: [DraftService],
+    providers: [DraftService, ArticleService],
 })
 
 /**
@@ -18,17 +19,23 @@ export class DraftsComponent implements OnInit {
     public newDraftModel : Draft = new Draft(null, "", "", null, null, null, null, null);
     public isCreatingDraft : boolean = false;
     public drafts : Draft[] = [];
+    public articles : Article[] = [];
 
     constructor(private draftService: DraftService,
+                private articleService: ArticleService,
                 private titleService: Title) {
         this.titleService.setTitle("One Rocket Road | Drafts");
     }
 
     ngOnInit() {
-        this.draftService.getAllDrafts().subscribe(
-            drafts => this.drafts = drafts,
-            error => console.log(error)
-        );
+        Observable.forkJoin(
+            this.draftService.getAllDrafts(),
+            this.articleService.getRecentArticles()
+        ).subscribe(data => {
+            this.drafts = data[0];
+            this.articles = data[1];
+        },
+        err => console.log(err));
     }
 
     /**

@@ -29,5 +29,9 @@
 
 <h2>Published Articles</h2>
 <section>
-
+    <ol>
+        <li *ngFor="let article of articles">
+            <p>{{ article.title }}</p>
+        </li>
+    </ol>
 </section>

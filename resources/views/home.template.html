@@ -4,12 +4,12 @@
 
 <div *ngIf="home">
     <h2>The latest</h2>
-    <article>
+    <article *ngIf="home.leadArticle">
         <p><a [articleRouterLink]="home.leadArticle">{{ home.leadArticle.title }}</a></p>
     </article>
 
     <h2>Also...</h2>
-    <section>
+    <section *ngIf="home.midTierArticles">
         <article>
             <p><a [articleRouterLink]="home.midTierArticles.first">{{ home.midTierArticles.first.title }}</a></p>
         </article>
@@ -19,7 +19,7 @@
     </section>
 
     <h2>More</h2>
-    <section>
+    <section *ngIf="home.moreArticles">
         <article>
             <p><a [articleRouterLink]="home.moreArticles.first">{{ home.moreArticles.first.title }}</a></p>
         </article>
