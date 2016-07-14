@@ -26,8 +26,10 @@ var ImageService = (function (_super) {
     ImageService.prototype.getImages = function () {
         return this.http.get('/api/images/all')
             .map(function (response) { return response.json(); })
-            .map(function (model) {
-            return new classes_1.Image(model.summary, model.attribution);
+            .map(function (models) {
+            return models.map(function (model) {
+                return new classes_1.Image(model.summary, model.attribution);
+            });
         })
             .catch(this.handleError);
     };

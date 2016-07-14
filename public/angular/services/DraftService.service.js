@@ -32,6 +32,11 @@ var DraftService = (function (_super) {
     DraftService.prototype.getAllDrafts = function () {
         return this.http.get('/api/drafts/all')
             .map(function (response) { return response.json(); })
+            .map(function (models) {
+            return models.map(function (model) {
+                return new classes_1.Draft(model.id, model.title, model.body, null, model.authorName, model.dueAt, model.createdAt, model.updatedAt);
+            });
+        })
             .catch(this.handleError);
     };
     /**
@@ -59,6 +64,9 @@ var DraftService = (function (_super) {
     DraftService.prototype.createDraft = function (draft) {
         return this.http.put('/api/drafts/create', draft)
             .map(function (response) { return response.json(); })
+            .map(function (model) {
+            return new classes_1.Draft(model.id, model.title, model.body, null, model.authorName, model.dueAt, model.createdAt, model.updatedAt);
+        })
             .catch(this.handleError);
     };
     /**

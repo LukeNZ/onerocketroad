@@ -10,11 +10,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var platform_browser_1 = require("@angular/platform-browser");
+var classes_1 = require("../classes");
 var services_1 = require("../services");
 var ImagesComponent = (function () {
     function ImagesComponent(imageService, titleService) {
         this.imageService = imageService;
         this.titleService = titleService;
+        this.imageToUpload = new classes_1.Image(null, null);
         this.images = [];
         this.titleService.setTitle("One Rocket Road | Images");
     }

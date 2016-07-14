@@ -20,6 +20,12 @@ export class DraftService extends AbstractService {
     public getAllDrafts() : Observable<Draft[]> {
         return this.http.get('/api/drafts/all')
             .map(response => response.json())
+            .map(models => {
+                return models.map(model => {
+                    return new Draft(model.id, model.title, model.body, null, model.authorName,
+                        model.dueAt, model.createdAt, model.updatedAt);
+                });
+            })
             .catch(this.handleError);
     }
 
@@ -50,6 +56,10 @@ export class DraftService extends AbstractService {
     public createDraft(draft : Draft) : Observable<Draft> {
         return this.http.put('/api/drafts/create', draft)
             .map(response => response.json())
+            .map(model => {
+                return new Draft(model.id, model.title, model.body, null, model.authorName,
+                    model.dueAt, model.createdAt, model.updatedAt);
+            })
             .catch(this.handleError);
     }
 

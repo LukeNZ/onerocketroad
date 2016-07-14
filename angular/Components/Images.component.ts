@@ -9,7 +9,7 @@ import {ImageService} from "../services";
     providers: [ImageService]
 })
 export class ImagesComponent implements OnInit {
-    public imageToUpload: Image;
+    public imageToUpload: Image = new Image(null, null);
     public images: Image[] = [];
 
     constructor(private imageService: ImageService, private titleService: Title) {

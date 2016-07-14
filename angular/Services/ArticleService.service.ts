@@ -29,9 +29,11 @@ export class ArticleService extends AbstractService {
 
         return this.http.get('/api/articles/getrecent/' + cursor)
             .map(response => response.json())
-            .map(article => {
-                return new Article(article.id, article.title, article.body, article.authorName,
-                    article.createdAt, article.updatedAt);
+            .map(models => {
+                return models.map(model => {
+                    return new Article(model.id, model.title, model.body, model.authorName,
+                        model.createdAt, model.updatedAt);
+                });
             })
             .catch(this.handleError);
     }

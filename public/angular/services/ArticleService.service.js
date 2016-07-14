@@ -39,8 +39,10 @@ var ArticleService = (function (_super) {
         cursor = cursor == null ? 0 : cursor;
         return this.http.get('/api/articles/getrecent/' + cursor)
             .map(function (response) { return response.json(); })
-            .map(function (article) {
-            return new classes_1.Article(article.id, article.title, article.body, article.authorName, article.createdAt, article.updatedAt);
+            .map(function (models) {
+            return models.map(function (model) {
+                return new classes_1.Article(model.id, model.title, model.body, model.authorName, model.createdAt, model.updatedAt);
+            });
         })
             .catch(this.handleError);
     };

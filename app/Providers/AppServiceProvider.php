@@ -7,6 +7,8 @@ use OneRocketRoad\Stores\ArticleStore;
 use OneRocketRoad\Stores\ArticleStoreInterface;
 use OneRocketRoad\Stores\DraftStore;
 use OneRocketRoad\Stores\DraftStoreInterface;
+use OneRocketRoad\Stores\ImageStore;
+use OneRocketRoad\Stores\ImageStoreInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,5 +31,6 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(DraftStoreInterface::class, DraftStore::class);
         $this->app->bind(ArticleStoreInterface::class, ArticleStore::class);
+        $this->app->bind(ImageStoreInterface::class, ImageStore::class);
     }
 }
