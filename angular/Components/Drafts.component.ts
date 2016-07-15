@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Title} from '@angular/platform-browser';
-import {ROUTER_DIRECTIVES} from '@angular/router';
+import {ROUTER_DIRECTIVES, Router, ActivatedRoute} from '@angular/router';
 import {Draft, Article} from "../classes";
 import {DraftService, ArticleService} from "../services";
 import {DraggableDirective, DroppableDirective} from "../directives";
@@ -24,6 +24,8 @@ export class DraftsComponent implements OnInit {
 
     constructor(private draftService: DraftService,
                 private articleService: ArticleService,
+                private route : ActivatedRoute,
+                private router : Router,
                 private titleService: Title) {
         this.titleService.setTitle("One Rocket Road | Drafts");
     }
@@ -45,8 +47,7 @@ export class DraftsComponent implements OnInit {
     public createDraft() : void {
         this.isCreatingDraft = true;
         this.draftService.createDraft(this.newDraftModel).subscribe(draft => {
-            this.drafts.push(draft);
-            this.isCreatingDraft = false;
+            this.router.navigate(['draft', draft.id]);
         }, error => console.log(error));
     }
 

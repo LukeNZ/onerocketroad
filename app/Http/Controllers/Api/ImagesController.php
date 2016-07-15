@@ -2,6 +2,7 @@
 
 namespace OneRocketRoad\Http\Controllers\Api;
 
+use Illuminate\Http\Request;
 use OneRocketRoad\Http\Controllers\Controller;
 use OneRocketRoad\Stores\ImageStoreInterface;
 
@@ -24,5 +25,9 @@ class ImagesController extends Controller {
 
     public function get($imageId) {
 
+    }
+
+    public function create(Request $request) {
+        return response()->json($request->all());
     }
 }

@@ -19,6 +19,7 @@ var ImagesComponent = (function () {
         this.titleService = titleService;
         this.imageToUpload = new classes_1.Image(null, null);
         this.images = [];
+        this.isSubmitting = false;
         this.titleService.setTitle("One Rocket Road | Images");
     }
     ImagesComponent.prototype.ngOnInit = function () {
@@ -27,6 +28,15 @@ var ImagesComponent = (function () {
             _this.images = images;
         });
     };
+    ImagesComponent.prototype.uploadNewImage = function () {
+        this.dropzoneComponent.upload(this.imageToUpload).subscribe(function (response) {
+            console.log(response);
+        });
+    };
+    __decorate([
+        core_1.ViewChild(components_1.DropzoneComponent), 
+        __metadata('design:type', components_1.DropzoneComponent)
+    ], ImagesComponent.prototype, "dropzoneComponent", void 0);
     ImagesComponent = __decorate([
         core_1.Component({
             selector: 'images',

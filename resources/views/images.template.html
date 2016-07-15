@@ -1,7 +1,7 @@
 <h1>Images</h1>
 
 <h2>Upload Image</h2>
-<form>
+<form (ngSubmit)="uploadNewImage()" #imageForm="ngForm">
     <ul>
         <li>
             <dropzone></dropzone>
@@ -15,7 +15,7 @@
             <input [(ngModel)]="imageToUpload.attribution" type="text" name="attribution" required />
         </li>
         <li>
-            <button type="submit" [disabled]="">Upload</button>
+            <button type="submit" [disabled]="!imageForm.form.valid || isSubmitting">Upload</button>
         </li>
     </ul>
 </form>

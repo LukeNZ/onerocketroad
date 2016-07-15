@@ -42,6 +42,7 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api'], function() {
 
     Route::group(['prefix' => 'images'], function() {
         Route::get('all', 'ImagesController@all');
+        Route::post('create', 'ImagesController@create');
     });
 });
 

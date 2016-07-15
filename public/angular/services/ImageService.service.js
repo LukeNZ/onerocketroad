@@ -36,9 +36,6 @@ var ImageService = (function (_super) {
     ImageService.prototype.getImage = function () {
         return null;
     };
-    ImageService.prototype.uploadImage = function () {
-        return null;
-    };
     ImageService.prototype.deleteImage = function () {
         return null;
     };

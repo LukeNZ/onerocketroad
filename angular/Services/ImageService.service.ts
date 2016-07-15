@@ -28,10 +28,6 @@ export class ImageService extends AbstractService {
         return null;
     }
 
-    public uploadImage() : Observable<any> {
-        return null;
-    }
-
     public deleteImage() : Observable<any> {
         return null;
     }

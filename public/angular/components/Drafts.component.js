@@ -16,9 +16,11 @@ var services_1 = require("../services");
 var directives_1 = require("../directives");
 var Rx_1 = require("rxjs/Rx");
 var DraftsComponent = (function () {
-    function DraftsComponent(draftService, articleService, titleService) {
+    function DraftsComponent(draftService, articleService, route, router, titleService) {
         this.draftService = draftService;
         this.articleService = articleService;
+        this.route = route;
+        this.router = router;
         this.titleService = titleService;
         this.newDraftModel = new classes_1.Draft(null, "", "", null, null, null, null, null);
         this.isCreatingDraft = false;
@@ -40,8 +42,7 @@ var DraftsComponent = (function () {
         var _this = this;
         this.isCreatingDraft = true;
         this.draftService.createDraft(this.newDraftModel).subscribe(function (draft) {
-            _this.drafts.push(draft);
-            _this.isCreatingDraft = false;
+            _this.router.navigate(['draft', draft.id]);
         }, function (error) { return console.log(error); });
     };
     /**
@@ -62,7 +63,7 @@ var DraftsComponent = (function () {
             directives: [router_1.ROUTER_DIRECTIVES, directives_1.DraggableDirective, directives_1.DroppableDirective],
             providers: [services_1.DraftService, services_1.ArticleService],
         }), 
-        __metadata('design:paramtypes', [services_1.DraftService, services_1.ArticleService, platform_browser_1.Title])
+        __metadata('design:paramtypes', [services_1.DraftService, services_1.ArticleService, router_1.ActivatedRoute, router_1.Router, platform_browser_1.Title])
     ], DraftsComponent);
     return DraftsComponent;
 }());

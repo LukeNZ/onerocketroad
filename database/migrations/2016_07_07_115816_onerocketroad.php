@@ -61,6 +61,7 @@ class Onerocketroad extends Migration
                 $table->string('summary');
                 $table->string('author');
                 $table->integer('size')->unsigned();
+                $table->string('color');
                 $table->timestamps();
             });
         }
