@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var platform_browser_1 = require("@angular/platform-browser");
 var classes_1 = require("../classes");
+var components_1 = require("../components");
 var services_1 = require("../services");
 var ImagesComponent = (function () {
     function ImagesComponent(imageService, titleService) {
@@ -30,7 +31,8 @@ var ImagesComponent = (function () {
         core_1.Component({
             selector: 'images',
             templateUrl: '/angular/views/images.template.html',
-            providers: [services_1.ImageService]
+            providers: [services_1.ImageService],
+            directives: [components_1.DropzoneComponent]
         }), 
         __metadata('design:paramtypes', [services_1.ImageService, platform_browser_1.Title])
     ], ImagesComponent);

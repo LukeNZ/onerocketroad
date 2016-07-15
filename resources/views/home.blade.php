@@ -17,9 +17,10 @@
         </script>
 
         <!-- 3. Styles -->
+        <link rel="stylesheet" type="text/css" href="/css/styles.css" />
 
         <!-- 4. Fonts -->
-        <link rel="stylesheet" type="text/css" href="/node_modules/font-awesome/css/font-awesome.css">
+        <link rel="stylesheet" type="text/css" href="/node_modules/font-awesome/css/font-awesome.css" />
 
     </head>
     <body>

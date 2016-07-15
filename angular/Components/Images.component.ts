@@ -1,12 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {Title} from "@angular/platform-browser";
 import {Image} from "../classes";
+import {DropzoneComponent} from "../components";
 import {ImageService} from "../services";
 
 @Component({
     selector: 'images',
     templateUrl: '/angular/views/images.template.html',
-    providers: [ImageService]
+    providers: [ImageService],
+    directives: [DropzoneComponent]
 })
 export class ImagesComponent implements OnInit {
     public imageToUpload: Image = new Image(null, null);

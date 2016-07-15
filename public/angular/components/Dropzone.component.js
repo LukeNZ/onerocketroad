@@ -9,21 +9,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var Dropzone = require('dropzone');
 var DropzoneComponent = (function () {
     function DropzoneComponent(el) {
         this.el = el;
+    }
+    DropzoneComponent.prototype.ngOnInit = function () {
         this.el.nativeElement.id = "ng2-dropzone";
+        this.el.nativeElement.style.display = "block";
         var dropzone = new Dropzone(this.el.nativeElement, {
+            url: '/api/images/create',
             method: "put",
             maxFilesize: 32,
             maxFiles: 1,
             acceptedFiles: '.jpg,.jpeg,.png,.gif'
         });
-    }
+    };
     DropzoneComponent = __decorate([
         core_1.Component({
             selector: 'dropzone',
-            templateUrl: '/angular/views/dropzone.template.html'
+            template: ''
         }), 
         __metadata('design:paramtypes', [core_1.ElementRef])
     ], DropzoneComponent);
