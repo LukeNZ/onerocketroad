@@ -50,6 +50,9 @@ class Onerocketroad extends Migration
                 $table->string('author_name');
                 $table->integer('hero_id')->unsigned()->nullable();
                 $table->dateTime('due_at')->nullable();
+                $table->integer('draft_status')->unsigned()->nullable();
+                $table->integer('reviewer_id')->unsigned()->nullable();
+                $table->string('reviewer_name')->nullable();
                 $table->timestamps();
             });
         }
@@ -94,6 +97,7 @@ class Onerocketroad extends Migration
         Schema::table('drafts', function(Blueprint $table) {
             $table->foreign('hero_id')->references('id')->on('images')->onDelete('restrict');
             $table->foreign('author_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('reviewer_id')->references('id')->on('users')->onDelete('set null');
         });
 
         Schema::table('taggables', function(Blueprint $table) {
