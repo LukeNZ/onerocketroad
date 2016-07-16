@@ -9,17 +9,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var marked = require('marked');
+var Remarkable = require('remarkable'); // No typings yet
 var MarkdownPipe = (function () {
     function MarkdownPipe() {
+        this.remarkable = new Remarkable({
+            typographer: true
+        });
     }
     MarkdownPipe.prototype.transform = function (value) {
         if (value != null) {
-            return marked(value);
+            return this.remarkable.render(value);
         }
         return null;
     };
     MarkdownPipe = __decorate([
+        // No typings yet
         core_1.Pipe({
             name: 'markdown'
         }), 

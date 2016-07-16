@@ -9,7 +9,7 @@
         '@angular':                   '/node_modules/@angular',
         'angular2-in-memory-web-api': '/node_modules/angular2-in-memory-web-api',
         'rxjs':                       '/node_modules/rxjs',
-        'marked':                     '/node_modules/marked',
+        'remarkable':                 '/node_modules/remarkable/dist',
         'moment':                     '/node_modules/moment',
         'dropzone':                   '/node_modules/dropzone/dist',
         
@@ -25,7 +25,7 @@
         'app':                        { main: 'main.js',  defaultExtension: 'js' },
         'rxjs':                       { defaultExtension: 'js' },
         'angular2-in-memory-web-api': { main: 'index.js', defaultExtension: 'js' },
-        'marked':                     { main: 'marked.min.js', defaultExtension: 'js' },
+        'remarkable':                 { main: 'remarkable.js', defaultExtension: 'js' },
         'moment':                     { main: 'moment.js', defaultExtension: 'js' },
         'dropzone':                   { main: 'dropzone.js', defaultExtension: 'js' },
 
