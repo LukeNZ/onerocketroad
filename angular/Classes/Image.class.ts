@@ -23,7 +23,7 @@ export class Image {
         this.updatedAt = updatedAt;
     }
 
-    public getFileUrl() : string {
+    public getUrl() : string {
         return '/uploads/' + this.filename;
     }
 

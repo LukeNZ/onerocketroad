@@ -15,14 +15,30 @@
             <input [(ngModel)]="imageToUpload.attribution" type="text" name="attribution" required />
         </li>
         <li>
-            <button type="submit" [disabled]="!imageForm.form.valid || isSubmitting">Upload</button>
+            <button type="submit" [disabled]="!imageForm.form.valid || isSubmitting">
+                {{ isSubmitting ? "Uploading..." : "Upload" }}
+            </button>
         </li>
     </ul>
 </form>
 
 <h2>Recently Added</h2>
-<div *ngFor="let image of images">
+<div class="all-images" *ngFor="let image of images">
 
-    <img [src]="image.getThumbUrl()" [alt]="image.summary" />
-    <p>{{ image.summary }}</p>
+    <div class="image">
+        <img [src]="image.getThumbUrl()" [alt]="image.summary" />
+        <div [style.backgroundColor]="image.color" class="swatch"></div>
+        <ul>
+            <li>
+                <label>Full image:</label>
+                <input type="text" [highlightOnClick] [value]="image.getUrl()" readonly />
+            </li>
+            <li>
+                <label>Thumbnail:</label>
+                <input type="text" [highlightOnClick] [value]="image.getThumbUrl()" readonly />
+            </li>
+        </ul>
+        <p>{{ image.attribution }}</p>
+        <p>{{ image.summary }}</p>
+    </div>
 </div>

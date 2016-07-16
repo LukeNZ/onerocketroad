@@ -11,7 +11,7 @@ var Image = (function () {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
-    Image.prototype.getFileUrl = function () {
+    Image.prototype.getUrl = function () {
         return '/uploads/' + this.filename;
     };
     Image.prototype.getThumbUrl = function () {

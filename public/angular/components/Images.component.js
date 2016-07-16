@@ -13,6 +13,7 @@ var platform_browser_1 = require("@angular/platform-browser");
 var classes_1 = require("../classes");
 var components_1 = require("../components");
 var services_1 = require("../services");
+var directives_1 = require("../directives");
 var ImagesComponent = (function () {
     function ImagesComponent(imageService, titleService) {
         this.imageService = imageService;
@@ -35,11 +36,13 @@ var ImagesComponent = (function () {
      */
     ImagesComponent.prototype.uploadNewImage = function () {
         var _this = this;
+        this.isSubmitting = true;
         this.dropzoneComponent.upload(this.imageToUpload).subscribe(function (xmlHttpRequest) {
             // Allow easier access to the image from the xhr.
             var image = JSON.parse(xmlHttpRequest.response);
-            // Reset the image to upload form.
+            // Reset the upload form.
             _this.imageToUpload = new classes_1.Image(null, null, null, null, null, null, null, null, null);
+            _this.isSubmitting = false;
             // push the newly created image onto the images array.
             _this.images.push(new classes_1.Image(image.id, image.filename, image.thumbname, image.summary, image.attribution, image.size, image.color, image.createdAt, image.updatedAt));
             // Clear the Dropzone.
@@ -55,7 +58,7 @@ var ImagesComponent = (function () {
             selector: 'images',
             templateUrl: '/angular/views/images.template.html',
             providers: [services_1.ImageService],
-            directives: [components_1.DropzoneComponent]
+            directives: [components_1.DropzoneComponent, directives_1.HighlightOnClickDirective]
         }), 
         __metadata('design:paramtypes', [services_1.ImageService, platform_browser_1.Title])
     ], ImagesComponent);

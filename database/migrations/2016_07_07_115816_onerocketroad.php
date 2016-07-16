@@ -61,6 +61,7 @@ class Onerocketroad extends Migration
                 $table->string('thumbname');
                 $table->string('summary');
                 $table->string('attribution');
+                $table->integer('user_id')->unsigned()->nullable();
                 $table->integer('size')->unsigned();
                 $table->string('color')->nullable();
                 $table->timestamps();
@@ -97,6 +98,10 @@ class Onerocketroad extends Migration
 
         Schema::table('taggables', function(Blueprint $table) {
             $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
+        });
+
+        Schema::table('images', function(Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 

@@ -6,4 +6,11 @@ dropzone {
   border-radius: 10px;
   background-color: #F9F9F9; }
 
+.all-images div.image img {
+  max-width: 300px;
+  max-height: 300px; }
+.all-images div.image .swatch {
+  width: 50px;
+  height: 5; }
+
 /*# sourceMappingURL=styles.css.map */
