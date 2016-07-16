@@ -23,6 +23,12 @@ var ImageService = (function (_super) {
         _super.call(this);
         this.http = http;
     }
+    /**
+     * Get all images from the server.
+     * GET: /api/images/all
+     *
+     * @returns {Observable<Image[]>}   All images from the server.
+     */
     ImageService.prototype.getImages = function () {
         return this.http.get('/api/images/all')
             .map(function (response) { return response.json(); })
@@ -33,8 +39,20 @@ var ImageService = (function (_super) {
         })
             .catch(this.handleError);
     };
-    ImageService.prototype.getImage = function () {
-        return null;
+    /**
+     * Get an image by its id from the server.
+     * GET: /api/images/get/:id
+     *
+     * @param id    The id of the image to be fetched
+     * @returns {Observable<Image>}     The image specified by the id.
+     */
+    ImageService.prototype.getImage = function (id) {
+        return this.http.get('/api/images/get/' + id)
+            .map(function (response) { return response.json(); })
+            .map(function (model) {
+            return new classes_1.Image(model.id, model.filename, model.thumbname, model.summary, model.attribution, model.size, model.color, model.createdAt, model.updatedAt);
+        })
+            .catch(this.handleError);
     };
     ImageService.prototype.deleteImage = function () {
         return null;

@@ -65,7 +65,7 @@ var ArticleService = (function (_super) {
             return new classes_1.Article(model.id, model.title, model.body, model.authorName, model.createdAt, model.updatedAt);
         })
             .catch(function (response) {
-            if (response.status = 400) {
+            if (response.status == 404) {
                 return Rx_1.Observable.throw("Article not found");
             }
             return _this.handleError(response);

@@ -2,13 +2,15 @@
 
 namespace OneRocketRoad\Http\Controllers\Api;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use OneRocketRoad\Http\Controllers\Controller;
+use OneRocketRoad\Http\Controllers\OneRocketRoadBaseController;
 use OneRocketRoad\Http\Requests\ImageUploadRequest;
 use OneRocketRoad\Services\ImageServiceInterface;
 use OneRocketRoad\Stores\ImageStoreInterface;
 
-class ImagesController extends Controller {
+class ImagesController extends OneRocketRoadBaseController {
     protected $images, $imageService;
     
     public function __construct(ImageStoreInterface $imageStore, ImageServiceInterface $imageService) {
@@ -21,13 +23,29 @@ class ImagesController extends Controller {
      * GET: /api/images/all
      *
      * @return \Illuminate\Http\JsonResponse
+     * Returns 200 OK if the operation completed successfully.
      */
     public function all() {
-        return response()->json($this->images->all(), 200);
+        return $this->ok($this->images->all());
     }
 
-    public function get($imageId) {
 
+    /**
+     * Fetches a single image by id from the backing store and returns it.
+     * GET: /api/images/get/{imageId}
+     *
+     * @param $imageId
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * Returns 200 OK if the operation completed successfully.
+     * Returns 404 Not Found if the image was not found.
+     */
+    public function get($imageId) {
+        try {
+            return $this->ok($this->images->find($imageId));
+        } catch (ModelNotFoundException $e) {
+            return $this->notFound();
+        }
     }
 
     /**
@@ -38,10 +56,12 @@ class ImagesController extends Controller {
      * @param ImageUploadRequest $request
      *
      * @return \Illuminate\Http\JsonResponse
+     * Returns 200 OK if the operation completed successfully.
      */
     public function create(ImageUploadRequest $request) {
         $image = $this->images->create($request->all());
         $this->imageService->handle($request->file, $image);
-        return response()->json($image, 200);
+
+        return $this->ok($image);
     }
 }

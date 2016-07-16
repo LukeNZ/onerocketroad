@@ -46,6 +46,6 @@ class ImageStore implements ImageStoreInterface {
     }
 
     function find($id, $columns = array('*')) {
-        return Image::find($id, $columns);
+        return Image::findOrFail($id, $columns);
     }
 }

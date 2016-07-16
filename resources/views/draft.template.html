@@ -3,6 +3,13 @@
 <div *ngIf="draft">
     <h1 [contentEditableModel]="draft.title" (contentEditableModelChange)="autosaveDraftTitle($event)"></h1>
     <p>By {{ draft.authorName }}</p>
+    <p>{{ draft.hero?.attribution }}</p>
+
+    <h2>Hero</h2>
+    <input type="number" name="heroid" min="1"
+           [(ngModel)]="draft.heroId" (change)="setDraftHero($event.target.valueAsNumber)" />
+
+    <h2>Draft Details</h2>
     <ul>
         <li (click)="setViewState(draftViewState.Edit)">Edit</li>
         <li (click)="setViewState(draftViewState.Preview)">Preview</li>

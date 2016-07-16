@@ -21,10 +21,7 @@ export class DraftService extends AbstractService {
         return this.http.get('/api/drafts/all')
             .map(response => response.json())
             .map(models => {
-                return models.map(model => {
-                    return new Draft(model.id, model.title, model.body, null, model.authorName,
-                        model.dueAt, model.createdAt, model.updatedAt);
-                });
+                return models.map(model => this.createDraftModel(model));
             })
             .catch(this.handleError);
     }
@@ -39,10 +36,7 @@ export class DraftService extends AbstractService {
     public getDraft(draftId : number) : Observable<Draft> {
         return this.http.get('/api/drafts/get/' + draftId)
             .map(response => response.json())
-            .map(model => {
-                return new Draft(model.id, model.title, model.body, null, model.authorName,
-                    model.dueAt, model.createdAt, model.updatedAt);
-            })
+            .map(model => this.createDraftModel(model))
             .catch(this.handleError);
     }
 
@@ -56,10 +50,7 @@ export class DraftService extends AbstractService {
     public createDraft(draft : Draft) : Observable<Draft> {
         return this.http.put('/api/drafts/create', draft)
             .map(response => response.json())
-            .map(model => {
-                return new Draft(model.id, model.title, model.body, null, model.authorName,
-                    model.dueAt, model.createdAt, model.updatedAt);
-            })
+            .map(model => this.createDraftModel(model))
             .catch(this.handleError);
     }
 
@@ -68,11 +59,12 @@ export class DraftService extends AbstractService {
      * PATCH: /api/drafts/update
      *
      * @param draft The draft to update.
-     * @returns {Observable<number>}   A status code indicating the outcome of the operation.
+     * @returns {Observable<Draft>}   The draft returned from the server.
      */
-    public updateDraft(draft : Draft) : Observable<number> {
+    public updateDraft(draft : Draft) : Observable<Draft> {
         return this.http.patch('/api/drafts/update', draft)
-            .map(response => response.status)
+            .map(response => response.json())
+            .map(model => this.createDraftModel(model))
             .catch(this.handleError);
     }
 
@@ -87,5 +79,17 @@ export class DraftService extends AbstractService {
         return this.http.delete('/api/drafts/delete/' + draft.id)
             .map(response => response.status)
             .catch(this.handleError);
+    }
+
+    /**
+     * Creates a draft model from data on the server.
+     *
+     * @private
+     * @param model
+     * @returns {Draft}
+     */
+    private createDraftModel(model: any) {
+        return new Draft(model.id, model.title, model.body, null, model.authorName,
+            model.heroId, model.hero, model.dueAt, model.createdAt, model.updatedAt);
     }
 }

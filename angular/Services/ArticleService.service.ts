@@ -57,7 +57,7 @@ export class ArticleService extends AbstractService {
                     model.createdAt, model.updatedAt);
             })
             .catch(response => {
-                if (response.status = 400) {
+                if (response.status == 404) {
                     return Observable.throw("Article not found");
                 }
                 return this.handleError(response);

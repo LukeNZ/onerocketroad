@@ -34,9 +34,19 @@ var DraftComponent = (function () {
         this.draftStream = this.draftSubject.asObservable();
     }
     Object.defineProperty(DraftComponent.prototype, "draft", {
+        /**
+         * Getter for the private variable draft. Used to enable draft entity autosaving.
+         *
+         * @returns {Draft}
+         */
         get: function () {
             return this._draft;
         },
+        /**
+         * Setter for the private field draft. Used as a hook to enable debounced draft entity autosaving.
+         *
+         * @param draft
+         */
         set: function (draft) {
             this._draft = draft;
             this.draftSubject.next(draft);
@@ -45,11 +55,11 @@ var DraftComponent = (function () {
         configurable: true
     });
     DraftComponent.prototype.ngOnInit = function () {
+        var _this = this;
         // Could either fetch data from the server again or simply pass data from the parent component?
         // http://stackoverflow.com/questions/33308340/how-to-inject-data-into-angular2-component-created-from-a-router
         // No way in router 3.0.0-beta.2 to pass data across components. Possibly best to refetch as data passed through
         // may be outdated by the time it is used.
-        var _this = this;
         var id = +this.route.snapshot.params['id'];
         this.draftService.getDraft(id).subscribe(function (draft) {
             _this.draft = draft;
@@ -69,6 +79,18 @@ var DraftComponent = (function () {
     DraftComponent.prototype.setViewState = function (state) {
         this.viewState = state;
     };
+    DraftComponent.prototype.setDraftHero = function (value) {
+        var _this = this;
+        if (value != Number.NaN && value > 0) {
+            this.draft.heroId = value;
+            this.draftService.updateDraft(this.draft).subscribe(function (draft) {
+                _this.draft = draft;
+            }, function (error) {
+                _this.draft.heroId = null;
+                _this.draft.hero = null;
+            });
+        }
+    };
     /**
      * If the body of the draft is less than 200 words, highlight the word count tracker in
      * red to represent an extremely short draft (less than approximately 3 paragraphs).
@@ -79,6 +101,8 @@ var DraftComponent = (function () {
         return this.draft.wordCount() > 200 ? "black" : "red";
     };
     /**
+     * A human-readable statement representing the current wordcount of the draft body. Mainly
+     * used to enable pluralization when dealing with not one word.
      *
      * @returns {string}
      */
@@ -130,11 +154,16 @@ var DraftComponent = (function () {
             _this.router.navigate(['drafts']);
         });
     };
+    /**
+     * Called on ngModelChange of the draft body.
+     *
+     * @param body
+     */
     DraftComponent.prototype.autosaveDraftBody = function (body) {
-        this.draft = new classes_1.Draft(this.draft.id, this.draft.title, body, this.draft.author, this.draft.authorName, this.draft.dueAt, this.draft.createdAt, this.draft.updatedAt);
+        this.draft = new classes_1.Draft(this.draft.id, this.draft.title, body, this.draft.author, this.draft.authorName, this.draft.heroId, this.draft.hero, this.draft.dueAt, this.draft.createdAt, this.draft.updatedAt);
     };
     DraftComponent.prototype.autosaveDraftTitle = function (title) {
-        this.draft = new classes_1.Draft(this.draft.id, title, this.draft.body, this.draft.author, this.draft.authorName, this.draft.dueAt, this.draft.createdAt, this.draft.updatedAt);
+        this.draft = new classes_1.Draft(this.draft.id, title, this.draft.body, this.draft.author, this.draft.authorName, this.draft.heroId, this.draft.hero, this.draft.dueAt, this.draft.createdAt, this.draft.updatedAt);
     };
     DraftComponent = __decorate([
         core_1.Component({

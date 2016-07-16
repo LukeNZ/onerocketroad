@@ -30,12 +30,11 @@ var DraftService = (function (_super) {
      * @returns {Observable<Draft[]>}  All drafts from the server.
      */
     DraftService.prototype.getAllDrafts = function () {
+        var _this = this;
         return this.http.get('/api/drafts/all')
             .map(function (response) { return response.json(); })
             .map(function (models) {
-            return models.map(function (model) {
-                return new classes_1.Draft(model.id, model.title, model.body, null, model.authorName, model.dueAt, model.createdAt, model.updatedAt);
-            });
+            return models.map(function (model) { return _this.createDraftModel(model); });
         })
             .catch(this.handleError);
     };
@@ -47,11 +46,10 @@ var DraftService = (function (_super) {
      * @returns {Observable<Draft>}    The draft specified by the id.
      */
     DraftService.prototype.getDraft = function (draftId) {
+        var _this = this;
         return this.http.get('/api/drafts/get/' + draftId)
             .map(function (response) { return response.json(); })
-            .map(function (model) {
-            return new classes_1.Draft(model.id, model.title, model.body, null, model.authorName, model.dueAt, model.createdAt, model.updatedAt);
-        })
+            .map(function (model) { return _this.createDraftModel(model); })
             .catch(this.handleError);
     };
     /**
@@ -62,11 +60,10 @@ var DraftService = (function (_super) {
      * @returns {Observable<Draft>}    The draft returned from the server.
      */
     DraftService.prototype.createDraft = function (draft) {
+        var _this = this;
         return this.http.put('/api/drafts/create', draft)
             .map(function (response) { return response.json(); })
-            .map(function (model) {
-            return new classes_1.Draft(model.id, model.title, model.body, null, model.authorName, model.dueAt, model.createdAt, model.updatedAt);
-        })
+            .map(function (model) { return _this.createDraftModel(model); })
             .catch(this.handleError);
     };
     /**
@@ -74,11 +71,13 @@ var DraftService = (function (_super) {
      * PATCH: /api/drafts/update
      *
      * @param draft The draft to update.
-     * @returns {Observable<number>}   A status code indicating the outcome of the operation.
+     * @returns {Observable<Draft>}   The draft returned from the server.
      */
     DraftService.prototype.updateDraft = function (draft) {
+        var _this = this;
         return this.http.patch('/api/drafts/update', draft)
-            .map(function (response) { return response.status; })
+            .map(function (response) { return response.json(); })
+            .map(function (model) { return _this.createDraftModel(model); })
             .catch(this.handleError);
     };
     /**
@@ -92,6 +91,16 @@ var DraftService = (function (_super) {
         return this.http.delete('/api/drafts/delete/' + draft.id)
             .map(function (response) { return response.status; })
             .catch(this.handleError);
+    };
+    /**
+     * Creates a draft model from data on the server.
+     *
+     * @private
+     * @param model
+     * @returns {Draft}
+     */
+    DraftService.prototype.createDraftModel = function (model) {
+        return new classes_1.Draft(model.id, model.title, model.body, null, model.authorName, model.heroId, model.hero, model.dueAt, model.createdAt, model.updatedAt);
     };
     DraftService = __decorate([
         core_1.Injectable(), 

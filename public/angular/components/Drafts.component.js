@@ -22,7 +22,7 @@ var DraftsComponent = (function () {
         this.route = route;
         this.router = router;
         this.titleService = titleService;
-        this.newDraftModel = new classes_1.Draft(null, "", "", null, null, null, null, null);
+        this.newDraftModel = new classes_1.Draft(null, "", "", null, null, null, null, null, null, null);
         this.isCreatingDraft = false;
         this.drafts = [];
         this.articles = [];
@@ -31,6 +31,7 @@ var DraftsComponent = (function () {
     DraftsComponent.prototype.ngOnInit = function () {
         var _this = this;
         Rx_1.Observable.forkJoin(this.draftService.getAllDrafts(), this.articleService.getRecentArticles()).subscribe(function (data) {
+            console.log(data[0]);
             _this.drafts = data[0];
             _this.articles = data[1];
         }, function (err) { return console.log(err); });

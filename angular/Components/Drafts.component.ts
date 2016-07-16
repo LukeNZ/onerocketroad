@@ -17,7 +17,7 @@ import {Observable} from "rxjs/Rx";
  * Represents the component which handles multiple Draft instances.
  */
 export class DraftsComponent implements OnInit {
-    public newDraftModel : Draft = new Draft(null, "", "", null, null, null, null, null);
+    public newDraftModel : Draft = new Draft(null, "", "", null, null, null, null, null, null, null);
     public isCreatingDraft : boolean = false;
     public drafts : Draft[] = [];
     public articles : Article[] = [];
@@ -35,6 +35,7 @@ export class DraftsComponent implements OnInit {
             this.draftService.getAllDrafts(),
             this.articleService.getRecentArticles()
         ).subscribe(data => {
+            console.log(data[0]);
             this.drafts = data[0];
             this.articles = data[1];
         },

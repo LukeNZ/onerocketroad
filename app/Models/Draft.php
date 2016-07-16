@@ -9,4 +9,8 @@ class Draft extends OneRocketRoadModel
     public function author() {
         return $this->belongsTo(User::class);
     }
+
+    public function hero() {
+        return $this->belongsTo(Image::class, 'hero_id');
+    }
 }
