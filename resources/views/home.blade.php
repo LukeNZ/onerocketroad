@@ -15,7 +15,6 @@
         <script>
             System.import('app').catch(function(err){ console.error(err); });
         </script>
-
         <!-- 3. Styles -->
         <link rel="stylesheet" type="text/css" href="/css/styles.css" />
 

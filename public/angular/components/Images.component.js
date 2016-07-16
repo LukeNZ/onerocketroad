@@ -17,7 +17,7 @@ var ImagesComponent = (function () {
     function ImagesComponent(imageService, titleService) {
         this.imageService = imageService;
         this.titleService = titleService;
-        this.imageToUpload = new classes_1.Image(null, null);
+        this.imageToUpload = new classes_1.Image(null, null, null, null, null, null, null, null, null);
         this.images = [];
         this.isSubmitting = false;
         this.titleService.setTitle("One Rocket Road | Images");
@@ -26,11 +26,24 @@ var ImagesComponent = (function () {
         var _this = this;
         this.imageService.getImages().subscribe(function (images) {
             _this.images = images;
+            console.log(_this.images);
         });
     };
+    /**
+     * Uploads a new image, storing it on the server, before clearing the upload form and
+     * adding the newly-created image to the images array.
+     */
     ImagesComponent.prototype.uploadNewImage = function () {
-        this.dropzoneComponent.upload(this.imageToUpload).subscribe(function (response) {
-            console.log(response);
+        var _this = this;
+        this.dropzoneComponent.upload(this.imageToUpload).subscribe(function (xmlHttpRequest) {
+            // Allow easier access to the image from the xhr.
+            var image = JSON.parse(xmlHttpRequest.response);
+            // Reset the image to upload form.
+            _this.imageToUpload = new classes_1.Image(null, null, null, null, null, null, null, null, null);
+            // push the newly created image onto the images array.
+            _this.images.push(new classes_1.Image(image.id, image.filename, image.thumbname, image.summary, image.attribution, image.size, image.color, image.createdAt, image.updatedAt));
+            // Clear the Dropzone.
+            _this.dropzoneComponent.clear();
         });
     };
     __decorate([

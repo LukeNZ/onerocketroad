@@ -4,13 +4,16 @@ namespace OneRocketRoad\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use OneRocketRoad\Http\Controllers\Controller;
+use OneRocketRoad\Http\Requests\ImageUploadRequest;
+use OneRocketRoad\Services\ImageServiceInterface;
 use OneRocketRoad\Stores\ImageStoreInterface;
 
 class ImagesController extends Controller {
-    protected $images;
+    protected $images, $imageService;
     
-    public function __construct(ImageStoreInterface $imageStore) {
+    public function __construct(ImageStoreInterface $imageStore, ImageServiceInterface $imageService) {
         $this->images = $imageStore;
+        $this->imageService = $imageService;
     }
 
     /**
@@ -27,7 +30,18 @@ class ImagesController extends Controller {
 
     }
 
-    public function create(Request $request) {
-        return response()->json($request->all());
+    /**
+     * Accepts a given image and metadata; and moves the image to an uploads directory along with
+     * creating a lower resolution thumbnail. Inserts the metadata into the backing store.
+     * POST: /api/images/create
+     *
+     * @param ImageUploadRequest $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function create(ImageUploadRequest $request) {
+        $image = $this->images->create($request->all());
+        $this->imageService->handle($request->file, $image);
+        return response()->json($image, 200);
     }
 }

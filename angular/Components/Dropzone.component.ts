@@ -3,11 +3,6 @@ import Dropzone = require('dropzone');
 import {Observable} from "rxjs/Rx";
 import 'rxjs/add/observable/fromEvent';
 
-interface UploadDetail {
-    label: string;
-    result: any;
-}
-
 @Component({
     selector: 'dropzone',
     template: ''
@@ -17,6 +12,11 @@ export class DropzoneComponent implements OnInit {
 
     constructor(private el: ElementRef) {}
 
+    /**
+     * On component initializtion, apply an ID of "ng2-dropzone" and style the element as a block.
+     * Create a new Dropzone out of the element, specifying various parameters about how entities
+     * should be uploaded.
+     */
     ngOnInit() {
         this.el.nativeElement.id = "ng2-dropzone";
         this.el.nativeElement.style.display = "block";
@@ -36,21 +36,27 @@ export class DropzoneComponent implements OnInit {
 
     /**
      * Uploads a file using formdata, appending any extra details that are specified. Returns an observable
-     * which resolves when upload is completed.
+     * of the XMLHttpRequest which resolves when upload is completed.
      *
      * @param detailsToAdd  Any additional details that could be appended with this request. Each key on the
      * object is sent through as an extra form data entry.
      *
      * @returns Observable<any>
      */
-    public upload(detailsToAdd: {}) : Observable<any> {
+    public upload(detailsToAdd: {}) : Observable<XMLHttpRequest> {
         this.dropzone.on("sending", (file, xhr, formData: FormData) => {
             Object.keys(detailsToAdd).forEach(key => {
                 formData.append(key, detailsToAdd[key]);
             })
         });
         this.dropzone.processQueue();
-        return Observable.fromEvent(this.dropzone, "complete");
+        return Observable.fromEvent(this.dropzone, "complete").map((response: any) => {
+            return response.xhr;
+        });
+    }
+
+    public clear() {
+        this.dropzone.removeAllFiles();
     }
 
     /**

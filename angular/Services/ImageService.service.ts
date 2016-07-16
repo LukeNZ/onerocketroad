@@ -18,7 +18,8 @@ export class ImageService extends AbstractService {
             .map(response => response.json())
             .map(models => {
                 return models.map(model => {
-                    return new Image(model.summary, model.attribution);
+                    return new Image(model.id, model.filename, model.thumbname, model.summary, model.attribution,
+                        model.size, model.color, model.createdAt, model.updatedAt);
                 });
             })
             .catch(this.handleError);

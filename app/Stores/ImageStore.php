@@ -2,6 +2,7 @@
 namespace OneRocketRoad\Stores;
 
 use Carbon\Carbon;
+use ColorThief\ColorThief;
 use Illuminate\Support\Facades\Auth;
 use OneRocketRoad\Models\Image;
 
@@ -18,6 +19,22 @@ class ImageStore implements ImageStoreInterface {
     }
 
     function create(array $data) {
+        $uniqid = uniqid("", true);
+        
+        $image = new Image();
+        $image->filename = $uniqid . "." . $data['file']->extension();
+        $image->thumbname = $uniqid . ".thumb." . $data['file']->extension();
+        $image->summary = $data['summary'];
+        $image->attribution = $data['attribution'];
+        $image->size = $data['file']->getClientSize();
+
+        // Set the predominant color
+        $color = ColorThief::getColor($data["file"]->path());
+        $image->color = "rgb({$color[0]}, {$color[1]}, {$color[2]})";
+
+        $image->save();
+        
+        return $image;
     }
 
     function update(array $data) {

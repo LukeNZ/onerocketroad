@@ -16,6 +16,11 @@ var DropzoneComponent = (function () {
     function DropzoneComponent(el) {
         this.el = el;
     }
+    /**
+     * On component initializtion, apply an ID of "ng2-dropzone" and style the element as a block.
+     * Create a new Dropzone out of the element, specifying various parameters about how entities
+     * should be uploaded.
+     */
     DropzoneComponent.prototype.ngOnInit = function () {
         this.el.nativeElement.id = "ng2-dropzone";
         this.el.nativeElement.style.display = "block";
@@ -33,7 +38,7 @@ var DropzoneComponent = (function () {
     };
     /**
      * Uploads a file using formdata, appending any extra details that are specified. Returns an observable
-     * which resolves when upload is completed.
+     * of the XMLHttpRequest which resolves when upload is completed.
      *
      * @param detailsToAdd  Any additional details that could be appended with this request. Each key on the
      * object is sent through as an extra form data entry.
@@ -47,7 +52,12 @@ var DropzoneComponent = (function () {
             });
         });
         this.dropzone.processQueue();
-        return Rx_1.Observable.fromEvent(this.dropzone, "complete");
+        return Rx_1.Observable.fromEvent(this.dropzone, "complete").map(function (response) {
+            return response.xhr;
+        });
+    };
+    DropzoneComponent.prototype.clear = function () {
+        this.dropzone.removeAllFiles();
     };
     /**
      * Although Angular 2 automatically handles resending an X-XSRF-TOKEN header to the server,

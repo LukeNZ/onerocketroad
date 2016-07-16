@@ -28,7 +28,7 @@ var ImageService = (function (_super) {
             .map(function (response) { return response.json(); })
             .map(function (models) {
             return models.map(function (model) {
-                return new classes_1.Image(model.summary, model.attribution);
+                return new classes_1.Image(model.id, model.filename, model.thumbname, model.summary, model.attribution, model.size, model.color, model.createdAt, model.updatedAt);
             });
         })
             .catch(this.handleError);

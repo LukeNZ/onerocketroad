@@ -22,5 +22,7 @@
 
 <h2>Recently Added</h2>
 <div *ngFor="let image of images">
-    <p>Some Image</p>
+
+    <img [src]="image.getThumbUrl()" [alt]="image.summary" />
+    <p>{{ image.summary }}</p>
 </div>

@@ -58,10 +58,11 @@ class Onerocketroad extends Migration
             Schema::create('images', function(Blueprint $table) {
                 $table->increments('id');
                 $table->string('filename');
+                $table->string('thumbname');
                 $table->string('summary');
-                $table->string('author');
+                $table->string('attribution');
                 $table->integer('size')->unsigned();
-                $table->string('color');
+                $table->string('color')->nullable();
                 $table->timestamps();
             });
         }
