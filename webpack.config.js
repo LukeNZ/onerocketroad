@@ -10,8 +10,8 @@ module.exports = {
         extensions: ['', '.js', '.ts']
     },
     output: {
-        path: path.join(__dirname, 'public/angular'),
-        publicPath: '/public/angular',
+        path: path.join(__dirname, 'public/dist'),
+        publicPath: '/public/dist',
         filename: '[name].bundle.js'
     },
     module: {

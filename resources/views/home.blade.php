@@ -9,8 +9,8 @@
         <script src="/node_modules/core-js/client/shim.min.js"></script>
         <script src="/node_modules/zone.js/dist/zone.js"></script>
         <script src="/node_modules/reflect-metadata/Reflect.js"></script>
-        <script src="/angular/vendor.bundle.js"></script>
-        <script src="/angular/onerocketroad.bundle.js"></script>
+        <script src="/dist/vendor.bundle.js"></script>
+        <script src="/dist/onerocketroad.bundle.js"></script>
 
         <!-- 3. Styles -->
         <link rel="stylesheet" type="text/css" href="/css/styles.css" />
