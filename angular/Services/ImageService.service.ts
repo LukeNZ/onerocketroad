@@ -1,9 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Http} from "@angular/http";
-
 import {AbstractService} from "../services";
 import {Image} from "../classes";
-
 import {Observable} from "rxjs/Observable";
 
 @Injectable()
@@ -24,8 +22,7 @@ export class ImageService extends AbstractService {
             .map(response => response.json())
             .map(models => {
                 return models.map(model => {
-                    return new Image(model.id, model.filename, model.thumbname, model.summary, model.attribution,
-                        model.size, model.color, model.createdAt, model.updatedAt);
+                    return Image.create(model);
                 });
             })
             .catch(this.handleError);
@@ -42,8 +39,7 @@ export class ImageService extends AbstractService {
         return this.http.get('/api/images/get/' + id)
             .map(response => response.json())
             .map(model => {
-                return new Image(model.id, model.filename, model.thumbname, model.summary, model.attribution,
-                    model.size, model.color, model.createdAt, model.updatedAt);
+                return Image.create(model);
             })
             .catch(this.handleError);
     }

@@ -3,8 +3,8 @@ import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, Router, ROUTER_DIRECTIVES} from "@angular/router";
 import {FORM_DIRECTIVES, FormControl, REACTIVE_FORM_DIRECTIVES} from '@angular/forms';
 import {DraftService, ArticleService} from "../services";
-import {Draft, Article} from "../classes";
-import {ContentEditableDirective} from "../directives";
+import {Draft, Article, Tag} from "../classes";
+import {ContentEditableDirective, DraggableDirective, DroppableDirective} from "../directives";
 import {DraftViewState} from "../enums";
 import {MarkdownPipe} from "../pipes";
 
@@ -15,7 +15,8 @@ import {Subject} from "rxjs/Subject";
 @Component({
     selector: 'draft',
     templateUrl: '/angular/views/draft.template.html',
-    directives: [ContentEditableDirective, ROUTER_DIRECTIVES, FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
+    directives: [ContentEditableDirective, DraggableDirective, DroppableDirective,
+        ROUTER_DIRECTIVES, FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
     providers: [DraftService, ArticleService],
     pipes: [MarkdownPipe]
 })
@@ -51,15 +52,24 @@ export class DraftComponent implements OnInit {
         this.draftSubject.next(draft);
     }
 
+    /**
+     * Constructor to instantiate a DraftComponent.
+     *
+     * @param draftService
+     * @param articleService
+     * @param titleService
+     * @param route
+     * @param router
+     */
     constructor(
         private draftService: DraftService, private articleService: ArticleService, private titleService: Title,
         private route : ActivatedRoute, private router : Router) {}
 
+    /**
+     *
+     */
     ngOnInit() {
-        // Could either fetch data from the server again or simply pass data from the parent component?
         // http://stackoverflow.com/questions/33308340/how-to-inject-data-into-angular2-component-created-from-a-router
-        // No way in router 3.0.0-beta.2 to pass data across components. Possibly best to refetch as data passed through
-        // may be outdated by the time it is used.
         let id = +this.route.snapshot.params['id'];
         this.draftService.getDraft(id).subscribe(
             draft => {
@@ -112,6 +122,10 @@ export class DraftComponent implements OnInit {
         }
     }
 
+    public deleteTag(value: any) : void {
+
+    }
+
     /**
      * If the body of the draft is less than 200 words, highlight the word count tracker in
      * red to represent an extremely short draft (less than approximately 3 paragraphs).
@@ -137,7 +151,7 @@ export class DraftComponent implements OnInit {
     }
 
     /**
-     *
+     *  When called, with autosave the article, and toggle the state of the `isSaving` property.
      */
     public autosave() {
         this.isSaving = true;
@@ -184,12 +198,19 @@ export class DraftComponent implements OnInit {
      * @param body
      */
     public autosaveDraftBody(body: string) {
-        this.draft = new Draft(this.draft.id, this.draft.title, body, this.draft.author, this.draft.authorName,
-            this.draft.heroId, this.draft.hero, this.draft.dueAt, this.draft.createdAt, this.draft.updatedAt);
+        let newDraft = Draft.create(this.draft);
+        newDraft.body = body;
+        this.draft = newDraft;
     }
 
+    /**
+     * Called on ngModelChange of the draft title.
+     *
+     * @param title
+     */
     public autosaveDraftTitle(title: string) {
-        this.draft = new Draft(this.draft.id, title, this.draft.body, this.draft.author, this.draft.authorName,
-            this.draft.heroId, this.draft.hero, this.draft.dueAt, this.draft.createdAt, this.draft.updatedAt);
+        let newDraft = Draft.create(this.draft);
+        newDraft.title = title;
+        this.draft = newDraft;
     }
 }

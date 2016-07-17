@@ -1,4 +1,4 @@
-import {User, Image} from "../classes";
+import {User, Image, Tag} from "../classes";
 
 export class Draft {
     public id: number;
@@ -8,12 +8,45 @@ export class Draft {
     public authorName: string;
     public heroId: number;
     public hero: Image;
+    public tags: Tag[];
     public dueAt: Date;
     public createdAt: Date;
     public updatedAt: Date;
 
+
+    /**
+     * Static helper method to create a draft instance from a plain object.
+     *
+     * @param model
+     * @returns {Draft}
+     */
+    public static create(model?: any) {
+        if (model != null) {
+            return new Draft(model.id, model.title, model.body, model.author, model.authorName,
+                model.heroId, model.hero, model.tags, model.dueAt, model.createdAt, model.updatedAt);
+        }
+        return new Draft();
+    }
+
+    constructor() {}
+
+    /**
+     * Draft constructor
+     *
+     * @param id
+     * @param title
+     * @param body
+     * @param author
+     * @param authorName
+     * @param heroId
+     * @param hero
+     * @param tags
+     * @param dueAt
+     * @param createdAt
+     * @param updatedAt
+     */
     constructor(id : number, title: string, body: string, author: User, authorName: string,
-                heroId: number, hero : Image, dueAt: Date, createdAt : Date, updatedAt : Date) {
+                heroId: number, hero : Image, tags: Tag[], dueAt: Date, createdAt : Date, updatedAt : Date) {
         this.id = id;
         this.title = title;
         this.body = body;
@@ -21,6 +54,7 @@ export class Draft {
         this.authorName = authorName;
         this.heroId = heroId;
         this.hero = hero;
+        this.tags = tags == null ? [] : tags;
         this.dueAt = dueAt;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -36,6 +70,11 @@ export class Draft {
         return matches ? matches.length : 0;
     }
 
+    /**
+     * Determines if the draft is in a publishable state for it to be converted into an Article.
+     *
+     * @returns {boolean}
+     */
     public isPublishable() : boolean {
         return this.title != null && this.body != null
             && this.title.length > 0 && this.body.length > 0

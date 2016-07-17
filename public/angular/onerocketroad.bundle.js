@@ -329,7 +329,7 @@ webpackJsonp([0],{
 	     * @returns {Article}
 	     */
 	    ArticleService.prototype.createArticleModel = function (model) {
-	        return new classes_1.Article(model.id, model.title, model.body, model.authorName, model.createdAt, model.updatedAt);
+	        return classes_1.Article.create(model);
 	    };
 	    ArticleService = __decorate([
 	        core_1.Injectable(), 
@@ -366,24 +366,50 @@ webpackJsonp([0],{
 	"use strict";
 	var moment = __webpack_require__(447);
 	var Article = (function () {
-	    function Article(id, title, body, authorName, createdAt, updatedAt) {
-	        this.id = id;
-	        this.title = title;
-	        this.body = body;
-	        this.authorName = authorName;
-	        this.createdAt = createdAt;
-	        this.updatedAt = updatedAt;
+	    function Article() {
 	    }
+	    /**
+	     * Static helper method to create an article instance from a draft object.
+	     *
+	     * @param draft
+	     * @returns {Article}
+	     */
 	    Article.createFromDraft = function (draft) {
 	        var now = moment().utc().toDate();
 	        return new Article(draft.id, draft.title, draft.body, draft.authorName, now, now);
 	    };
+	    /**
+	     * Static helper method to create an article instance from a plain object.
+	     *
+	     * @param model
+	     * @returns {Article}
+	     */
+	    Article.create = function (model) {
+	        return new Article(model.id, model.title, model.body, model.authorName, model.createdAt, model.updatedAt);
+	    };
+	    /**
+	     * Returns the publication year of the article in UTC, formatted as a string.
+	     *
+	     * @returns {string}
+	     */
 	    Article.prototype.publicationYear = function () {
 	        return moment.utc(this.createdAt).format("YYYY");
 	    };
+	    /**
+	     * Returns the publication month of the article in UTC, formatted as a number with a leading
+	     * zero if required.
+	     *
+	     * @returns {string}
+	     */
 	    Article.prototype.publicationMonth = function () {
 	        return moment.utc(this.createdAt).format("MM");
 	    };
+	    /**
+	     * Returns the publication day of the article in UTC, formatted as a date with a leading
+	     * zero if required.
+	     *
+	     * @returns {string}
+	     */
 	    Article.prototype.publicationDay = function () {
 	        return moment.utc(this.createdAt).format("DD");
 	    };
@@ -458,18 +484,20 @@ webpackJsonp([0],{
 
 	"use strict";
 	var Draft = (function () {
-	    function Draft(id, title, body, author, authorName, heroId, hero, dueAt, createdAt, updatedAt) {
-	        this.id = id;
-	        this.title = title;
-	        this.body = body;
-	        this.author = author;
-	        this.authorName = authorName;
-	        this.heroId = heroId;
-	        this.hero = hero;
-	        this.dueAt = dueAt;
-	        this.createdAt = createdAt;
-	        this.updatedAt = updatedAt;
+	    function Draft() {
 	    }
+	    /**
+	     * Static helper method to create a draft instance from a plain object.
+	     *
+	     * @param model
+	     * @returns {Draft}
+	     */
+	    Draft.create = function (model) {
+	        if (model != null) {
+	            return new Draft(model.id, model.title, model.body, model.author, model.authorName, model.heroId, model.hero, model.tags, model.dueAt, model.createdAt, model.updatedAt);
+	        }
+	        return new Draft();
+	    };
 	    /**
 	     * Calculates and returns number of words present within the draft.
 	     *
@@ -479,6 +507,11 @@ webpackJsonp([0],{
 	        var matches = this.body.match(/[\w\d]+/gi);
 	        return matches ? matches.length : 0;
 	    };
+	    /**
+	     * Determines if the draft is in a publishable state for it to be converted into an Article.
+	     *
+	     * @returns {boolean}
+	     */
 	    Draft.prototype.isPublishable = function () {
 	        return this.title != null && this.body != null
 	            && this.title.length > 0 && this.body.length > 0
@@ -524,24 +557,37 @@ webpackJsonp([0],{
 
 	"use strict";
 	var Image = (function () {
-	    function Image(id, filename, thumbname, summary, attribution, size, color, createdAt, updatedAt) {
-	        this.id = id;
-	        this.filename = filename;
-	        this.thumbname = thumbname;
-	        this.summary = summary;
-	        this.attribution = attribution;
-	        this.size = size;
-	        this.color = color;
-	        this.createdAt = createdAt;
-	        this.updatedAt = updatedAt;
+	    function Image() {
 	    }
+	    /**
+	     * Static helper method to create an image instance from a plain object.
+	     *
+	     * @param model
+	     * @returns {Image}
+	     */
+	    Image.create = function (model) {
+	        if (model != null) {
+	            return new Image(model.id, model.filename, model.thumbname, model.summary, model.attribution, model.size, model.color, model.createdAt, model.updatedAt);
+	        }
+	        return new Image();
+	    };
+	    /**
+	     * Returns the filename as a URL pointing to an accessible location.
+	     *
+	     * @returns {string}
+	     */
 	    Image.prototype.getUrl = function () {
 	        return '/uploads/' + this.filename;
 	    };
+	    /**
+	     * Returns the thumbnail as a URL pointing to an accessible location.
+	     *
+	     * @returns {string}
+	     */
 	    Image.prototype.getThumbUrl = function () {
 	        return '/uploads/' + this.thumbname;
 	    };
-	    Image.prototype.humanReadableSize = function () {
+	    Image.prototype.humanReadableFileSize = function () {
 	        return "";
 	    };
 	    Image.prototype.colorAsHex = function () {
@@ -687,7 +733,7 @@ webpackJsonp([0],{
 	     * @returns {Draft}
 	     */
 	    DraftService.prototype.createDraftModel = function (model) {
-	        return new classes_1.Draft(model.id, model.title, model.body, null, model.authorName, model.heroId, model.hero, model.dueAt, model.createdAt, model.updatedAt);
+	        return classes_1.Draft.create(model);
 	    };
 	    DraftService = __decorate([
 	        core_1.Injectable(), 
@@ -828,7 +874,7 @@ webpackJsonp([0],{
 	            .map(function (response) { return response.json(); })
 	            .map(function (models) {
 	            return models.map(function (model) {
-	                return new classes_1.Image(model.id, model.filename, model.thumbname, model.summary, model.attribution, model.size, model.color, model.createdAt, model.updatedAt);
+	                return classes_1.Image.create(model);
 	            });
 	        })
 	            .catch(this.handleError);
@@ -844,7 +890,7 @@ webpackJsonp([0],{
 	        return this.http.get('/api/images/get/' + id)
 	            .map(function (response) { return response.json(); })
 	            .map(function (model) {
-	            return new classes_1.Image(model.id, model.filename, model.thumbname, model.summary, model.attribution, model.size, model.color, model.createdAt, model.updatedAt);
+	            return classes_1.Image.create(model);
 	        })
 	            .catch(this.handleError);
 	    };
@@ -1446,6 +1492,15 @@ webpackJsonp([0],{
 	var pipes_1 = __webpack_require__(559);
 	var Subject_1 = __webpack_require__(37);
 	var DraftComponent = (function () {
+	    /**
+	     * Constructor to instantiate a DraftComponent.
+	     *
+	     * @param draftService
+	     * @param articleService
+	     * @param titleService
+	     * @param route
+	     * @param router
+	     */
 	    function DraftComponent(draftService, articleService, titleService, route, router) {
 	        this.draftService = draftService;
 	        this.articleService = articleService;
@@ -1481,12 +1536,12 @@ webpackJsonp([0],{
 	        enumerable: true,
 	        configurable: true
 	    });
+	    /**
+	     *
+	     */
 	    DraftComponent.prototype.ngOnInit = function () {
 	        var _this = this;
-	        // Could either fetch data from the server again or simply pass data from the parent component?
 	        // http://stackoverflow.com/questions/33308340/how-to-inject-data-into-angular2-component-created-from-a-router
-	        // No way in router 3.0.0-beta.2 to pass data across components. Possibly best to refetch as data passed through
-	        // may be outdated by the time it is used.
 	        var id = +this.route.snapshot.params['id'];
 	        this.draftService.getDraft(id).subscribe(function (draft) {
 	            _this.draft = draft;
@@ -1532,6 +1587,8 @@ webpackJsonp([0],{
 	            });
 	        }
 	    };
+	    DraftComponent.prototype.deleteTag = function (value) {
+	    };
 	    /**
 	     * If the body of the draft is less than 200 words, highlight the word count tracker in
 	     * red to represent an extremely short draft (less than approximately 3 paragraphs).
@@ -1555,7 +1612,7 @@ webpackJsonp([0],{
 	        return wordCount + " words";
 	    };
 	    /**
-	     *
+	     *  When called, with autosave the article, and toggle the state of the `isSaving` property.
 	     */
 	    DraftComponent.prototype.autosave = function () {
 	        var _this = this;
@@ -1601,16 +1658,26 @@ webpackJsonp([0],{
 	     * @param body
 	     */
 	    DraftComponent.prototype.autosaveDraftBody = function (body) {
-	        this.draft = new classes_1.Draft(this.draft.id, this.draft.title, body, this.draft.author, this.draft.authorName, this.draft.heroId, this.draft.hero, this.draft.dueAt, this.draft.createdAt, this.draft.updatedAt);
+	        var newDraft = classes_1.Draft.create(this.draft);
+	        newDraft.body = body;
+	        this.draft = newDraft;
 	    };
+	    /**
+	     * Called on ngModelChange of the draft title.
+	     *
+	     * @param title
+	     */
 	    DraftComponent.prototype.autosaveDraftTitle = function (title) {
-	        this.draft = new classes_1.Draft(this.draft.id, title, this.draft.body, this.draft.author, this.draft.authorName, this.draft.heroId, this.draft.hero, this.draft.dueAt, this.draft.createdAt, this.draft.updatedAt);
+	        var newDraft = classes_1.Draft.create(this.draft);
+	        newDraft.title = title;
+	        this.draft = newDraft;
 	    };
 	    DraftComponent = __decorate([
 	        core_1.Component({
 	            selector: 'draft',
 	            templateUrl: '/angular/views/draft.template.html',
-	            directives: [directives_1.ContentEditableDirective, router_1.ROUTER_DIRECTIVES, forms_1.FORM_DIRECTIVES, forms_1.REACTIVE_FORM_DIRECTIVES],
+	            directives: [directives_1.ContentEditableDirective, directives_1.DraggableDirective, directives_1.DroppableDirective,
+	                router_1.ROUTER_DIRECTIVES, forms_1.FORM_DIRECTIVES, forms_1.REACTIVE_FORM_DIRECTIVES],
 	            providers: [services_1.DraftService, services_1.ArticleService],
 	            pipes: [pipes_1.MarkdownPipe]
 	        }), 
@@ -1692,12 +1759,16 @@ webpackJsonp([0],{
 	        this.route = route;
 	        this.router = router;
 	        this.titleService = titleService;
-	        this.newDraftModel = new classes_1.Draft(null, "", "", null, null, null, null, null, null, null);
+	        this.newDraftModel = classes_1.Draft.create();
 	        this.isCreatingDraft = false;
 	        this.drafts = [];
 	        this.articles = [];
 	        this.titleService.setTitle("One Rocket Road | Drafts");
 	    }
+	    /**
+	     * On DraftsComponent angular initialization, fetch recent articles and all drafts
+	     * from the backing store and assign them to their respective component properties.
+	     */
 	    DraftsComponent.prototype.ngOnInit = function () {
 	        var _this = this;
 	        Observable_1.Observable.forkJoin(this.draftService.getAllDrafts(), this.articleService.getRecentArticles()).subscribe(function (data) {
@@ -1718,7 +1789,7 @@ webpackJsonp([0],{
 	    /**
 	     * Deletes a draft permanently.
 	     *
-	     * @param draft
+	     * @param draft The draft to delete.
 	     */
 	    DraftsComponent.prototype.deleteDraft = function (draft) {
 	        var _this = this;

@@ -9,11 +9,40 @@ export class Article {
     public createdAt: Date;
     public updatedAt: Date;
 
+    /**
+     * Static helper method to create an article instance from a draft object.
+     *
+     * @param draft
+     * @returns {Article}
+     */
     public static createFromDraft(draft: Draft) : Article {
         let now = moment().utc().toDate();
         return new Article(draft.id, draft.title, draft.body, draft.authorName, now, now);
     }
 
+    /**
+     * Static helper method to create an article instance from a plain object.
+     *
+     * @param model
+     * @returns {Article}
+     */
+    public static create(model?: any) : Article {
+        return new Article(model.id, model.title, model.body, model.authorName,
+            model.createdAt, model.updatedAt)
+    }
+
+    constructor() {}
+
+    /**
+     * Article constructor.
+     *
+     * @param id
+     * @param title
+     * @param body
+     * @param authorName
+     * @param createdAt
+     * @param updatedAt
+     */
     constructor(id: number, title: string, body: string, authorName: string, createdAt: Date, updatedAt: Date) {
         this.id = id;
         this.title = title;
@@ -23,14 +52,31 @@ export class Article {
         this.updatedAt = updatedAt;
     }
 
+    /**
+     * Returns the publication year of the article in UTC, formatted as a string.
+     *
+     * @returns {string}
+     */
     public publicationYear() : string {
         return moment.utc(this.createdAt).format("YYYY");
     }
 
+    /**
+     * Returns the publication month of the article in UTC, formatted as a number with a leading
+     * zero if required.
+     *
+     * @returns {string}
+     */
     public publicationMonth() : string {
         return moment.utc(this.createdAt).format("MM");
     }
 
+    /**
+     * Returns the publication day of the article in UTC, formatted as a date with a leading
+     * zero if required.
+     *
+     * @returns {string}
+     */
     public publicationDay() : string {
         return moment.utc(this.createdAt).format("DD");
     }

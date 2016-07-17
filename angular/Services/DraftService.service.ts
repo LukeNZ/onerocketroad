@@ -92,7 +92,6 @@ export class DraftService extends AbstractService {
      * @returns {Draft}
      */
     private createDraftModel(model: any) {
-        return new Draft(model.id, model.title, model.body, null, model.authorName,
-            model.heroId, model.hero, model.dueAt, model.createdAt, model.updatedAt);
+        return Draft.create(model);
     }
 }

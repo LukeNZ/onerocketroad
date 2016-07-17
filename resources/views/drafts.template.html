@@ -15,7 +15,7 @@
     </form>
 </section>
 
-<h2>Current Drafts<i class="fa fa-trash" isDroppable (dropped)="deleteDraft($event)"></i></h2>
+<h2>Current Drafts<i class="fa fa-trash" isDroppable (dropped)="deleteDraft($event)" *ngIf="drafts.length > 0"></i></h2>
 <section>
     <ol>
         <li *ngFor="let draft of drafts" [isDraggable]="draft">
@@ -25,6 +25,7 @@
             </p>
         </li>
     </ol>
+    <p *ngIf="drafts.length == 0">Nothing here!</p>
 </section>
 
 <h2>Published Articles</h2>

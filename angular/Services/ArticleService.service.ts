@@ -95,7 +95,6 @@ export class ArticleService extends AbstractService {
      * @returns {Article}
      */
     private createArticleModel(model: any) {
-        return new Article(model.id, model.title, model.body, model.authorName,
-            model.createdAt, model.updatedAt);
+        return Article.create(model);
     }
 }

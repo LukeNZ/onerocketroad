@@ -18,7 +18,7 @@ import 'rxjs/add/observable/forkJoin';
  * Represents the component which handles multiple Draft instances.
  */
 export class DraftsComponent implements OnInit {
-    public newDraftModel : Draft = new Draft(null, "", "", null, null, null, null, null, null, null);
+    public newDraftModel : Draft = Draft.create();
     public isCreatingDraft : boolean = false;
     public drafts : Draft[] = [];
     public articles : Article[] = [];
@@ -31,6 +31,10 @@ export class DraftsComponent implements OnInit {
         this.titleService.setTitle("One Rocket Road | Drafts");
     }
 
+    /**
+     * On DraftsComponent angular initialization, fetch recent articles and all drafts
+     * from the backing store and assign them to their respective component properties.
+     */
     ngOnInit() {
         Observable.forkJoin(
             this.draftService.getAllDrafts(),
@@ -55,7 +59,7 @@ export class DraftsComponent implements OnInit {
     /**
      * Deletes a draft permanently.
      *
-     * @param draft
+     * @param draft The draft to delete.
      */
     public deleteDraft(draft: Draft) : void {
         this.draftService.deleteDraft(draft).subscribe(() => {
