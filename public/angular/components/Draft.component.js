@@ -17,7 +17,7 @@ var classes_1 = require("../classes");
 var directives_1 = require("../directives");
 var enums_1 = require("../enums");
 var pipes_1 = require("../pipes");
-var Rx_1 = require("rxjs/Rx");
+var Subject_1 = require("rxjs/Subject");
 var DraftComponent = (function () {
     function DraftComponent(draftService, articleService, titleService, route, router) {
         this.draftService = draftService;
@@ -30,7 +30,7 @@ var DraftComponent = (function () {
         this.draftViewState = enums_1.DraftViewState;
         this.viewState = enums_1.DraftViewState.Edit;
         this.bodyFormControl = new forms_1.FormControl();
-        this.draftSubject = new Rx_1.Subject();
+        this.draftSubject = new Subject_1.Subject();
         this.draftStream = this.draftSubject.asObservable();
     }
     Object.defineProperty(DraftComponent.prototype, "draft", {

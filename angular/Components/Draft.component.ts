@@ -1,4 +1,4 @@
-import {Component, OnInit, TemplateRef} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, Router, ROUTER_DIRECTIVES} from "@angular/router";
 import {FORM_DIRECTIVES, FormControl, REACTIVE_FORM_DIRECTIVES} from '@angular/forms';
@@ -8,7 +8,9 @@ import {ContentEditableDirective} from "../directives";
 import {DraftViewState} from "../enums";
 import {MarkdownPipe} from "../pipes";
 
-import {Subscription, Observable, Subject} from "rxjs/Rx";
+import {Subscription} from "rxjs/Subscription";
+import {Observable} from "rxjs/Observable";
+import {Subject} from "rxjs/Subject";
 
 @Component({
     selector: 'draft',

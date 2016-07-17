@@ -14,7 +14,7 @@ var router_1 = require('@angular/router');
 var classes_1 = require("../classes");
 var services_1 = require("../services");
 var directives_1 = require("../directives");
-var Rx_1 = require("rxjs/Rx");
+var Observable_1 = require("rxjs/Observable");
 var DraftsComponent = (function () {
     function DraftsComponent(draftService, articleService, route, router, titleService) {
         this.draftService = draftService;
@@ -30,7 +30,7 @@ var DraftsComponent = (function () {
     }
     DraftsComponent.prototype.ngOnInit = function () {
         var _this = this;
-        Rx_1.Observable.forkJoin(this.draftService.getAllDrafts(), this.articleService.getRecentArticles()).subscribe(function (data) {
+        Observable_1.Observable.forkJoin(this.draftService.getAllDrafts(), this.articleService.getRecentArticles()).subscribe(function (data) {
             console.log(data[0]);
             _this.drafts = data[0];
             _this.articles = data[1];

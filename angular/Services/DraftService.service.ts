@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {Http} from "@angular/http";
 import {AbstractService} from '../services';
 import {Draft} from "../classes";
-import {Observable} from "rxjs/Rx";
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class DraftService extends AbstractService {

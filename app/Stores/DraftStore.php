@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Auth;
 use OneRocketRoad\Models\Draft;
 use OneRocketRoad\Models\Image;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
-use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
 class DraftStore implements DraftStoreInterface {
 

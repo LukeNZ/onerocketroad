@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var Dropzone = require('dropzone');
-var Rx_1 = require("rxjs/Rx");
+var Observable_1 = require("rxjs/Observable");
 require('rxjs/add/observable/fromEvent');
 var DropzoneComponent = (function () {
     function DropzoneComponent(el) {
@@ -52,7 +52,7 @@ var DropzoneComponent = (function () {
             });
         });
         this.dropzone.processQueue();
-        return Rx_1.Observable.fromEvent(this.dropzone, "complete").map(function (response) {
+        return Observable_1.Observable.fromEvent(this.dropzone, "complete").map(function (response) {
             return response.xhr;
         });
     };

@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
 import Dropzone = require('dropzone');
-import {Observable} from "rxjs/Rx";
+import {Observable} from "rxjs/Observable";
 import 'rxjs/add/observable/fromEvent';
 
 @Component({

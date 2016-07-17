@@ -17,7 +17,7 @@ var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var services_1 = require("../services");
 var classes_1 = require("../classes");
-var Rx_1 = require("rxjs/Rx");
+var Observable_1 = require("rxjs/Observable");
 var ArticleService = (function (_super) {
     __extends(ArticleService, _super);
     function ArticleService(http) {
@@ -66,7 +66,7 @@ var ArticleService = (function (_super) {
         })
             .catch(function (response) {
             if (response.status == 404) {
-                return Rx_1.Observable.throw("Article not found");
+                return Observable_1.Observable.throw("Article not found");
             }
             return _this.handleError(response);
         });

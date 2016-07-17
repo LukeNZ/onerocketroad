@@ -4,7 +4,7 @@ import {ROUTER_DIRECTIVES, Router, ActivatedRoute} from '@angular/router';
 import {Draft, Article} from "../classes";
 import {DraftService, ArticleService} from "../services";
 import {DraggableDirective, DroppableDirective} from "../directives";
-import {Observable} from "rxjs/Rx";
+import {Observable} from "rxjs/Observable";
 
 @Component({
     selector: 'drafts',
