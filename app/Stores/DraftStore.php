@@ -17,7 +17,7 @@ class DraftStore implements DraftStoreInterface {
      * @return \Illuminate\Database\Eloquent\Collection Collection of drafts.
      */
     function all($columns = array('*')) {
-        return Draft::all($columns);
+        return Draft::with('hero')->get();
     }
 
     /**
@@ -46,16 +46,20 @@ class DraftStore implements DraftStoreInterface {
      *                                                  or an exception.
      */
     function update(array $data) {
-        $draft = Draft::findOrFail($data['id']);
+        $draft = Draft::with('hero')->findOrFail($data['id']);
 
-        $image = Image::find($data['heroId']);
-        if (!$image) {
-            throw new UnprocessableEntityHttpException();
+        if ($data['heroId'] !== null) {
+            try {
+                $image = Image::findOrFail($data['heroId']);
+                $draft->hero()->associate(Image::find($data['heroId']));
+            } catch(ModelNotFoundException $e) {
+                throw new UnprocessableEntityHttpException();
+            }
         }
 
         $draft->title = $data['title'];
         $draft->body = $data['body'];
-        $draft->hero()->associate(Image::find($data['heroId']));
+
         $draft->save();
 
         return $draft;
@@ -80,6 +84,6 @@ class DraftStore implements DraftStoreInterface {
      * @return Draft|ModelNotFoundException The found draft entity, or an exception.
      */
     function find($id, $columns = array('*')) {
-        return Draft::findOrFail($id, $columns);
+        return Draft::with('hero')->findOrFail($id, $columns);
     }
 }

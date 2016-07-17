@@ -1506,15 +1506,29 @@ webpackJsonp([0],{
 	    DraftComponent.prototype.setViewState = function (state) {
 	        this.viewState = state;
 	    };
+	    /**
+	     * Sets the draft hero image. Immediately sets it for responsiveness, then sends a request to
+	     * store the change. If the image id is acceptable, return a new draft; if not, restore the hero
+	     * and hero id's to their defauls.
+	     *
+	     * @param value     The id of the image to set as the hero image for the draft.
+	     */
 	    DraftComponent.prototype.setDraftHero = function (value) {
 	        var _this = this;
+	        var originalHeroId = this.draft.heroId;
+	        var originalHero = this.draft.hero;
+	        // Validate
 	        if (value != Number.NaN && value > 0) {
+	            // Set temporary new value
 	            this.draft.heroId = value;
+	            // Update draft
 	            this.draftService.updateDraft(this.draft).subscribe(function (draft) {
+	                // Value was acceptable, permanently store the change.
 	                _this.draft = draft;
 	            }, function (error) {
-	                _this.draft.heroId = null;
-	                _this.draft.hero = null;
+	                // Values were not acceptable, restore to original - no changes made.
+	                _this.draft.heroId = originalHeroId;
+	                _this.draft.hero = originalHero;
 	            });
 	        }
 	    };
