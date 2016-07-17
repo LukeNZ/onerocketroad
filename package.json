@@ -2,8 +2,8 @@
   "name": "onerocketroad",
   "version": "1.0.0-dev.0",
   "scripts": {
-    "build": "webpack --profile --progress",
-    "start": "webpack-dev-server --inline --progress",
+    "build": "webpack --watch",
+    "start": "webpack-dev-server --inline --watch",
     "postinstall": "typings install",
     "typings": "typings"
   },

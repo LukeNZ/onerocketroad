@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+var path = require('path');
 
 module.exports = {
     entry: {
@@ -9,7 +10,9 @@ module.exports = {
         extensions: ['', '.js', '.ts']
     },
     output: {
-        filename: './public/angular/[name].bundle.js'
+        path: path.join(__dirname, 'public/angular'),
+        publicPath: '/public/angular',
+        filename: '[name].bundle.js'
     },
     module: {
         loaders: [
