@@ -5,6 +5,7 @@ import {Draft, Article} from "../classes";
 import {DraftService, ArticleService} from "../services";
 import {DraggableDirective, DroppableDirective} from "../directives";
 import {Observable} from "rxjs/Observable";
+import 'rxjs/add/observable/forkJoin';
 
 @Component({
     selector: 'drafts',
@@ -35,7 +36,6 @@ export class DraftsComponent implements OnInit {
             this.draftService.getAllDrafts(),
             this.articleService.getRecentArticles()
         ).subscribe(data => {
-            console.log(data[0]);
             this.drafts = data[0];
             this.articles = data[1];
         },

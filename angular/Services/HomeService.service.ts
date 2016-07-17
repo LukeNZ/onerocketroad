@@ -21,12 +21,16 @@ export class HomeService extends AbstractService {
      */
     public getHome() : Observable<Home> {
         return this.http.get('/api/home/get')
-            .map(response => {
-                let articles = response.json().map(article => {
-                    return new Article(article.id, article.title, article.body, article.authorName,
-                        article.createdAt, article.updatedAt);
-                });
-                return new Home(articles);
+            .map(response => response.json())
+            .map(models => {
+                if (models != null) {
+                    let articles = models.map(model => {
+                        return new Article(model.id, model.title, model.body, model.authorName, model.createdAt,
+                            model.updatedAt);
+                    });
+                    return new Home(articles);
+                }
+                return new Home([]);
             })
             .catch(this.handleError);
     }

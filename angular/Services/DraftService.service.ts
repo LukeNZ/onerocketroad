@@ -19,9 +19,12 @@ export class DraftService extends AbstractService {
      */
     public getAllDrafts() : Observable<Draft[]> {
         return this.http.get('/api/drafts/all')
-            .map(response => response.json())
+            .map(this.parseJson)
             .map(models => {
-                return models.map(model => this.createDraftModel(model));
+                if (models != null) {
+                    return models.map(model => this.createDraftModel(model));
+                }
+                return [];
             })
             .catch(this.handleError);
     }
@@ -35,8 +38,8 @@ export class DraftService extends AbstractService {
      */
     public getDraft(draftId : number) : Observable<Draft> {
         return this.http.get('/api/drafts/get/' + draftId)
-            .map(response => response.json())
-            .map(model => this.createDraftModel(model))
+            .map(this.parseJson)
+            .map(this.createDraftModel)
             .catch(this.handleError);
     }
 
@@ -49,8 +52,8 @@ export class DraftService extends AbstractService {
      */
     public createDraft(draft : Draft) : Observable<Draft> {
         return this.http.put('/api/drafts/create', draft)
-            .map(response => response.json())
-            .map(model => this.createDraftModel(model))
+            .map(this.parseJson)
+            .map(this.createDraftModel)
             .catch(this.handleError);
     }
 
@@ -63,8 +66,8 @@ export class DraftService extends AbstractService {
      */
     public updateDraft(draft : Draft) : Observable<Draft> {
         return this.http.patch('/api/drafts/update', draft)
-            .map(response => response.json())
-            .map(model => this.createDraftModel(model))
+            .map(this.parseJson)
+            .map(this.createDraftModel)
             .catch(this.handleError);
     }
 

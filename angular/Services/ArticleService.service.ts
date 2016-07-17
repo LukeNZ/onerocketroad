@@ -28,12 +28,12 @@ export class ArticleService extends AbstractService {
         cursor = cursor == null ? 0 : cursor;
 
         return this.http.get('/api/articles/getrecent/' + cursor)
-            .map(response => response.json())
+            .map(this.parseJson)
             .map(models => {
-                return models.map(model => {
-                    return new Article(model.id, model.title, model.body, model.authorName,
-                        model.createdAt, model.updatedAt);
-                });
+                if (models != null) {
+                    return models.map(this.createArticleModel);
+                }
+                return [];
             })
             .catch(this.handleError);
     }
@@ -51,11 +51,8 @@ export class ArticleService extends AbstractService {
      */
     public getArticle(year: string, month: string, day: string, slug: string) : Observable<Article> {
         return this.http.get('/api/articles/get/' + year + '/' + month + '/' + day + "/" + slug)
-            .map(response => response.json())
-            .map(model => {
-                return new Article(model.id, model.title, model.body, model.authorName,
-                    model.createdAt, model.updatedAt);
-            })
+            .map(this.parseJson)
+            .map(this.createArticleModel)
             .catch(response => {
                 if (response.status == 404) {
                     return Observable.throw("Article not found");
@@ -77,11 +74,8 @@ export class ArticleService extends AbstractService {
      */
     public createArticle(article : Article) : Observable<Article> {
         return this.http.put('/api/articles/create', article)
-            .map(response => response.json())
-            .map(model => {
-                return new Article(model.id, model.title, model.body, model.authorName,
-                    model.createdAt, model.updatedAt);
-            })
+            .map(this.parseJson)
+            .map(this.createArticleModel)
             .catch(this.handleError);
     }
 
@@ -91,5 +85,17 @@ export class ArticleService extends AbstractService {
     
     public deleteArticle(article: Article) : Observable<number> {
         return null;
+    }
+
+    /**
+     * Creates an article model from data on the server.
+     *
+     * @private
+     * @param model
+     * @returns {Article}
+     */
+    private createArticleModel(model: any) {
+        return new Article(model.id, model.title, model.body, model.authorName,
+            model.createdAt, model.updatedAt);
     }
 }

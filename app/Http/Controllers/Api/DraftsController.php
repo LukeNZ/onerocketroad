@@ -39,7 +39,6 @@ class DraftsController extends OneRocketRoadBaseController
      * Returns 404 Not Found if the draft was not found.
      */
     public function get($draftId) {
-        
         try {
             return $this->ok($this->drafts->find($draftId));
         } catch (ModelNotFoundException $e) {
