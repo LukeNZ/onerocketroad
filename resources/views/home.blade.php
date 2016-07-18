@@ -21,6 +21,10 @@
 
     </head>
     <body>
+    <blockquote class="twitter-tweet" data-lang="en">
+        <a href="https://twitter.com/Support/status/753641202902142976"></a>
+    </blockquote>
+    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
         <one-rocket-road>Loading... Launching...</one-rocket-road>
     </body>
 </html>
