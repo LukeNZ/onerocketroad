@@ -31,7 +31,8 @@ export class Article {
             model.createdAt, model.updatedAt)
     }
 
-    constructor() {}
+    constructor();
+    constructor(id: number, title: string, body: string, authorName: string, createdAt: Date, updatedAt: Date);
 
     /**
      * Article constructor.
@@ -43,7 +44,7 @@ export class Article {
      * @param createdAt
      * @param updatedAt
      */
-    constructor(id: number, title: string, body: string, authorName: string, createdAt: Date, updatedAt: Date) {
+    constructor(id?: number, title?: string, body?: string, authorName?: string, createdAt?: Date, updatedAt?: Date) {
         this.id = id;
         this.title = title;
         this.body = body;

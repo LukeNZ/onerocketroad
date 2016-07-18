@@ -15,7 +15,7 @@ export class Image {
      * @param model
      * @returns {Image}
      */
-    public static create(model?: any) {
+    public static create(model?: any): Image {
         if (model != null) {
             return new Image(model.id, model.filename, model.thumbname, model.summary, model.attribution, model.size,
                 model.color, model.createdAt, model.updatedAt);
@@ -23,7 +23,9 @@ export class Image {
         return new Image();
     }
 
-    constructor() {}
+    constructor();
+    constructor(id: number, filename: string, thumbname: string, summary: string, attribution: string,
+                size: number, color: string, createdAt: Date, updatedAt: Date);
 
     /**
      * Image constructor.
@@ -38,8 +40,8 @@ export class Image {
      * @param createdAt
      * @param updatedAt
      */
-    constructor(id: number, filename: string, thumbname: string, summary: string, attribution: string,
-                size: number, color: string, createdAt: Date, updatedAt: Date) {
+    constructor(id?: number, filename?: string, thumbname?: string, summary?: string, attribution?: string,
+                size?: number, color?: string, createdAt?: Date, updatedAt?: Date) {
         this.id = id;
         this.filename = filename;
         this.thumbname = thumbname;

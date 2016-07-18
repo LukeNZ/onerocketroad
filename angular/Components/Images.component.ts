@@ -16,7 +16,7 @@ export class ImagesComponent implements OnInit {
     @ViewChild(DropzoneComponent)
     private dropzoneComponent : DropzoneComponent;
 
-    public imageToUpload: Image = new Image(null, null, null, null, null, null, null, null, null);
+    public imageToUpload: Image = Image.create();
     public images: Image[] = [];
     public isSubmitting: boolean = false;
 
@@ -43,12 +43,11 @@ export class ImagesComponent implements OnInit {
             let image = JSON.parse(xmlHttpRequest.response);
 
             // Reset the upload form.
-            this.imageToUpload = new Image(null, null, null, null, null, null, null, null, null);
+            this.imageToUpload = Image.create();
             this.isSubmitting = false;
 
             // push the newly created image onto the images array.
-            this.images.push(new Image(image.id, image.filename, image.thumbname, image.summary,
-                image.attribution, image.size, image.color, image.createdAt, image.updatedAt));
+            this.images.push(Image.create(image));
 
             // Clear the Dropzone.
             this.dropzoneComponent.clear();

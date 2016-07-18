@@ -13,14 +13,13 @@ export class Draft {
     public createdAt: Date;
     public updatedAt: Date;
 
-
     /**
      * Static helper method to create a draft instance from a plain object.
      *
      * @param model
      * @returns {Draft}
      */
-    public static create(model?: any) {
+    public static create(model?: any): Draft {
         if (model != null) {
             return new Draft(model.id, model.title, model.body, model.author, model.authorName,
                 model.heroId, model.hero, model.tags, model.dueAt, model.createdAt, model.updatedAt);
@@ -28,7 +27,9 @@ export class Draft {
         return new Draft();
     }
 
-    constructor() {}
+    constructor();
+    constructor(id : number, title: string, body: string, author: User, authorName: string,
+                heroId: number, hero : Image, tags: Tag[], dueAt: Date, createdAt : Date, updatedAt : Date);
 
     /**
      * Draft constructor
@@ -45,8 +46,8 @@ export class Draft {
      * @param createdAt
      * @param updatedAt
      */
-    constructor(id : number, title: string, body: string, author: User, authorName: string,
-                heroId: number, hero : Image, tags: Tag[], dueAt: Date, createdAt : Date, updatedAt : Date) {
+    constructor(id?: number, title?: string, body?: string, author?: User, authorName?: string,
+                heroId?: number, hero?: Image, tags?: Tag[], dueAt?: Date, createdAt?: Date, updatedAt?: Date) {
         this.id = id;
         this.title = title;
         this.body = body;
