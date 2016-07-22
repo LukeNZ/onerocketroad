@@ -21,9 +21,9 @@ export class MarkdownPipe implements PipeTransform {
         });
 
         // Enable parsing of rich media
-        this.remarkable.use(this.parseRichImages);
-        this.remarkable.use(this.parseVideos);
-        this.remarkable.use(this.parseTweets);
+        //this.remarkable.use(this.parseRichImages);
+        this.remarkable.use(md => this.parseVideos(md));
+        this.remarkable.use(md => this.parseTweets(md));
 
         // Enable support for subscript and superscript formatting via
         // the ^ (19^th^) and ~ (H~2~O) operators.
@@ -80,17 +80,24 @@ export class MarkdownPipe implements PipeTransform {
      * @param md    The instance of Remarkable.
      */
     private parseTweets(md) : void {
-        md.block.ruler.push('tweet', state => {
+        md.inline.ruler.push('tweet', state => {
+            console.log('called');
             return this.parseMedia(state, '#', 'tweet');
         });
 
-        // Render our tweet
+        // Render our tweet. This is not an easy task to accomplish, as the markdown pipe is called on
+        // [innerHTML], which lacks an onload event. Twitter's widget.js will parse embedded tweets only
+        // on load. The solution to this is to send down an injection payload consisting of a transparent
+        // image, which *does* have an onload event. When it loads, we trigger the onload attribute, which
+        // calls twitter to load its tweets, and then cleans itself up via removal.
         md.renderer.rules.tweet = (tokens, idx, options) => {
             let link = tokens[idx].link;
             return '<blockquote class="twitter-tweet" data-lang="en">' +
                 '<a href="' + link + '"></a>' +
                 '</blockquote>' +
-                '<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>';
+                '<img class="tweet-injection-payload"' +
+                'src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"' +
+                'onload="twttr.widgets.load();this.parentNode.removeChild(this);">';
         };
     }
 
@@ -110,7 +117,7 @@ export class MarkdownPipe implements PipeTransform {
         // Expect a series of tokens that matches the substring "[](" (prefixed by a
         // starting marker, `!` for images, `@` for videos, `#` for tweets).
         // This defines the beginning of our pattern.
-        if (marker !== String.fromCharCode(startingMarker)) { return false; }
+        if (marker !== startingMarker.charCodeAt()) { return false; }
         marker = state.src.charCodeAt(pos++);
         if (marker !== 0x5B /* [ */) { return false; }
         marker = state.src.charCodeAt(pos++);

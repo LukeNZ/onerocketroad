@@ -16,6 +16,7 @@
         <!-- 3. Styles -->
         <link rel="stylesheet" type="text/css" href="/css/styles.css" />
 
+        <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
         <!-- 4. Fonts -->
         <link rel="stylesheet" type="text/css" href="/node_modules/font-awesome/css/font-awesome.css" />
 
