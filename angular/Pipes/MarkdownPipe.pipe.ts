@@ -1,7 +1,6 @@
 import {Pipe, PipeTransform} from '@angular/core';
 import {DomSanitizationService, SafeHtml} from '@angular/platform-browser';
 var Remarkable = require('remarkable'); // No typings yet
-
 enum MediaType {
     RichImage = 1,
     Video = 2,
@@ -38,6 +37,7 @@ export class MarkdownPipe implements PipeTransform {
      */
     transform(value: string) : SafeHtml {
         if (value != null) {
+            setTimeout(() => window.twttr.widgets.load(), 0);
             return this.sanitizer.bypassSecurityTrustHtml(this.remarkable.render(value));
         }
         return null;
@@ -82,7 +82,7 @@ export class MarkdownPipe implements PipeTransform {
     private parseTweets(md) : void {
         md.inline.ruler.push('tweet', state => {
             console.log('called');
-            return this.parseMedia(state, '#', 'tweet');
+            return this.parseMedia(state, '%', 'tweet');
         });
 
         // Render our tweet. This is not an easy task to accomplish, as the markdown pipe is called on
@@ -94,10 +94,7 @@ export class MarkdownPipe implements PipeTransform {
             let link = tokens[idx].link;
             return '<blockquote class="twitter-tweet" data-lang="en">' +
                 '<a href="' + link + '"></a>' +
-                '</blockquote>' +
-                '<img class="tweet-injection-payload"' +
-                'src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"' +
-                'onload="twttr.widgets.load();this.parentNode.removeChild(this);">';
+                '</blockquote>';
         };
     }
 
