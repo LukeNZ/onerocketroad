@@ -37,7 +37,15 @@ export class MarkdownPipe implements PipeTransform {
      */
     transform(value: string) : SafeHtml {
         if (value != null) {
-            setTimeout(() => window.twttr.widgets.load(), 0);
+
+            // Force tweets to reload after Markdown rendering. This is bad. Create a window
+            // service wrapper and DI.
+            setTimeout(() => {
+                if (window['twttr']) {
+                    window['twttr'].widgets.load();
+                }
+            }, 0);
+
             return this.sanitizer.bypassSecurityTrustHtml(this.remarkable.render(value));
         }
         return null;
@@ -80,16 +88,12 @@ export class MarkdownPipe implements PipeTransform {
      * @param md    The instance of Remarkable.
      */
     private parseTweets(md) : void {
-        md.inline.ruler.push('tweet', state => {
-            console.log('called');
-            return this.parseMedia(state, '%', 'tweet');
+        md.inline.ruler.before('text', 'tweet', state => {
+            return this.parseMedia(state, '#', 'tweet');
         });
 
         // Render our tweet. This is not an easy task to accomplish, as the markdown pipe is called on
-        // [innerHTML], which lacks an onload event. Twitter's widget.js will parse embedded tweets only
-        // on load. The solution to this is to send down an injection payload consisting of a transparent
-        // image, which *does* have an onload event. When it loads, we trigger the onload attribute, which
-        // calls twitter to load its tweets, and then cleans itself up via removal.
+        // [innerHTML], which lacks an onload event.
         md.renderer.rules.tweet = (tokens, idx, options) => {
             let link = tokens[idx].link;
             return '<blockquote class="twitter-tweet" data-lang="en">' +
