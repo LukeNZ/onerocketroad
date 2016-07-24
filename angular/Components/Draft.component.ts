@@ -21,24 +21,24 @@ import {Subject} from "rxjs/Subject";
     pipes: [MarkdownPipe]
 })
 export class DraftComponent implements OnInit {
-    private _draft: Draft;
-    public isSaving: boolean = false;
-    public isPublishing: boolean = false;
+    private _draft:Draft;
+    public isSaving:boolean = false;
+    public isPublishing:boolean = false;
     public draftViewState = DraftViewState;
-    public viewState: DraftViewState = DraftViewState.Edit;
+    public viewState:DraftViewState = DraftViewState.Edit;
 
     public bodyFormControl = new FormControl();
 
-    public draftSubject : Subject<Draft> = new Subject<Draft>();
-    public draftStream : Observable<Draft> = this.draftSubject.asObservable();
-    public draftSubscription : Subscription;
+    public draftSubject:Subject<Draft> = new Subject<Draft>();
+    public draftStream:Observable<Draft> = this.draftSubject.asObservable();
+    public draftSubscription:Subscription;
 
     /**
      * Getter for the private variable draft. Used to enable draft entity autosaving.
      *
      * @returns {Draft}
      */
-    get draft() : Draft {
+    get draft():Draft {
         return this._draft;
     }
 
@@ -47,7 +47,7 @@ export class DraftComponent implements OnInit {
      *
      * @param draft
      */
-    set draft(draft: Draft) {
+    set draft(draft:Draft) {
         this._draft = draft;
         this.draftSubject.next(draft);
     }
@@ -61,9 +61,9 @@ export class DraftComponent implements OnInit {
      * @param route
      * @param router
      */
-    constructor(
-        private draftService: DraftService, private articleService: ArticleService, private titleService: Title,
-        private route : ActivatedRoute, private router : Router) {}
+    constructor(private draftService:DraftService, private articleService:ArticleService, private titleService:Title,
+                private route:ActivatedRoute, private router:Router) {
+    }
 
     /**
      *
@@ -91,7 +91,7 @@ export class DraftComponent implements OnInit {
      *
      * @param state The state to set.
      */
-    public setViewState(state : DraftViewState) {
+    public setViewState(state:DraftViewState) {
         this.viewState = state;
     }
 
@@ -102,7 +102,7 @@ export class DraftComponent implements OnInit {
      *
      * @param value     The id of the image to set as the hero image for the draft.
      */
-    public setDraftHero(value: number) {
+    public setDraftHero(value:number) {
         let originalHeroId = this.draft.heroId;
         let originalHero = this.draft.hero;
 
@@ -122,6 +122,15 @@ export class DraftComponent implements OnInit {
         }
     }
 
+    public addTag(event: KeyboardEvent) : void {
+        if (event.key === "Enter") {
+            let tag = Tag.create();
+        }
+        // push a tag onto the draft
+        // TaggableService.addTagToDraft
+            // replace tag
+    }
+
     public deleteTag(value: any) : void {
 
     }
@@ -132,7 +141,7 @@ export class DraftComponent implements OnInit {
      *
      * @returns {string} The color the word count should be highlighted in.
      */
-    public showWordCountWarning() : string {
+    public showWordCountWarning():string {
         return this.draft.wordCount() > 200 ? "black" : "red";
     }
 
@@ -142,7 +151,7 @@ export class DraftComponent implements OnInit {
      *
      * @returns {string}
      */
-    public wordCountStatement() : string {
+    public wordCountStatement():string {
         let wordCount = this.draft.wordCount();
         if (wordCount == 1) {
             return "1 word";
@@ -162,7 +171,7 @@ export class DraftComponent implements OnInit {
      * Publishes a draft as an article. This creates an article from the draft, puts the article on the server,
      * then once complete, deletes the original draft and redirects to the newly created article.
      */
-    public publishDraft() : void {
+    public publishDraft():void {
         this.isPublishing = true;
         let article = Article.createFromDraft(this.draft);
 
@@ -183,7 +192,7 @@ export class DraftComponent implements OnInit {
     /**
      * Deletes a draft on the server, and navigates back to the drafts listing page.
      */
-    public deleteDraft() : void {
+    public deleteDraft():void {
         // Unsubscribe before we delete the draft because there may be debounced changes waiting to
         // take place, causing a race condition. If we are deleting we don't care about those changes anyway.
         this.draftSubscription.unsubscribe();
@@ -197,7 +206,7 @@ export class DraftComponent implements OnInit {
      *
      * @param body
      */
-    public autosaveDraftBody(body: string) {
+    public autosaveDraftBody(body:string):void {
         let newDraft = Draft.create(this.draft);
         newDraft.body = body;
         this.draft = newDraft;
@@ -208,7 +217,7 @@ export class DraftComponent implements OnInit {
      *
      * @param title
      */
-    public autosaveDraftTitle(title: string) {
+    public autosaveDraftTitle(title:string):void {
         let newDraft = Draft.create(this.draft);
         newDraft.title = title;
         this.draft = newDraft;

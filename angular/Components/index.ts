@@ -9,3 +9,4 @@ export * from './Images.component';
 export * from './Login.component';
 export * from './OneRocketRoad.component';
 export * from './SignUp.component';
+export * from './StyleGuide.component';

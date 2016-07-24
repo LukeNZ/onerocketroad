@@ -1,6 +1,7 @@
 import {provideRouter, RouterConfig} from '@angular/router';
 import {DraftComponent, DraftsComponent, ArticleComponent, ArticlesComponent,
-    HomeComponent, AboutComponent, ImagesComponent, SignUpComponent, LoginComponent} from "./components";
+    HomeComponent, AboutComponent, ImagesComponent, SignUpComponent, LoginComponent,
+    StyleGuideComponent} from "./components";
 
 // At a future release, we should hopefully be able to specify routes
 export const routes: RouterConfig = [
@@ -12,7 +13,8 @@ export const routes: RouterConfig = [
     { path: 'images', component: ImagesComponent },
     { path: 'about', component: AboutComponent },
     { path: 'signup', component: SignUpComponent },
-    { path: 'login', component: LoginComponent }
+    { path: 'login', component: LoginComponent },
+    { path: 'styleguide', component: StyleGuideComponent}
 ];
 
 export const APP_ROUTER_PROVIDERS = [

@@ -5,6 +5,7 @@
     <p>By {{ draft.authorName }}</p>
     <p>{{ draft.hero?.attribution }}</p>
 
+    <!-- Hero -->
     <h2>Hero</h2>
     <input type="number" name="heroid" min="1"
            [(ngModel)]="draft.heroId" (change)="setDraftHero($event.target.valueAsNumber)" />
@@ -25,11 +26,13 @@
     <section id="markdown-preview" *ngIf="viewState != draftViewState.Edit" [innerHTML]="bodyFormControl.value | markdown">
     </section>
 
+    <!-- Tags -->
     <h2>Tags <i class="fa fa-trash" isDroppable (dropped)="deleteTag($event)" *ngIf="draft.tags.length > 0"></i></h2>
-    <!-- Insert tag data here -->
-    <p *ngFor="let tag of draft.tags">{{ tag.value }}</p>
-    <!--<input type="text" -->
+    <p *ngFor="let tag of draft.tags" isDraggable>{{ tag.value }}</p>
+    <input type="text" (keypress)="addTag($event)"/>
 
+
+    <!-- Actions -->
     <button type="submit" [disabled]="!draft.isPublishable() || isPublishing" (click)="publishDraft()">
         {{ isPublishing ? 'Publishing...' : 'Publish as Article' }}
     </button>

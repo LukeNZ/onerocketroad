@@ -75,6 +75,7 @@ class Onerocketroad extends Migration
                 $table->increments('id');
                 $table->string('key')->nullable();
                 $table->string('value');
+                $table->string('description')->nullable();
                 $table->timestamps();
             });
         }
