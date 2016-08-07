@@ -19,7 +19,7 @@ export class ImageService extends AbstractService {
      */
     public getImages() : Observable<Image[]> {
         return this.http.get('/api/images/all')
-            .map(response => response.json())
+            .map(this.parseJson)
             .map(models => {
                 return models.map(model => {
                     return Image.create(model);
@@ -37,7 +37,7 @@ export class ImageService extends AbstractService {
      */
     public getImage(id: number) : Observable<Image> {
         return this.http.get('/api/images/get/' + id)
-            .map(response => response.json())
+            .map(this.parseJson)
             .map(model => {
                 return Image.create(model);
             })

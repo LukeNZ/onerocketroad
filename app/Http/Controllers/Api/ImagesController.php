@@ -14,6 +14,7 @@ class ImagesController extends OneRocketRoadBaseController {
     protected $images, $imageService;
     
     public function __construct(ImageStoreInterface $imageStore, ImageServiceInterface $imageService) {
+        $this->middleware('jwtauthenticate');
         $this->images = $imageStore;
         $this->imageService = $imageService;
     }

@@ -7,9 +7,9 @@ export abstract class AbstractService {
      * will return an error if no content (204) is present. In this case, just return an empty object.
      *
      * @param response
-     * @returns {Observable<any>}
+     * @returns any
      */
-    protected parseJson(response: any) : Observable<any> {
+    protected parseJson(response: any) {
         if (response.status != 204) {
             return response.json();
         }
@@ -22,7 +22,7 @@ export abstract class AbstractService {
      * @param error
      * @returns {ErrorObservable}
      */
-    protected handleError(error: any) {
+    protected handleError(error: any) : Observable<any> {
         let errMsg = (error.message) ? error.message :
             error.status ? `${error.status} - ${error.statusText}` : 'Server error';
         console.error(errMsg); // log to console instead

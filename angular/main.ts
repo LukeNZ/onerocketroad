@@ -8,6 +8,8 @@ import {APP_ROUTER_PROVIDERS} from './routes';
 
 // Root component
 import {OneRocketRoadComponent} from './components';
+import {AuthenticatedGuard} from "./guards";
+import {AuthenticationService} from "./services";
 
 bootstrap(OneRocketRoadComponent, [
     APP_ROUTER_PROVIDERS,
@@ -15,4 +17,6 @@ bootstrap(OneRocketRoadComponent, [
     disableDeprecatedForms(),
     provideForms(),
     Title,
+    AuthenticatedGuard,
+    AuthenticationService
 ]).catch((err: any) => console.error(err));

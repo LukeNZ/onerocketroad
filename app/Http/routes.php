@@ -44,6 +44,11 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api'], function() {
         Route::get('all', 'ImagesController@all');
         Route::post('create', 'ImagesController@create');
     });
+
+    Route::group(['prefix' => 'auth'], function() {
+        Route::post('login', 'AuthController@login');
+        Route::post('signup', 'AuthController@signup');
+    });
 });
 
 // Catch-all route to handle routes which doesn't exist, implicitly

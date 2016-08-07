@@ -14,6 +14,7 @@ class ArticlesController extends OneRocketRoadBaseController
     protected $articlesPerRequest = 10;
 
     public function __construct(ArticleStoreInterface $articleStore) {
+        $this->middleware('jwtauthenticate', ['only' => 'create']);
         $this->articles = $articleStore;
     }
 

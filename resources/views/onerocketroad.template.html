@@ -5,8 +5,8 @@
     <ul>
         <li [routerLink]="['']">Home</li>
         <li [routerLink]="['/articles']">Articles</li>
-        <li [routerLink]="['/drafts']">Drafts</li>
-        <li [routerLink]="['/images']">Images</li>
+        <li *ngIf="authenticationService.isLoggedIn" [routerLink]="['/drafts']">Drafts</li>
+        <li *ngIf="authenticationService.isLoggedIn" [routerLink]="['/images']">Images</li>
         <li [routerLink]="['/about']">About</li>
     </ul>
 </nav>

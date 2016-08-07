@@ -3,6 +3,7 @@
 namespace OneRocketRoad\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use OneRocketRoad\Http\Middleware\JwtAuthenticate;
 
 class Kernel extends HttpKernel
 {
@@ -44,10 +45,7 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => \OneRocketRoad\Http\Middleware\Authenticate::class,
-        'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'can' => \Illuminate\Foundation\Http\Middleware\Authorize::class,
-        'guest' => \OneRocketRoad\Http\Middleware\RedirectIfAuthenticated::class,
+        'jqtauthenticate' => JwtAuthenticate::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
     ];
 }

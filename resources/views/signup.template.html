@@ -1,0 +1,17 @@
+<h1>Sign Up</h1>
+
+<form #signupForm="ngForm" (ngSubmit)="signUp(email.value, password.value)">
+    <ul>
+        <li>
+            <span>Email</span>
+            <input type="email" name="email" #email required />
+        </li>
+        <li>
+            <span>Password</span>
+            <input type="password" name="password" #password required minlength="8" />
+        </li>
+        <li>
+            <button type="submit" [disabled]="!signupForm.valid || isSigningUp">Sign Up</button>
+        </li>
+    </ul>
+</form>

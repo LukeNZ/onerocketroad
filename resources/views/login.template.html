@@ -1,0 +1,16 @@
+<h1>Log In</h1>
+<form #loginForm="ngForm" (ngSubmit)="login(email.value, password.value)">
+    <ul>
+        <li>
+            <span>Email</span>
+            <input type="email" name="email" #email required />
+        </li>
+        <li>
+            <span>Password</span>
+            <input type="password" name="password" #password required minlength="8" />
+        </li>
+        <li>
+            <button type="submit" [disabled]="!loginForm.valid">Log In</button>
+        </li>
+    </ul>
+</form>

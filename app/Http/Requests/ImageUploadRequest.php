@@ -32,7 +32,7 @@ class ImageUploadRequest extends Request
     }
 
     /**
-     * Overrides the response methos present in the Illuminate\Http\Foundaiton\FormRequest class.
+     * Overrides the response methods present in the Illuminate\Http\Foundation\FormRequest class.
      * We want to do this because depending on the way the validation failed, we would like to return our own
      * different HTTP status codes.
      *

@@ -3,6 +3,8 @@
 namespace OneRocketRoad\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use OneRocketRoad\Services\AuthenticationService;
+use OneRocketRoad\Services\AuthenticationServiceInterface;
 use OneRocketRoad\Services\ImageService;
 use OneRocketRoad\Services\ImageServiceInterface;
 use OneRocketRoad\Stores\ArticleStore;
@@ -31,10 +33,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // Stores
         $this->app->bind(DraftStoreInterface::class, DraftStore::class);
         $this->app->bind(ArticleStoreInterface::class, ArticleStore::class);
         $this->app->bind(ImageStoreInterface::class, ImageStore::class);
 
+        // Services
         $this->app->bind(ImageServiceInterface::class, ImageService::class);
+        $this->app->bind(AuthenticationServiceInterface::class, AuthenticationService::class);
     }
 }

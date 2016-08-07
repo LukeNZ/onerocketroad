@@ -14,6 +14,7 @@ class DraftsController extends OneRocketRoadBaseController
     protected $drafts;
 
     public function __construct(DraftStoreInterface $draftStore) {
+        $this->middleware('jwtauthenticate');
         $this->drafts = $draftStore;
     }
 
