@@ -57,9 +57,9 @@ class ArticleStore implements ArticleStoreInterface {
     /**
      * Finds an article by its id and returns it.
      *
-     * @param int      $id      The id of the article to retrieve.
-     * @param array $columns    The columns to retrieve from the entity in the backing
-     *                          store.
+     * @param int      $id          The id of the article to retrieve.
+     * @param array     $columns    The columns to retrieve from the entity in the backing
+     *                              store.
      *
      * @return Article|ModelNotFoundException The found article entity, or an exception.
      */
@@ -77,7 +77,8 @@ class ArticleStore implements ArticleStoreInterface {
      * @param $day      string  The day of the article's publication.
      * @param $slug     string  The slug of the article title to filter by.
      *
-     * @return Article|ModelNotFoundException  Returns the single article that matches the parameters.
+     * @return Article|ModelNotFoundException  Returns the single article that matches the parameters, or
+     *                                         an exception if it was not found.
      */
     function retrieveByUrl($year, $month, $day, $slug) {
         $dateOfArticle = Carbon::createFromDate(intval($year), intval($month), intval($day));

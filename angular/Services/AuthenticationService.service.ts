@@ -30,8 +30,9 @@ export class AuthenticationService extends AbstractService {
      * Attempts to log the claimed identity of a user in. If successful, sets a token in the client,
      * if not; allows another attempt.
      *
-     * @param email
-     * @param password
+     * @param email     The email address the user is attempting to login with.
+     * @param password  The password the user is attempting to login with.
+     *
      * @returns {Observable<boolean>}
      */
     public login(email, password) : Observable<boolean> {
@@ -57,11 +58,26 @@ export class AuthenticationService extends AbstractService {
         this._isLoggedIn = false;
     }
 
-    public signUp(email, password) : Observable<boolean> {
-        return this.http.post('/api/auth/signup', { email: email, password: password })
+    /**
+     * Sign a user into the application. Sends their provided email and password to the server for
+     * account creation.
+     *
+     * @param email     The email address the user is attempting to signup with.
+     * @param fullname  The fullname the user is attempting to signup with.
+     * @param password  The password the user is attempting to signup with.
+     *
+     * @returns {Observable<boolean>}
+     */
+    public signUp(email, fullname, password) : Observable<boolean> {
+        return this.http.post('/api/auth/signup', {
+                email: email,
+                fullname: fullname,
+                password: password
+            })
             .map(this.parseJson)
             .map((model: any) => {
                 return true;
-            });
+            })
+            .catch(this.handleError);
     }
 }

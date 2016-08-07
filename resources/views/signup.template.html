@@ -1,10 +1,14 @@
 <h1>Sign Up</h1>
 
-<form #signupForm="ngForm" (ngSubmit)="signUp(email.value, password.value)">
+<form #signupForm="ngForm" (ngSubmit)="signUp(email.value, fullname.value, password.value)">
     <ul>
         <li>
             <span>Email</span>
             <input type="email" name="email" #email required />
+        </li>
+        <li>
+            <span>Fullname</span>
+            <input type="text" nam="fullname" #fullname required />
         </li>
         <li>
             <span>Password</span>

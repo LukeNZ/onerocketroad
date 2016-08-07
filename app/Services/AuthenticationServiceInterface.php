@@ -5,5 +5,9 @@ namespace OneRocketRoad\Services;
 
 
 interface AuthenticationServiceInterface {
-    function maySignUp($email);
+    function isSignUpValid($email);
+
+    function isLoginValid($email, $password);
+
+    function login($email, $password);
 }

@@ -15,15 +15,13 @@ export class SignUpComponent {
         this.titleService.setTitle("One Rocket Road | Sign Up");
     }
 
-    public signUp(email, password) : void {
+    public signUp(email, fullname, password) : void {
         this.isSigningUp = true;
-        this.authenticationService.signUp(email, password)
+        this.authenticationService.signUp(email, fullname, password)
             .subscribe(outcome => {
-                if (outcome) {
-                    this.router.navigate(['auth', 'login']);
-                } else {
-                    this.isSigningUp = false;
-                }
+                this.router.navigate(['auth', 'login']);
+            }, error => {
+                this.isSigningUp = false;
             });
     }
 }

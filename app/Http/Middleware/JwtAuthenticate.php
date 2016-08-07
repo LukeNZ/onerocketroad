@@ -17,6 +17,7 @@ class JwtAuthenticate
     {
         if ($request->ajax() || $request->wantsJson()) {
             // Check for presence and correctness of JWT.
+                // Auth::once
                 // return response('Unauthorized', 401);
         }
         return $next($request);
