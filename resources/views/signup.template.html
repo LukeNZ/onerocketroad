@@ -15,7 +15,7 @@
             <input type="password" name="password" #password required minlength="8" />
         </li>
         <li>
-            <button type="submit" [disabled]="!signupForm.valid || isSigningUp">Sign Up</button>
+            <button type="submit" [disabled]="!signupForm.valid || isSigningUp">{{ isSigningUp ? "Signing Up" : "Sign Up" }}</button>
         </li>
     </ul>
 </form>

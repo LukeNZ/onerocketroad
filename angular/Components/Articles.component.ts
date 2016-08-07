@@ -25,7 +25,7 @@ export class ArticlesComponent {
         this.titleService.setTitle("One Rocket Road | Articles");
     }
 
-    ngOnInit() {
+    ngOnInit() : void {
         this.getMoreArticles();
     }
 

@@ -20,7 +20,7 @@ export class ArticleComponent implements OnInit {
                 private route : ActivatedRoute,
                 private router : Router) {}
 
-    ngOnInit() {
+    ngOnInit(): void {
         // Grab router params
         let year = this.route.snapshot.params['year'];
         let month = this.route.snapshot.params['month'];

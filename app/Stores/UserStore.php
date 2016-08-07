@@ -2,7 +2,7 @@
 
 namespace OneRocketRoad\Stores;
 
-use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Support\Facades\Validator;
 use OneRocketRoad\Models\User;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
@@ -22,7 +22,7 @@ class UserStore implements UserStoreInterface {
     /**
      * Creates a User.
      *
-     * @param array $data
+     * @param array $data   The data from which a user will be created.
      *
      * @return User|UnprocessableEntityHttpException    A user if creation succeeded or an exception if
      *                                                  validation failed.
@@ -37,22 +37,37 @@ class UserStore implements UserStoreInterface {
         if ($validator->passes()) {
 
             // Split fullname into first and last
-            $firstname = "";
-            $lastname = "";
+            $fullname = explode(" ", $data['fullname']);
 
+            if (count($fullname) == 0) {
+                throw new UnprocessableEntityHttpException();
+            }
+
+            $firstname = $fullname[0];
+            if (count($fullname) === 2) {
+                $lastname = $fullname[1];
+            } else {
+                $lastname = null;
+            }
+
+            // Create the user
             return User::create([
                 'firstname' => $firstname,
                 'lastname' => $lastname,
                 'email' => $data['email'],
                 'password' => bcrypt($data['password']),
             ]);
-        } else {
-            throw new UnprocessableEntityHttpException();
         }
+
+        throw new UnprocessableEntityHttpException();
     }
 
+    /**
+     *
+     * @param int   $id     The id of the user to delete.
+     */
     function delete($id) {
-        // TODO: Implement delete() method.
+        User::destroy($id);
     }
 
     function update(array $data) {
