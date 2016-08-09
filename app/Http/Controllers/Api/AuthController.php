@@ -35,7 +35,7 @@ class AuthController extends OneRocketRoadBaseController {
         $token = $this->authenticationService->login($json['email'], $json['password']);
 
         if ($token != null) {
-            return $this->ok($token);
+            return $this->ok()->header('Authorization', "bearer {$token}");
         }
 
         return $this->unprocessableEntity();

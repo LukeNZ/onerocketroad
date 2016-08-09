@@ -31,6 +31,8 @@ export class LoginComponent {
                 } else {
                     this.isLoggingIn = false;
                 }
+            }, error => {
+                this.isLoggingIn = false;
             });
     }
 }
