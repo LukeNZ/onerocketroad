@@ -16,6 +16,7 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
+        \OneRocketRoad\Http\Middleware\P
     ];
 
     /**
@@ -45,7 +46,7 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'jqtauthenticate' => JwtAuthenticate::class,
+        'jwtauthenticate' => JwtAuthenticate::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
     ];
 }

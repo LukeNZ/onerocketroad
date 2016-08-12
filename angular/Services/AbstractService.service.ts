@@ -30,11 +30,20 @@ export abstract class AbstractService {
         return Observable.throw(errMsg);
     }
 
+    /**
+     * Fetches the auth token and stores it in a header.
+     *
+     * @returns {{headers: Headers}}
+     */
     protected authToken() : any {
         let headers = new Headers();
-        let authToken = localStorage.getItem('auth_token');
-        headers.append('Authorization', `Bearer ${authToken}`);
+        let authToken = localStorage.getItem('authtoken');
 
-        return { headers };
+        if (authToken != null) {
+            headers.append('Authorization', `bearer ${authToken}`);
+            return { headers };
+        }
+
+        return null;
     }
 }

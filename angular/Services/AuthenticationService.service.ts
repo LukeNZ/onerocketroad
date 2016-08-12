@@ -37,14 +37,12 @@ export class AuthenticationService extends AbstractService {
      */
     public login(email, password) : Observable<boolean> {
         return this.http.post('/api/auth/login', { email: email, password: password })
-            .map(this.parseJson)
-            .map((model: any) => {
-                if (model.success) {
-                    this._isLoggedIn = true;
-                    localStorage.setItem('authtoken', model.authtoken);
-                    // TODO: Figure out why PHPStorm does not like model.authtoken ("unresolved variable")
-                }
-                return model.success;
+            .map(response => {
+                this._isLoggedIn = true;
+                let authorizationHeader = response.headers.get('Authorization');
+                let authToken = authorizationHeader.split(" ").pop();
+                localStorage.setItem('authtoken', authToken); // TODO: Figure out why PHPStorm does not like model.authtoken ("unresolved variable")
+                return true;
             })
             .catch(this.handleError);
     }

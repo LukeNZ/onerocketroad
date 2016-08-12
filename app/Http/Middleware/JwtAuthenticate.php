@@ -28,6 +28,8 @@ class JwtAuthenticate
                 // Verify
 
                 // Auth::once
+
+                return $next($request);
             }
 
             return response('Unauthorized', 401);

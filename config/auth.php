@@ -67,7 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => OneRocketRoad\User::class,
+            'model' => OneRocketRoad\Models\User::class,
         ],
 
         // 'users' => [

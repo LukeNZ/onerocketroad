@@ -26,11 +26,7 @@ export class LoginComponent {
         this.isLoggingIn = true;
         this.authenticationService.login(email, password)
             .subscribe(outcome => {
-                if (outcome) {
-                    this.router.navigate(['']);
-                } else {
-                    this.isLoggingIn = false;
-                }
+                this.router.navigate(['']);
             }, error => {
                 this.isLoggingIn = false;
             });

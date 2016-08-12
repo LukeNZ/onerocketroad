@@ -52,7 +52,7 @@ class AuthenticationService implements AuthenticationServiceInterface {
      * @return bool
      */
     public function isLoginValid($email, $password) {
-        return Auth::once(['email' => $email, 'password' => $password]);
+        return Auth::attempt(['email' => $email, 'password' => $password]);
     }
 
     /**
@@ -65,7 +65,7 @@ class AuthenticationService implements AuthenticationServiceInterface {
      *
      * @return string
      */
-    public function login($email, $password) {
+    public function getJsonWebToken($email, $password) {
         // If we have a user with the matching credentials supplied, create and return a JWT.
         if ($this->isLoginValid($email, $password)) {
             // return jwt

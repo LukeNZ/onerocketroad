@@ -27,15 +27,15 @@ class AuthController extends OneRocketRoadBaseController {
      * @param Request $request
      *
      * @return \Illuminate\Http\JsonResponse
-     * Returns 200 OK if the operation completed successfully.
+     * Returns 204 No Content if the operation completed successfully.
      * Returns 422 Unprocessable Entity if the login was invalid.
      */
     public function login(Request $request) {
         $json = $request->json()->all();
-        $token = $this->authenticationService->login($json['email'], $json['password']);
+        $token = $this->authenticationService->getJsonWebToken($json['email'], $json['password']);
 
         if ($token != null) {
-            return $this->ok()->header('Authorization', "bearer {$token}");
+            return $this->noContent()->header('Authorization', "bearer {$token}");
         }
 
         return $this->unprocessableEntity();
