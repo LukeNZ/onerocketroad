@@ -11,7 +11,7 @@ export class TaggableService extends AbstractService {
     }
 
     public addTagToDraft(draft: Draft, tag: Tag) : Observable<Draft> {
-        return this.http.patch('/taggables/add', { draft: draft, tag: tag})
+        return this.http.patch('/taggables/add', { draft: draft, tag: tag}, this.authToken())
             .map(this.parseJson)
             .map(response => {
 
@@ -19,7 +19,7 @@ export class TaggableService extends AbstractService {
     }
 
     public deleteTagFromDraft(draft: Draft, tag: Tag) {
-        return this.http.patch('/taggables/delete', { draft: draft, tag: tag })
+        return this.http.patch('/taggables/delete', { draft: draft, tag: tag }, this.authToken())
             .map(this.parseJson)
             .map(response => {
 

@@ -56,6 +56,6 @@ class JwtAuthenticate
     }
 
     private function verifyToken() {
-        
+
     }
 }

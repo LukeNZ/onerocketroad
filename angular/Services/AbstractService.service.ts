@@ -1,4 +1,5 @@
 import {Observable} from "rxjs/Observable";
+import {Headers} from "@angular/http";
 
 export abstract class AbstractService {
 
@@ -27,5 +28,13 @@ export abstract class AbstractService {
             error.status ? `${error.status} - ${error.statusText}` : 'Server error';
         console.error(errMsg); // log to console instead
         return Observable.throw(errMsg);
+    }
+
+    protected authToken() : any {
+        let headers = new Headers();
+        let authToken = localStorage.getItem('auth_token');
+        headers.append('Authorization', `Bearer ${authToken}`);
+
+        return { headers };
     }
 }

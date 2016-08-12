@@ -71,7 +71,7 @@ export class ArticleService extends AbstractService {
      * @returns {Observable<Article>}   The article returned from the server.
      */
     public createArticle(article : Article) : Observable<Article> {
-        return this.http.put('/api/articles/create', article)
+        return this.http.put('/api/articles/create', article, this.authToken())
             .map(this.parseJson)
             .map(this.createArticleModel)
             .catch(this.handleError);
