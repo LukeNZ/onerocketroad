@@ -4,7 +4,9 @@ namespace OneRocketRoad\Services;
 
 use Illuminate\Support\Facades\Auth;
 use Lcobucci\JWT\Builder;
+use Lcobucci\JWT\Parser;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
+use Lcobucci\JWT\ValidationData;
 use OneRocketRoad\Models\User;
 use PhpParser\Node\Scalar\String_;
 
@@ -68,16 +70,53 @@ class AuthenticationService implements AuthenticationServiceInterface {
     public function getJsonWebToken($email, $password) {
         // If we have a user with the matching credentials supplied, create and return a JWT.
         if ($this->isLoginValid($email, $password)) {
+
+            $user = User::where('email', $email)->first();
+
             // return jwt
             return (new Builder())->setIssuer('http://onerocketroad.com')
                                     ->setAudience('http://onerocketroad.com')
-                                    ->setId(uniqid(), true)
                                     ->setIssuedAt(time())
                                     ->setNotBefore(time())
-                                    ->set('email', $email)
-                                    ->sign(new Sha256(), $email)
+                                    ->set('uid', $user->id)
+                                    ->sign(new Sha256(), config('app.key'))
                                     ->getToken();
         }
         return null;
+    }
+
+    /**
+     * @param $tokenString
+     *
+     * @return \Lcobucci\JWT\Token
+     */
+    public function parseToken($tokenString) {
+        return (new Parser())->parse((string) $tokenString);
+    }
+
+    /**
+     * @param $token
+     *
+     * @return bool
+     */
+    public function isJsonWebTokenCorrect($token) {
+        $token = $this->parseToken($token);
+
+        $data = new ValidationData();
+        $data->setIssuer('http://onerocketroad.com');
+        $data->setAudience('http://onerocketroad.com');
+
+        return $token->validate($data) && $token->verify(new Sha256(), config('app.key'));
+    }
+
+    /**
+     * @param $token
+     *
+     * @return mixed
+     */
+    public function getUser($token) {
+        $token = $this->parseToken($token);
+
+        return User::find($token->getClaim('uid'));
     }
 }

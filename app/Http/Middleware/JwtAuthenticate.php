@@ -3,10 +3,18 @@
 namespace OneRocketRoad\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Auth;
 use Lcobucci\JWT\Parser;
+use OneRocketRoad\Services\AuthenticationServiceInterface;
 
 class JwtAuthenticate
 {
+    private $authenticationService;
+
+    public function __construct(AuthenticationServiceInterface $authenticationService) {
+        $this->authenticationService = $authenticationService;
+    }
+
     /**
      * Handle an incoming request.
      *
@@ -19,17 +27,22 @@ class JwtAuthenticate
         if ($request->ajax() || $request->wantsJson()) {
 
             // Check for presence and correctness of JWT.
-            if ($request->hasHeader('Authorization') && $this->parseToken($request) != null) {
+            if ($request->hasHeader('Authorization') && $this->getTokenString($request) != null) {
 
-                $token = $this->parseToken($request);
+                // Get the token from the tokenString
+                $token = $this->authenticationService->parseToken(
+                    $this->getTokenString($request)
+                );
 
-                // Validate
+                // Check if the token is valid and verifies.
+                if ($this->authenticationService->isJsonWebTokenCorrect($token)) {
 
-                // Verify
+                    // Get the user from the claim in the token and authenticate them for the current server session
+                    $user = $this->authenticationService->getUser($token);
+                    Auth::once(['id' => $user->id]);
 
-                // Auth::once
-
-                return $next($request);
+                    return $next($request);
+                }
             }
 
             return response('Unauthorized', 401);
@@ -38,26 +51,18 @@ class JwtAuthenticate
     }
 
     /**
-     * Parses a JSON Web Token from the header of the request, if it exists.
+     * Returns the token string from the Authorization header if it exists.
      *
      * @param  \Illuminate\Http\Request  $request
      *
      * @return string|null
      */
-    private function parseToken($request) {
+    private function getTokenString($request) {
         $tokenArray = explode(" ", $request->header('Authorization'));
 
         if (count($tokenArray) === 2) {
-            return (new Parser())->parse((string) $tokenArray[1]);
+            return $tokenArray[1];
         }
         return null;
-    }
-
-    private function validateToken() {
-
-    }
-
-    private function verifyToken() {
-
     }
 }
