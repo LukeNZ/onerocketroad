@@ -8,6 +8,7 @@
         <li *ngIf="authenticationService.isLoggedIn" [routerLink]="['/drafts']">Drafts</li>
         <li *ngIf="authenticationService.isLoggedIn" [routerLink]="['/images']">Images</li>
         <li [routerLink]="['/about']">About</li>
+        <li *ngIf="authenticationService.isLoggedIn" (click)="authenticationService.logout()">Logoff</li>
     </ul>
 </nav>
 
