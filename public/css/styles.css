@@ -1,3 +1,148 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+@import "https://fonts.googleapis.com/css?family=Cairo:300,400,600|Montserrat";
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+html {
+  box-sizing: border-box; }
+
+*, *::after, *::before {
+  box-sizing: inherit; }
+
+html {
+  font-family: "Cairo", sans-serif; }
+
+header, router-outlet + * {
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto; }
+  header::after, router-outlet + *::after {
+    clear: both;
+    content: "";
+    display: block; }
+
+articles, about, article, draft, drafts, home, images, login, signup, styleguide {
+  display: block; }
+
+.header-container {
+  background-color: #21272b; }
+  .header-container header {
+    height: 100px; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Montserrat", sans-serif;
+  margin: 20px 0; }
+
+h1 {
+  font-size: 48px; }
+
+p {
+  font-size: 18px;
+  line-height: 1.5; }
+
+header {
+  font-family: "Brandon Grotesque";
+  line-height: 100px;
+  color: #F5F5F5; }
+  header a {
+    color: #F5F5F5;
+    text-decoration: none;
+    border-bottom: 3px solid transparent;
+    transition: border-bottom ease 0.2s; }
+    header a:hover {
+      border-bottom: 3px solid #F5F5F5; }
+
+#logo {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 23.23176%;
+  background-color: #CC7555;
+  font-size: 24px; }
+  #logo:last-child {
+    margin-right: 0; }
+  #logo:before {
+    content: "";
+    display: inline-block;
+    height: 100px;
+    background-color: #CC7555;
+    width: calc((100% - 1400px) / 2);
+    position: absolute;
+    left: 0; }
+  #logo a {
+    display: block;
+    width: 100%;
+    position: relative;
+    border-bottom: none; }
+  #logo a:after {
+    content: "";
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-top: 100px solid #CC7555;
+    border-right: 40px solid transparent;
+    position: absolute;
+    right: -40px; }
+
+nav {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 74.41059%; }
+  nav:last-child {
+    margin-right: 0; }
+  nav ul li {
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 14.70196%;
+    text-align: center; }
+    nav ul li:last-child {
+      margin-right: 0; }
+
 dropzone {
   display: block;
   width: 200px;
@@ -11,6 +156,4 @@ dropzone {
   max-height: 300px; }
 .all-images div.image .swatch {
   width: 50px;
-  height: 5; }
-
-/*# sourceMappingURL=styles.css.map */
+  height: 50px; }

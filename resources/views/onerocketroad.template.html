@@ -1,15 +1,26 @@
-<header>
-    <p>One Rocket Road</p>
-</header>
-<nav>
-    <ul>
-        <li [routerLink]="['']">Home</li>
-        <li [routerLink]="['/articles']">Articles</li>
-        <li *ngIf="authenticationService.isLoggedIn" [routerLink]="['/drafts']">Drafts</li>
-        <li *ngIf="authenticationService.isLoggedIn" [routerLink]="['/images']">Images</li>
-        <li [routerLink]="['/about']">About</li>
-        <li *ngIf="authenticationService.isLoggedIn" (click)="authenticationService.logout()">Logoff</li>
-    </ul>
-</nav>
+<div class="header-container">
+    <header>
+        <span id="logo"><a [routerLink]="['']">One Rocket Road</a></span>
+        <nav>
+            <ul>
+                <li>
+                    <a [routerLink]="['/articles']">Articles</a>
+                </li>
+                <li *ngIf="authenticationService.isLoggedIn">
+                    <a [routerLink]="['/drafts']">Drafts</a>
+                </li>
+                <li *ngIf="authenticationService.isLoggedIn">
+                    <a [routerLink]="['/images']">Images</a>
+                </li>
+                <li>
+                    <a [routerLink]="['/about']">About</a>
+                </li>
+                <li *ngIf="authenticationService.isLoggedIn">
+                    <a (click)="authenticationService.logout()">Logoff</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+</div>
 
 <router-outlet></router-outlet>

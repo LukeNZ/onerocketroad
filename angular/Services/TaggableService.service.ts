@@ -10,7 +10,7 @@ export class TaggableService extends AbstractService {
         super();
     }
 
-    public addTagToDraft(draft: Draft, tag: Tag) : Observable<Draft> {
+    /*public addTagToDraft(draft: Draft, tag: Tag) : Observable<Draft> {
         return this.http.patch('/taggables/add', { draft: draft, tag: tag}, this.authToken())
             .map(this.parseJson)
             .map(response => {
@@ -18,11 +18,11 @@ export class TaggableService extends AbstractService {
             });
     }
 
-    public deleteTagFromDraft(draft: Draft, tag: Tag) {
+    public deleteTagFromDraft(draft: Draft, tag: Tag) : Observable<number> {
         return this.http.patch('/taggables/delete', { draft: draft, tag: tag }, this.authToken())
             .map(this.parseJson)
             .map(response => {
 
             });
-    }
+    }*/
 }

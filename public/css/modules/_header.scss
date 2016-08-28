@@ -1,0 +1,65 @@
+$slantOffset: 40px;
+
+// The main header of the site
+header {
+    font-family:$brandongrotesque;
+    line-height:$headerHeight;
+    color:$white;
+
+    a {
+        color:$white;
+        text-decoration:none;
+        border-bottom:3px solid transparent;
+        @include transition-fast(border-bottom);
+
+        &:hover {
+            border-bottom:3px solid $white;
+        }
+    }
+}
+
+// The logo
+#logo {
+    @include span-columns(3);
+
+    background-color:$canyon;
+    font-size:24px;
+
+    &:before {
+        content:"";
+        display:inline-block;
+        height:$headerHeight;
+        background-color:$canyon;
+        width:calc((100% - #{$max-width}) / 2);
+        position:absolute;
+        left:0;
+    }
+
+    a {
+        display:block;
+        width:100%;
+        position:relative;
+        border-bottom:none;
+    }
+
+    a:after {
+        content:"";
+        display:inline-block;
+        width:0;
+        height:0;
+        border-top:$headerHeight solid $canyon;
+        border-right:$slantOffset solid transparent;
+        position:absolute;
+        right:-$slantOffset;
+    }
+}
+
+// Navigation
+nav {
+    @include span-columns(9);
+
+    ul li {
+        @include span-columns(2);
+        text-align:center;
+    }
+}

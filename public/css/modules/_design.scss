@@ -1,0 +1,15 @@
+// Colors
+$canyon: #CC7555;
+$slate: #21272b;
+$white: #F5F5F5;
+
+// Fonts
+@import 'https://fonts.googleapis.com/css?family=Cairo:300,400,600|Montserrat';
+
+$cairo: 'Cairo', sans-serif;
+$montserrat: 'Montserrat', sans-serif;
+$brandongrotesque: 'Brandon Grotesque';
+
+@mixin transition-fast($property) {
+    transition:$property ease 0.2s;
+}

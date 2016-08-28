@@ -2,7 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, Router, ROUTER_DIRECTIVES} from "@angular/router";
 import {FORM_DIRECTIVES, FormControl, REACTIVE_FORM_DIRECTIVES} from '@angular/forms';
-import {DraftService, ArticleService} from "../services";
+import {DraftService, ArticleService, TaggableService} from "../services";
 import {Draft, Article, Tag} from "../classes";
 import {ContentEditableDirective, DraggableDirective, DroppableDirective} from "../directives";
 import {DraftViewState} from "../enums";
@@ -17,21 +17,23 @@ import {Subject} from "rxjs/Subject";
     templateUrl: '/angular/views/draft.template.html',
     directives: [ContentEditableDirective, DraggableDirective, DroppableDirective,
         ROUTER_DIRECTIVES, FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
-    providers: [DraftService, ArticleService],
+    providers: [DraftService, ArticleService, TaggableService],
     pipes: [MarkdownPipe]
 })
 export class DraftComponent implements OnInit {
-    private _draft:Draft;
-    public isSaving:boolean = false;
-    public isPublishing:boolean = false;
+    private _draft: Draft;
+    public isSaving: boolean = false;
+    public isPublishing: boolean = false;
     public draftViewState = DraftViewState;
-    public viewState:DraftViewState = DraftViewState.Edit;
+    public viewState: DraftViewState = DraftViewState.Edit;
 
     public bodyFormControl = new FormControl();
 
-    public draftSubject:Subject<Draft> = new Subject<Draft>();
-    public draftStream:Observable<Draft> = this.draftSubject.asObservable();
-    public draftSubscription:Subscription;
+    public draftSubject: Subject<Draft> = new Subject<Draft>();
+    public draftStream: Observable<Draft> = this.draftSubject.asObservable();
+    public draftSubscription: Subscription;
+
+    public transientTagValue: string;
 
     /**
      * Getter for the private variable draft. Used to enable draft entity autosaving.
@@ -125,10 +127,14 @@ export class DraftComponent implements OnInit {
     public addTag(event: KeyboardEvent) : void {
         if (event.key === "Enter") {
             let tag = Tag.create();
+            tag.value = this.transientTagValue;
+            // TaggableService.addTagToDraft
+
+            // clear input
         }
         // push a tag onto the draft
         // TaggableService.addTagToDraft
-            // replace tag
+        // replace tag
     }
 
     public deleteTag(value: any) : void {
@@ -141,7 +147,7 @@ export class DraftComponent implements OnInit {
      *
      * @returns {string} The color the word count should be highlighted in.
      */
-    public showWordCountWarning():string {
+    public showWordCountWarning(): string {
         return this.draft.wordCount() > 200 ? "black" : "red";
     }
 
@@ -151,7 +157,7 @@ export class DraftComponent implements OnInit {
      *
      * @returns {string}
      */
-    public wordCountStatement():string {
+    public wordCountStatement(): string {
         let wordCount = this.draft.wordCount();
         if (wordCount == 1) {
             return "1 word";
@@ -171,7 +177,7 @@ export class DraftComponent implements OnInit {
      * Publishes a draft as an article. This creates an article from the draft, puts the article on the server,
      * then once complete, deletes the original draft and redirects to the newly created article.
      */
-    public publishDraft():void {
+    public publishDraft(): void {
         this.isPublishing = true;
         let article = Article.createFromDraft(this.draft);
 
@@ -206,7 +212,7 @@ export class DraftComponent implements OnInit {
      *
      * @param body
      */
-    public autosaveDraftBody(body:string):void {
+    public autosaveDraftBody(body: string): void {
         let newDraft = Draft.create(this.draft);
         newDraft.body = body;
         this.draft = newDraft;
@@ -217,7 +223,7 @@ export class DraftComponent implements OnInit {
      *
      * @param title
      */
-    public autosaveDraftTitle(title:string):void {
+    public autosaveDraftTitle(title: string): void {
         let newDraft = Draft.create(this.draft);
         newDraft.title = title;
         this.draft = newDraft;

@@ -29,8 +29,7 @@
     <!-- Tags -->
     <h2>Tags <i class="fa fa-trash" isDroppable (dropped)="deleteTag($event)" *ngIf="draft.tags.length > 0"></i></h2>
     <p *ngFor="let tag of draft.tags" isDraggable>{{ tag.value }}</p>
-    <input type="text" (keypress)="addTag($event)"/>
-
+    <input type="text" (keypress)="addTag($event)" [(ngModel)]="transientTagValue" />
 
     <!-- Actions -->
     <button type="submit" [disabled]="!draft.isPublishable() || isPublishing" (click)="publishDraft()">

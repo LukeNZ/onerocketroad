@@ -5,3 +5,4 @@ export * from './DraftService.service';
 export * from './HomeService.service';
 export * from './UserService.service';
 export * from './ImageService.service';
+export * from './TaggableService.service';
