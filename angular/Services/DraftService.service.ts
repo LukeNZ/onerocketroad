@@ -79,7 +79,7 @@ export class DraftService extends AbstractService {
      * @returns {Observable<number>}   A status code indicating the outcome of the operation.
      */
     public deleteDraft(draft: Draft) : Observable<number> {
-        return this.http.delete('/api/drafts/delete/' + draft.id)
+        return this.http.delete('/api/drafts/delete/' + draft.id, this.authToken())
             .map(response => response.status)
             .catch(this.handleError);
     }

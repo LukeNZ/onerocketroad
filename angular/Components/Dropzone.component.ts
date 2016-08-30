@@ -29,7 +29,8 @@ export class DropzoneComponent implements OnInit {
             acceptedFiles: '.jpg,.jpeg,.png,.gif',
             autoProcessQueue: false,
             headers: {
-                "X-XSRF-TOKEN": this.getXSRFToken()
+                "X-XSRF-TOKEN": this.getXSRFToken(),
+                "Authorization": this.getAuthToken()
             }
         });
     }
@@ -72,5 +73,10 @@ export class DropzoneComponent implements OnInit {
             return decodeURIComponent(parts.pop().split(";").shift());
         }
         return null;
+    }
+
+    private getAuthToken(): string {
+        let authToken = localStorage.getItem('authtoken');
+        return `bearer ${authToken}`;
     }
 }

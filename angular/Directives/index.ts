@@ -3,3 +3,4 @@ export * from './ContentEditable.directive';
 export * from './Draggable.directive';
 export * from './Droppable.directive';
 export * from './HighlightOnClick.directive';
+export * from './Hero.directive';

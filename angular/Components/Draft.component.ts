@@ -4,7 +4,7 @@ import {ActivatedRoute, Router, ROUTER_DIRECTIVES} from "@angular/router";
 import {FORM_DIRECTIVES, FormControl, REACTIVE_FORM_DIRECTIVES} from '@angular/forms';
 import {DraftService, ArticleService, TaggableService} from "../services";
 import {Draft, Article, Tag} from "../classes";
-import {ContentEditableDirective, DraggableDirective, DroppableDirective} from "../directives";
+import {ContentEditableDirective, DraggableDirective, DroppableDirective, HeroDirective} from "../directives";
 import {DraftViewState} from "../enums";
 import {MarkdownPipe} from "../pipes";
 
@@ -15,7 +15,7 @@ import {Subject} from "rxjs/Subject";
 @Component({
     selector: 'draft',
     templateUrl: '/angular/views/draft.template.html',
-    directives: [ContentEditableDirective, DraggableDirective, DroppableDirective,
+    directives: [ContentEditableDirective, DraggableDirective, DroppableDirective, HeroDirective,
         ROUTER_DIRECTIVES, FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
     providers: [DraftService, ArticleService, TaggableService],
     pipes: [MarkdownPipe]

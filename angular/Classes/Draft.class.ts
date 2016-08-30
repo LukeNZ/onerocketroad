@@ -22,7 +22,7 @@ export class Draft {
     public static create(model?: any): Draft {
         if (model != null) {
             return new Draft(model.id, model.title, model.body, model.author, model.authorName,
-                model.heroId, model.hero, model.tags, model.dueAt, model.createdAt, model.updatedAt);
+                model.heroId, Image.create(model.hero), model.tags, model.dueAt, model.createdAt, model.updatedAt);
         }
         return new Draft();
     }

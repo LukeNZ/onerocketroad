@@ -13,7 +13,7 @@ webpackJsonp([0],{
 	var routes_1 = __webpack_require__(397);
 	// Root component
 	var components_1 = __webpack_require__(459);
-	var guards_1 = __webpack_require__(668);
+	var guards_1 = __webpack_require__(669);
 	var services_1 = __webpack_require__(462);
 	platform_browser_dynamic_1.bootstrap(components_1.OneRocketRoadComponent, [
 	    routes_1.APP_ROUTER_PROVIDERS,
@@ -34,7 +34,7 @@ webpackJsonp([0],{
 	"use strict";
 	var router_1 = __webpack_require__(398);
 	var components_1 = __webpack_require__(459);
-	var guards_1 = __webpack_require__(668);
+	var guards_1 = __webpack_require__(669);
 	// At a future release, we should hopefully be able to specify routes
 	exports.routes = [
 	    //  Public routes
@@ -67,15 +67,15 @@ webpackJsonp([0],{
 	__export(__webpack_require__(460));
 	__export(__webpack_require__(461));
 	__export(__webpack_require__(644));
-	__export(__webpack_require__(651));
-	__export(__webpack_require__(655));
-	__export(__webpack_require__(657));
-	__export(__webpack_require__(662));
+	__export(__webpack_require__(652));
+	__export(__webpack_require__(656));
+	__export(__webpack_require__(658));
 	__export(__webpack_require__(663));
 	__export(__webpack_require__(664));
 	__export(__webpack_require__(665));
 	__export(__webpack_require__(666));
 	__export(__webpack_require__(667));
+	__export(__webpack_require__(668));
 
 
 /***/ },
@@ -522,9 +522,10 @@ webpackJsonp([0],{
 /***/ },
 
 /***/ 570:
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
+	var classes_1 = __webpack_require__(465);
 	var Draft = (function () {
 	    /**
 	     * Draft constructor
@@ -562,7 +563,7 @@ webpackJsonp([0],{
 	     */
 	    Draft.create = function (model) {
 	        if (model != null) {
-	            return new Draft(model.id, model.title, model.body, model.author, model.authorName, model.heroId, model.hero, model.tags, model.dueAt, model.createdAt, model.updatedAt);
+	            return new Draft(model.id, model.title, model.body, model.author, model.authorName, model.heroId, classes_1.Image.create(model.hero), model.tags, model.dueAt, model.createdAt, model.updatedAt);
 	        }
 	        return new Draft();
 	    };
@@ -932,7 +933,7 @@ webpackJsonp([0],{
 	     * @returns {Observable<number>}   A status code indicating the outcome of the operation.
 	     */
 	    DraftService.prototype.deleteDraft = function (draft) {
-	        return this.http.delete('/api/drafts/delete/' + draft.id)
+	        return this.http.delete('/api/drafts/delete/' + draft.id, this.authToken())
 	            .map(function (response) { return response.status; })
 	            .catch(this.handleError);
 	    };
@@ -1499,6 +1500,7 @@ webpackJsonp([0],{
 	__export(__webpack_require__(648));
 	__export(__webpack_require__(649));
 	__export(__webpack_require__(650));
+	__export(__webpack_require__(651));
 
 
 /***/ },
@@ -1754,7 +1756,6 @@ webpackJsonp([0],{
 	        }
 	        this.el.nativeElement.classList.remove("being-dropped");
 	        var data = JSON.parse(event.dataTransfer.getData("text"));
-	        console.log(data);
 	        this.dropped.emit(data);
 	        return false;
 	    };
@@ -1868,13 +1869,52 @@ webpackJsonp([0],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(11);
+	var HeroDirective = (function () {
+	    function HeroDirective(el) {
+	        this.el = el;
+	    }
+	    HeroDirective.prototype.ngOnInit = function () {
+	        this.el.nativeElement.style.backgroundImage = "url(" + this.data + ")";
+	    };
+	    __decorate([
+	        core_1.Input('image'), 
+	        __metadata('design:type', Object)
+	    ], HeroDirective.prototype, "data", void 0);
+	    HeroDirective = __decorate([
+	        core_1.Directive({
+	            selector: 'hero[image]'
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof core_1.ElementRef !== 'undefined' && core_1.ElementRef) === 'function' && _a) || Object])
+	    ], HeroDirective);
+	    return HeroDirective;
+	    var _a;
+	}());
+	exports.HeroDirective = HeroDirective;
+
+
+/***/ },
+
+/***/ 652:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(11);
 	var platform_browser_1 = __webpack_require__(203);
 	var router_1 = __webpack_require__(398);
 	var forms_1 = __webpack_require__(359);
 	var services_1 = __webpack_require__(462);
 	var classes_1 = __webpack_require__(465);
 	var directives_1 = __webpack_require__(645);
-	var enums_1 = __webpack_require__(652);
+	var enums_1 = __webpack_require__(653);
 	var pipes_1 = __webpack_require__(581);
 	var Subject_1 = __webpack_require__(69);
 	var DraftComponent = (function () {
@@ -2071,7 +2111,7 @@ webpackJsonp([0],{
 	        core_1.Component({
 	            selector: 'draft',
 	            templateUrl: '/angular/views/draft.template.html',
-	            directives: [directives_1.ContentEditableDirective, directives_1.DraggableDirective, directives_1.DroppableDirective,
+	            directives: [directives_1.ContentEditableDirective, directives_1.DraggableDirective, directives_1.DroppableDirective, directives_1.HeroDirective,
 	                router_1.ROUTER_DIRECTIVES, forms_1.FORM_DIRECTIVES, forms_1.REACTIVE_FORM_DIRECTIVES],
 	            providers: [services_1.DraftService, services_1.ArticleService, services_1.TaggableService],
 	            pipes: [pipes_1.MarkdownPipe]
@@ -2086,20 +2126,20 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 652:
+/***/ 653:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	function __export(m) {
 	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	}
-	__export(__webpack_require__(653));
 	__export(__webpack_require__(654));
+	__export(__webpack_require__(655));
 
 
 /***/ },
 
-/***/ 653:
+/***/ 654:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2112,7 +2152,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 654:
+/***/ 655:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2126,7 +2166,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 655:
+/***/ 656:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2146,7 +2186,7 @@ webpackJsonp([0],{
 	var services_1 = __webpack_require__(462);
 	var directives_1 = __webpack_require__(645);
 	var Observable_1 = __webpack_require__(70);
-	__webpack_require__(656);
+	__webpack_require__(657);
 	var DraftsComponent = (function () {
 	    function DraftsComponent(draftService, articleService, route, router, titleService) {
 	        this.draftService = draftService;
@@ -2209,7 +2249,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 657:
+/***/ 658:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2223,9 +2263,9 @@ webpackJsonp([0],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(11);
-	var Dropzone = __webpack_require__(658);
+	var Dropzone = __webpack_require__(659);
 	var Observable_1 = __webpack_require__(70);
-	__webpack_require__(659);
+	__webpack_require__(660);
 	var DropzoneComponent = (function () {
 	    function DropzoneComponent(el) {
 	        this.el = el;
@@ -2246,7 +2286,8 @@ webpackJsonp([0],{
 	            acceptedFiles: '.jpg,.jpeg,.png,.gif',
 	            autoProcessQueue: false,
 	            headers: {
-	                "X-XSRF-TOKEN": this.getXSRFToken()
+	                "X-XSRF-TOKEN": this.getXSRFToken(),
+	                "Authorization": this.getAuthToken()
 	            }
 	        });
 	    };
@@ -2287,6 +2328,10 @@ webpackJsonp([0],{
 	        }
 	        return null;
 	    };
+	    DropzoneComponent.prototype.getAuthToken = function () {
+	        var authToken = localStorage.getItem('authtoken');
+	        return "bearer " + authToken;
+	    };
 	    DropzoneComponent = __decorate([
 	        core_1.Component({
 	            selector: 'dropzone',
@@ -2302,28 +2347,28 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 659:
+/***/ 660:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var Observable_1 = __webpack_require__(70);
-	var fromEvent_1 = __webpack_require__(660);
+	var fromEvent_1 = __webpack_require__(661);
 	Observable_1.Observable.fromEvent = fromEvent_1.fromEvent;
 	//# sourceMappingURL=fromEvent.js.map
 
 /***/ },
 
-/***/ 660:
+/***/ 661:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var FromEventObservable_1 = __webpack_require__(661);
+	var FromEventObservable_1 = __webpack_require__(662);
 	exports.fromEvent = FromEventObservable_1.FromEventObservable.create;
 	//# sourceMappingURL=fromEvent.js.map
 
 /***/ },
 
-/***/ 661:
+/***/ 662:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2423,7 +2468,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 662:
+/***/ 663:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2472,7 +2517,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 663:
+/***/ 664:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2504,7 +2549,6 @@ webpackJsonp([0],{
 	        var _this = this;
 	        this.imageService.getImages().subscribe(function (images) {
 	            _this.images = images;
-	            console.log(_this.images);
 	        });
 	    };
 	    /**
@@ -2547,7 +2591,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 664:
+/***/ 665:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2604,7 +2648,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 665:
+/***/ 666:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2626,7 +2670,6 @@ webpackJsonp([0],{
 	        this.isArticle = false;
 	    }
 	    OneRocketRoadComponent.prototype.onActivate = function (event) {
-	        console.log(event);
 	        this.isArticle = event.route && (event.route.component.name == "DraftComponent" || event.route.component.name == "ArticleComponent");
 	    };
 	    OneRocketRoadComponent = __decorate([
@@ -2645,7 +2688,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 666:
+/***/ 667:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2695,7 +2738,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 667:
+/***/ 668:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2732,19 +2775,19 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 668:
+/***/ 669:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	function __export(m) {
 	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	}
-	__export(__webpack_require__(669));
+	__export(__webpack_require__(670));
 
 
 /***/ },
 
-/***/ 669:
+/***/ 670:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";

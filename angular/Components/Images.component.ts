@@ -27,7 +27,6 @@ export class ImagesComponent implements OnInit {
     ngOnInit() {
         this.imageService.getImages().subscribe(images => {
             this.images = images;
-            console.log (this.images);
         });
     }
 

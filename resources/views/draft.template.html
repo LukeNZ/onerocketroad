@@ -1,7 +1,11 @@
+<section *ngIf="draft" class="item-header" [style.background-image]="">
+    <h1><span [contentEditableModel]="draft.title" (contentEditableModelChange)="autosaveDraftTitle($event)"></span></h1>
+    <hero [image]="draft.hero?.getUrl()"></hero>
+</section>
+
 <a [routerLink]="['/drafts']">Back to Drafts</a>
 
 <div *ngIf="draft">
-    <h1 [contentEditableModel]="draft.title" (contentEditableModelChange)="autosaveDraftTitle($event)"></h1>
     <p>By {{ draft.authorName }}</p>
     <p>{{ draft.hero?.attribution }}</p>
 

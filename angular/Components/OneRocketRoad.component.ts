@@ -14,7 +14,6 @@ export class OneRocketRoadComponent {
     constructor(private authenticationService: AuthenticationService) {}
 
     public onActivate(event: any): void {
-        console.log(event);
         this.isArticle = event.route && (event.route.component.name == "DraftComponent" || event.route.component.name == "ArticleComponent");
     }
 }

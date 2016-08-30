@@ -40,7 +40,6 @@ export class DroppableDirective {
         this.el.nativeElement.classList.remove("being-dropped");
 
         let data = JSON.parse(event.dataTransfer.getData("text"));
-        console.log(data);
         this.dropped.emit(data);
         return false;
     }
