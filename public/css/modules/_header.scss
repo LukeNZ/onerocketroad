@@ -1,5 +1,17 @@
 $slantOffset: 40px;
 
+.header-container {
+    background-color:$slate;
+
+    &.is-article {
+        background-color:transparent;
+
+        nav {
+            display:none;
+        }
+    }
+}
+
 // The main header of the site
 header {
     font-family:$brandongrotesque;
@@ -13,7 +25,7 @@ header {
         @include transition-fast(border-bottom);
 
         &:hover {
-            border-bottom:3px solid $white;
+            border-bottom:3px solid $canyon;
         }
     }
 }
@@ -30,9 +42,10 @@ header {
         display:inline-block;
         height:$headerHeight;
         background-color:$canyon;
-        width:calc((100% - #{$max-width}) / 2);
+        width:calc(((100% - #{$max-width}) / 2) + #{$containerPadding});
         position:absolute;
         left:0;
+        min-width:10px;
     }
 
     a {
@@ -61,5 +74,13 @@ nav {
     ul li {
         @include span-columns(2);
         text-align:center;
+
+        &.align-right {
+            float:right;
+
+            a {
+                color:#E1E1E1;
+            }
+        }
     }
 }

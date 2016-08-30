@@ -3,10 +3,18 @@ import {ROUTER_DIRECTIVES} from '@angular/router';
 import {AuthenticationService} from '../services';
 
 @Component({
-    selector: 'one-rocket-road',
+    selector: 'body',
     templateUrl: '/angular/views/onerocketroad.template.html',
     directives: [ROUTER_DIRECTIVES]
 })
 export class OneRocketRoadComponent {
+
+    public isArticle = false;
+
     constructor(private authenticationService: AuthenticationService) {}
+
+    public onActivate(event: any): void {
+        console.log(event);
+        this.isArticle = event.route && (event.route.component.name == "DraftComponent" || event.route.component.name == "ArticleComponent");
+    }
 }

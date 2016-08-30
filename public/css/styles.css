@@ -58,7 +58,8 @@ html {
 header, router-outlet + * {
   max-width: 1400px;
   margin-left: auto;
-  margin-right: auto; }
+  margin-right: auto;
+  padding: 0 10px; }
   header::after, router-outlet + *::after {
     clear: both;
     content: "";
@@ -67,10 +68,8 @@ header, router-outlet + * {
 articles, about, article, draft, drafts, home, images, login, signup, styleguide {
   display: block; }
 
-.header-container {
-  background-color: #21272b; }
-  .header-container header {
-    height: 100px; }
+header {
+  height: 100px; }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: "Montserrat", sans-serif;
@@ -83,6 +82,13 @@ p {
   font-size: 18px;
   line-height: 1.5; }
 
+.header-container {
+  background-color: #21272b; }
+  .header-container.is-article {
+    background-color: transparent; }
+    .header-container.is-article nav {
+      display: none; }
+
 header {
   font-family: "Brandon Grotesque";
   line-height: 100px;
@@ -93,7 +99,7 @@ header {
     border-bottom: 3px solid transparent;
     transition: border-bottom ease 0.2s; }
     header a:hover {
-      border-bottom: 3px solid #F5F5F5; }
+      border-bottom: 3px solid #CC7555; }
 
 #logo {
   float: left;
@@ -109,9 +115,10 @@ header {
     display: inline-block;
     height: 100px;
     background-color: #CC7555;
-    width: calc((100% - 1400px) / 2);
+    width: calc(((100% - 1400px) / 2) + 10px);
     position: absolute;
-    left: 0; }
+    left: 0;
+    min-width: 10px; }
   #logo a {
     display: block;
     width: 100%;
@@ -142,6 +149,10 @@ nav {
     text-align: center; }
     nav ul li:last-child {
       margin-right: 0; }
+    nav ul li.align-right {
+      float: right; }
+      nav ul li.align-right a {
+        color: #E1E1E1; }
 
 dropzone {
   display: block;

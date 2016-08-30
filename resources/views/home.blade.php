@@ -22,6 +22,6 @@
 
     </head>
     <body>
-        <one-rocket-road>Loading... Launching...</one-rocket-road>
+        Loading... Launching...
     </body>
 </html>

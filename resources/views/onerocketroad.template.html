@@ -1,4 +1,4 @@
-<div class="header-container">
+<div class="header-container" [class.is-article]="isArticle">
     <header>
         <span id="logo"><a [routerLink]="['']">One Rocket Road</a></span>
         <nav>
@@ -12,15 +12,16 @@
                 <li *ngIf="authenticationService.isLoggedIn">
                     <a [routerLink]="['/images']">Images</a>
                 </li>
-                <li>
-                    <a [routerLink]="['/about']">About</a>
-                </li>
-                <li *ngIf="authenticationService.isLoggedIn">
+
+                <li class="align-right" *ngIf="authenticationService.isLoggedIn">
                     <a (click)="authenticationService.logout()">Logoff</a>
+                </li>
+                <li class="align-right">
+                    <a [routerLink]="['/about']">About</a>
                 </li>
             </ul>
         </nav>
     </header>
 </div>
 
-<router-outlet></router-outlet>
+<router-outlet (activate)="onActivate($event)"></router-outlet>
