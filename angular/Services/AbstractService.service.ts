@@ -31,19 +31,43 @@ export abstract class AbstractService {
     }
 
     /**
-     * Fetches the auth token and stores it in a header.
+     * Creates a default headers object for use on each request that ensures any server marks it as an AJAX request.
+     *
+     * TODO: Uncomment Content-Type header entry after this is fixed: https://github.com/angular/angular/commit/7cd4741fcbbea6d58281b3055d1ae7691de1662b
+     *
+     * @returns {Headers}
+     */
+    private headerFactory() : Headers {
+        let headers = new Headers();
+        headers.append('X-Requested-With', 'XMLHttpRequest');
+        //headers.append('Content-Type', 'application/json');
+        return headers;
+    }
+
+    /**
+     * Creates an object of Headers with an auth token.
      *
      * @returns {{headers: Headers}}
      */
-    protected authToken() : any {
-        let headers = new Headers();
+    protected headersWithAuth() : { headers: Headers } {
+        let headers = this.headerFactory();
+
         let authToken = localStorage.getItem('authtoken');
 
         if (authToken != null) {
             headers.append('Authorization', `bearer ${authToken}`);
-            return { headers };
         }
 
-        return null;
+        return { headers };
+    }
+
+    /**
+     * Creates an object of Headers without an auth token.
+     *
+     * @returns {{headers: Headers}}
+     */
+    protected headersNoAuth() : { headers: Headers } {
+        let headers = this.headerFactory();
+        return { headers };
     }
 }

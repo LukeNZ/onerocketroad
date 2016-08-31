@@ -75,6 +75,10 @@ export class DropzoneComponent implements OnInit {
         return null;
     }
 
+    /**
+     * BAD CODE
+     * @returns {string}
+     */
     private getAuthToken(): string {
         let authToken = localStorage.getItem('authtoken');
         return `bearer ${authToken}`;

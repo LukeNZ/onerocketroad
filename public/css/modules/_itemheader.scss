@@ -1,4 +1,4 @@
-$itemHeaderHeight: 400px;
+$itemHeaderHeight: 500px;
 
 .item-header {
     top:-$headerHeight;
@@ -21,11 +21,11 @@ $itemHeaderHeight: 400px;
 
     h1 span {
         color:$white;
-        padding:5px 20px;
-        background-color:transparentize($slate, 0.5);
+        padding:0 10px;
+        background-color:transparentize($slate, 0.7);
 
             -webkit-box-decoration-break:clone;
         box-decoration-break: clone;
-        line-height:1.46;
+        line-height:normal;
     }
 }

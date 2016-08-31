@@ -39,7 +39,7 @@ class JwtAuthenticate
 
                     // Get the user from the claim in the token and authenticate them for the current server session
                     $user = $this->authenticationService->getUser($token);
-                    Auth::once(['id' => $user->id]);
+                    Auth::onceUsingId($user->id);
 
                     return $next($request);
                 }

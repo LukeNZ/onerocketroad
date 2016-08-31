@@ -229,18 +229,39 @@ webpackJsonp([0],{
 	        return Observable_1.Observable.throw(errMsg);
 	    };
 	    /**
-	     * Fetches the auth token and stores it in a header.
+	     * Creates a default headers object for use on each request that ensures any server marks it as an AJAX request.
+	     *
+	     * TODO: Uncomment Content-Type header entry after this is fixed: https://github.com/angular/angular/commit/7cd4741fcbbea6d58281b3055d1ae7691de1662b
+	     *
+	     * @returns {Headers}
+	     */
+	    AbstractService.prototype.headerFactory = function () {
+	        var headers = new http_1.Headers();
+	        headers.append('X-Requested-With', 'XMLHttpRequest');
+	        //headers.append('Content-Type', 'application/json');
+	        return headers;
+	    };
+	    /**
+	     * Creates an object of Headers with an auth token.
 	     *
 	     * @returns {{headers: Headers}}
 	     */
-	    AbstractService.prototype.authToken = function () {
-	        var headers = new http_1.Headers();
+	    AbstractService.prototype.headersWithAuth = function () {
+	        var headers = this.headerFactory();
 	        var authToken = localStorage.getItem('authtoken');
 	        if (authToken != null) {
 	            headers.append('Authorization', "bearer " + authToken);
-	            return { headers: headers };
 	        }
-	        return null;
+	        return { headers: headers };
+	    };
+	    /**
+	     * Creates an object of Headers without an auth token.
+	     *
+	     * @returns {{headers: Headers}}
+	     */
+	    AbstractService.prototype.headersNoAuth = function () {
+	        var headers = this.headerFactory();
+	        return { headers: headers };
 	    };
 	    return AbstractService;
 	}());
@@ -292,7 +313,7 @@ webpackJsonp([0],{
 	    ArticleService.prototype.getRecentArticles = function (cursor) {
 	        var _this = this;
 	        cursor = cursor == null ? 0 : cursor;
-	        return this.http.get('/api/articles/getrecent/' + cursor)
+	        return this.http.get('/api/articles/getrecent/' + cursor, this.headersNoAuth())
 	            .map(this.parseJson)
 	            .map(function (models) {
 	            if (models != null) {
@@ -315,7 +336,7 @@ webpackJsonp([0],{
 	     */
 	    ArticleService.prototype.getArticle = function (year, month, day, slug) {
 	        var _this = this;
-	        return this.http.get('/api/articles/get/' + year + '/' + month + '/' + day + "/" + slug)
+	        return this.http.get('/api/articles/get/' + year + '/' + month + '/' + day + "/" + slug, this.headersNoAuth())
 	            .map(this.parseJson)
 	            .map(this.createArticleModel)
 	            .catch(function (response) {
@@ -336,7 +357,7 @@ webpackJsonp([0],{
 	     * @returns {Observable<Article>}   The article returned from the server.
 	     */
 	    ArticleService.prototype.createArticle = function (article) {
-	        return this.http.put('/api/articles/create', article, this.authToken())
+	        return this.http.put('/api/articles/create', article, this.headersWithAuth())
 	            .map(this.parseJson)
 	            .map(this.createArticleModel)
 	            .catch(this.handleError);
@@ -788,7 +809,7 @@ webpackJsonp([0],{
 	     */
 	    AuthenticationService.prototype.login = function (email, password) {
 	        var _this = this;
-	        return this.http.post('/api/auth/login', { email: email, password: password })
+	        return this.http.post('/api/auth/login', { email: email, password: password }, this.headersNoAuth())
 	            .map(function (response) {
 	            _this._isLoggedIn = true;
 	            var authorizationHeader = response.headers.get('Authorization');
@@ -821,7 +842,7 @@ webpackJsonp([0],{
 	            email: email,
 	            fullname: fullname,
 	            password: password
-	        })
+	        }, this.headersNoAuth())
 	            .map(this.parseJson)
 	            .map(function (model) {
 	            return true;
@@ -876,7 +897,7 @@ webpackJsonp([0],{
 	     */
 	    DraftService.prototype.getAllDrafts = function () {
 	        var _this = this;
-	        return this.http.get('/api/drafts/all', this.authToken())
+	        return this.http.get('/api/drafts/all', this.headersWithAuth())
 	            .map(this.parseJson)
 	            .map(function (models) {
 	            if (models != null) {
@@ -894,7 +915,7 @@ webpackJsonp([0],{
 	     * @returns {Observable<Draft>}    The draft specified by the id.
 	     */
 	    DraftService.prototype.getDraft = function (draftId) {
-	        return this.http.get('/api/drafts/get/' + draftId, this.authToken())
+	        return this.http.get('/api/drafts/get/' + draftId, this.headersWithAuth())
 	            .map(this.parseJson)
 	            .map(this.createDraftModel)
 	            .catch(this.handleError);
@@ -907,7 +928,7 @@ webpackJsonp([0],{
 	     * @returns {Observable<Draft>}    The draft returned from the server.
 	     */
 	    DraftService.prototype.createDraft = function (draft) {
-	        return this.http.put('/api/drafts/create', draft, this.authToken())
+	        return this.http.put('/api/drafts/create', draft, this.headersWithAuth())
 	            .map(this.parseJson)
 	            .map(this.createDraftModel)
 	            .catch(this.handleError);
@@ -920,7 +941,7 @@ webpackJsonp([0],{
 	     * @returns {Observable<Draft>}   The draft returned from the server.
 	     */
 	    DraftService.prototype.updateDraft = function (draft) {
-	        return this.http.patch('/api/drafts/update', draft, this.authToken())
+	        return this.http.patch('/api/drafts/update', draft, this.headersWithAuth())
 	            .map(this.parseJson)
 	            .map(this.createDraftModel)
 	            .catch(this.handleError);
@@ -933,7 +954,7 @@ webpackJsonp([0],{
 	     * @returns {Observable<number>}   A status code indicating the outcome of the operation.
 	     */
 	    DraftService.prototype.deleteDraft = function (draft) {
-	        return this.http.delete('/api/drafts/delete/' + draft.id, this.authToken())
+	        return this.http.delete('/api/drafts/delete/' + draft.id, this.headersWithAuth())
 	            .map(function (response) { return response.status; })
 	            .catch(this.handleError);
 	    };
@@ -994,7 +1015,7 @@ webpackJsonp([0],{
 	     * @returns {Observable<Home>}
 	     */
 	    HomeService.prototype.getHome = function () {
-	        return this.http.get('/api/home/get')
+	        return this.http.get('/api/home/get', this.headersNoAuth())
 	            .map(function (response) { return response.json(); })
 	            .map(function (models) {
 	            if (models != null) {
@@ -1082,7 +1103,7 @@ webpackJsonp([0],{
 	     * @returns {Observable<Image[]>}   All images from the server.
 	     */
 	    ImageService.prototype.getImages = function () {
-	        return this.http.get('/api/images/all', this.authToken())
+	        return this.http.get('/api/images/all', this.headersWithAuth())
 	            .map(this.parseJson)
 	            .map(function (models) {
 	            return models.map(function (model) {
@@ -1099,7 +1120,7 @@ webpackJsonp([0],{
 	     * @returns {Observable<Image>}     The image specified by the id.
 	     */
 	    ImageService.prototype.getImage = function (id) {
-	        return this.http.get('/api/images/get/' + id, this.authToken())
+	        return this.http.get('/api/images/get/' + id, this.headersWithAuth())
 	            .map(this.parseJson)
 	            .map(function (model) {
 	            return classes_1.Image.create(model);
@@ -2328,6 +2349,10 @@ webpackJsonp([0],{
 	        }
 	        return null;
 	    };
+	    /**
+	     * BAD CODE
+	     * @returns {string}
+	     */
 	    DropzoneComponent.prototype.getAuthToken = function () {
 	        var authToken = localStorage.getItem('authtoken');
 	        return "bearer " + authToken;

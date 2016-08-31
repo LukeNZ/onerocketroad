@@ -20,7 +20,7 @@ export class HomeService extends AbstractService {
      * @returns {Observable<Home>}
      */
     public getHome() : Observable<Home> {
-        return this.http.get('/api/home/get')
+        return this.http.get('/api/home/get', this.headersNoAuth())
             .map(response => response.json())
             .map(models => {
                 if (models != null) {

@@ -36,7 +36,7 @@ export class AuthenticationService extends AbstractService {
      * @returns {Observable<boolean>}
      */
     public login(email, password) : Observable<boolean> {
-        return this.http.post('/api/auth/login', { email: email, password: password })
+        return this.http.post('/api/auth/login', { email: email, password: password }, this.headersNoAuth())
             .map(response => {
                 this._isLoggedIn = true;
                 let authorizationHeader = response.headers.get('Authorization');
@@ -71,7 +71,7 @@ export class AuthenticationService extends AbstractService {
                 email: email,
                 fullname: fullname,
                 password: password
-            })
+            }, this.headersNoAuth())
             .map(this.parseJson)
             .map((model: any) => {
                 return true;

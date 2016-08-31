@@ -159,25 +159,25 @@ nav {
   top: -100px;
   padding-top: 100px;
   margin-top: -100px;
-  height: 400px; }
+  height: 500px; }
   .item-header hero {
     display: block;
     position: absolute;
     left: 0;
     right: 0;
     top: 0;
-    height: 400px;
+    height: 500px;
     z-index: -1;
     background-color: #9aa8b1;
     background-position: 50% 50%;
     background-size: cover; }
   .item-header h1 span {
     color: #F5F5F5;
-    padding: 5px 20px;
-    background-color: rgba(33, 39, 43, 0.5);
+    padding: 0 10px;
+    background-color: rgba(33, 39, 43, 0.3);
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;
-    line-height: 1.46; }
+    line-height: normal; }
 
 dropzone {
   display: block;

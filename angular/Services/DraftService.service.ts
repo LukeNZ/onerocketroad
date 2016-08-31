@@ -18,7 +18,7 @@ export class DraftService extends AbstractService {
      * @returns {Observable<Draft[]>}  All drafts from the server.
      */
     public getAllDrafts() : Observable<Draft[]> {
-        return this.http.get('/api/drafts/all', this.authToken())
+        return this.http.get('/api/drafts/all', this.headersWithAuth())
             .map(this.parseJson)
             .map(models => {
                 if (models != null) {
@@ -37,7 +37,7 @@ export class DraftService extends AbstractService {
      * @returns {Observable<Draft>}    The draft specified by the id.
      */
     public getDraft(draftId : number) : Observable<Draft> {
-        return this.http.get('/api/drafts/get/' + draftId, this.authToken())
+        return this.http.get('/api/drafts/get/' + draftId, this.headersWithAuth())
             .map(this.parseJson)
             .map(this.createDraftModel)
             .catch(this.handleError);
@@ -51,7 +51,7 @@ export class DraftService extends AbstractService {
      * @returns {Observable<Draft>}    The draft returned from the server.
      */
     public createDraft(draft : Draft) : Observable<Draft> {
-        return this.http.put('/api/drafts/create', draft, this.authToken())
+        return this.http.put('/api/drafts/create', draft, this.headersWithAuth())
             .map(this.parseJson)
             .map(this.createDraftModel)
             .catch(this.handleError);
@@ -65,7 +65,7 @@ export class DraftService extends AbstractService {
      * @returns {Observable<Draft>}   The draft returned from the server.
      */
     public updateDraft(draft : Draft) : Observable<Draft> {
-        return this.http.patch('/api/drafts/update', draft, this.authToken())
+        return this.http.patch('/api/drafts/update', draft, this.headersWithAuth())
             .map(this.parseJson)
             .map(this.createDraftModel)
             .catch(this.handleError);
@@ -79,7 +79,7 @@ export class DraftService extends AbstractService {
      * @returns {Observable<number>}   A status code indicating the outcome of the operation.
      */
     public deleteDraft(draft: Draft) : Observable<number> {
-        return this.http.delete('/api/drafts/delete/' + draft.id, this.authToken())
+        return this.http.delete('/api/drafts/delete/' + draft.id, this.headersWithAuth())
             .map(response => response.status)
             .catch(this.handleError);
     }

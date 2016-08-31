@@ -25,7 +25,7 @@ export class ArticleService extends AbstractService {
     public getRecentArticles(cursor?: number) : Observable<Article[]> {
         cursor = cursor == null ? 0 : cursor;
 
-        return this.http.get('/api/articles/getrecent/' + cursor)
+        return this.http.get('/api/articles/getrecent/' + cursor, this.headersNoAuth())
             .map(this.parseJson)
             .map(models => {
                 if (models != null) {
@@ -48,7 +48,7 @@ export class ArticleService extends AbstractService {
      * @returns {Observable<Article>}   The article specified by the above parameters.
      */
     public getArticle(year: string, month: string, day: string, slug: string) : Observable<Article> {
-        return this.http.get('/api/articles/get/' + year + '/' + month + '/' + day + "/" + slug)
+        return this.http.get('/api/articles/get/' + year + '/' + month + '/' + day + "/" + slug, this.headersNoAuth())
             .map(this.parseJson)
             .map(this.createArticleModel)
             .catch(response => {
@@ -71,7 +71,7 @@ export class ArticleService extends AbstractService {
      * @returns {Observable<Article>}   The article returned from the server.
      */
     public createArticle(article : Article) : Observable<Article> {
-        return this.http.put('/api/articles/create', article, this.authToken())
+        return this.http.put('/api/articles/create', article, this.headersWithAuth())
             .map(this.parseJson)
             .map(this.createArticleModel)
             .catch(this.handleError);
