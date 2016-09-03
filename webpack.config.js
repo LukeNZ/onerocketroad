@@ -26,5 +26,11 @@ module.exports = {
         new webpack.optimize.CommonsChunkPlugin({
             name: ['onerocketroad', 'vendor']
         })
+    ],
+    node: {
+        fs: "empty"
+    },
+    externals: [
+        'canvas'
     ]
 };

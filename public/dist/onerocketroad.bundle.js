@@ -400,7 +400,7 @@ exports.DraftService = DraftService;
 
 /***/ },
 
-/***/ 381:
+/***/ 382:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -415,9 +415,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var Dropzone = __webpack_require__(281);
+var Dropzone = __webpack_require__(282);
+var ColorThief = __webpack_require__(281);
 var Observable_1 = __webpack_require__(4);
-__webpack_require__(581);
+__webpack_require__(588);
 var DropzoneComponent = (function () {
     function DropzoneComponent(el) {
         this.el = el;
@@ -428,6 +429,7 @@ var DropzoneComponent = (function () {
      * should be uploaded.
      */
     DropzoneComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.el.nativeElement.id = "ng2-dropzone";
         this.el.nativeElement.style.display = "block";
         this.dropzone = new Dropzone(this.el.nativeElement, {
@@ -442,6 +444,9 @@ var DropzoneComponent = (function () {
                 "Authorization": this.getAuthToken()
             }
         });
+        this.dropzone.on("thumbnail", function (file, dataUrl) {
+            _this.file = file;
+        });
     };
     /**
      * Uploads a file using formdata, appending any extra details that are specified. Returns an observable
@@ -453,12 +458,19 @@ var DropzoneComponent = (function () {
      * @returns Observable<any>
      */
     DropzoneComponent.prototype.upload = function (detailsToAdd) {
-        this.dropzone.on("sending", function (file, xhr, formData) {
-            Object.keys(detailsToAdd).forEach(function (key) {
-                formData.append(key, detailsToAdd[key]);
+        var _this = this;
+        window.createImageBitmap(this.file).then(function (img) {
+            var colorThief = new ColorThief();
+            var colors = colorThief.getColor(img);
+            console.log(colors);
+            _this.dropzone.on("sending", function (file, xhr, formData) {
+                Object.keys(detailsToAdd).forEach(function (key) {
+                    formData.append(key, detailsToAdd[key]);
+                });
+                formData.append("color", "rgb(" + colors[0] + "," + colors[1] + "," + colors[2] + ")");
             });
+            _this.dropzone.processQueue();
         });
-        this.dropzone.processQueue();
         return Observable_1.Observable.fromEvent(this.dropzone, "complete").map(function (response) {
             return response.xhr;
         });
@@ -503,7 +515,7 @@ exports.DropzoneComponent = DropzoneComponent;
 
 /***/ },
 
-/***/ 382:
+/***/ 383:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -538,7 +550,7 @@ exports.AuthenticatedGuard = AuthenticatedGuard;
 
 /***/ },
 
-/***/ 383:
+/***/ 384:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -560,7 +572,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = __webpack_require__(0);
 var http_1 = __webpack_require__(21);
 var AbstractService_service_1 = __webpack_require__(43);
-var Home_class_1 = __webpack_require__(501);
+var Home_class_1 = __webpack_require__(503);
 var Article_class_1 = __webpack_require__(106);
 var HomeService = (function (_super) {
     __extends(HomeService, _super);
@@ -600,7 +612,7 @@ exports.HomeService = HomeService;
 
 /***/ },
 
-/***/ 384:
+/***/ 385:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -675,7 +687,7 @@ exports.ImageService = ImageService;
 
 /***/ },
 
-/***/ 400:
+/***/ 402:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -693,24 +705,24 @@ var core_1 = __webpack_require__(0);
 var platform_browser_1 = __webpack_require__(12);
 var forms_1 = __webpack_require__(111);
 var http_1 = __webpack_require__(21);
-var OneRocketRoad_component_1 = __webpack_require__(511);
-var app_routes_1 = __webpack_require__(524);
-var MarkdownPipe_pipe_1 = __webpack_require__(521);
-var Dropzone_component_1 = __webpack_require__(381);
-var AuthenticatedGuard_guard_1 = __webpack_require__(382);
-var ArticleRouterLink_directive_1 = __webpack_require__(514);
-var ContentEditable_directive_1 = __webpack_require__(515);
-var Draggable_directive_1 = __webpack_require__(516);
-var Droppable_directive_1 = __webpack_require__(517);
-var Hero_directive_1 = __webpack_require__(518);
-var HighlightOnClick_directive_1 = __webpack_require__(519);
+var OneRocketRoad_component_1 = __webpack_require__(513);
+var app_routes_1 = __webpack_require__(526);
+var MarkdownPipe_pipe_1 = __webpack_require__(523);
+var Dropzone_component_1 = __webpack_require__(382);
+var AuthenticatedGuard_guard_1 = __webpack_require__(383);
+var ArticleRouterLink_directive_1 = __webpack_require__(516);
+var ContentEditable_directive_1 = __webpack_require__(517);
+var Draggable_directive_1 = __webpack_require__(518);
+var Droppable_directive_1 = __webpack_require__(519);
+var Hero_directive_1 = __webpack_require__(520);
+var HighlightOnClick_directive_1 = __webpack_require__(521);
 var ArticleService_service_1 = __webpack_require__(66);
 var AuthenticationService_service_1 = __webpack_require__(67);
 var DraftService_service_1 = __webpack_require__(167);
-var HomeService_service_1 = __webpack_require__(383);
-var ImageService_service_1 = __webpack_require__(384);
-var TaggableService_service_1 = __webpack_require__(523);
-var TagService_service_1 = __webpack_require__(522);
+var HomeService_service_1 = __webpack_require__(384);
+var ImageService_service_1 = __webpack_require__(385);
+var TaggableService_service_1 = __webpack_require__(525);
+var TagService_service_1 = __webpack_require__(524);
 var AppModule = (function () {
     function AppModule() {
     }
@@ -814,7 +826,7 @@ exports.AbstractService = AbstractService;
 
 /***/ },
 
-/***/ 501:
+/***/ 503:
 /***/ function(module, exports) {
 
 "use strict";
@@ -843,7 +855,7 @@ exports.Home = Home;
 
 /***/ },
 
-/***/ 502:
+/***/ 504:
 /***/ function(module, exports) {
 
 "use strict";
@@ -870,7 +882,7 @@ exports.Tag = Tag;
 
 /***/ },
 
-/***/ 503:
+/***/ 505:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -906,7 +918,7 @@ exports.AboutComponent = AboutComponent;
 
 /***/ },
 
-/***/ 504:
+/***/ 506:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -963,7 +975,7 @@ exports.ArticleComponent = ArticleComponent;
 
 /***/ },
 
-/***/ 505:
+/***/ 507:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1026,7 +1038,7 @@ exports.ArticlesComponent = ArticlesComponent;
 
 /***/ },
 
-/***/ 506:
+/***/ 508:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1044,12 +1056,12 @@ var core_1 = __webpack_require__(0);
 var platform_browser_1 = __webpack_require__(12);
 var router_1 = __webpack_require__(22);
 var forms_1 = __webpack_require__(111);
-var Subject_1 = __webpack_require__(35);
+var Subject_1 = __webpack_require__(36);
 var Draft_class_1 = __webpack_require__(165);
-var DraftViewState_enum_1 = __webpack_require__(520);
+var DraftViewState_enum_1 = __webpack_require__(522);
 var ArticleService_service_1 = __webpack_require__(66);
 var DraftService_service_1 = __webpack_require__(167);
-var Tag_class_1 = __webpack_require__(502);
+var Tag_class_1 = __webpack_require__(504);
 var Article_class_1 = __webpack_require__(106);
 var DraftComponent = (function () {
     /**
@@ -1256,7 +1268,7 @@ exports.DraftComponent = DraftComponent;
 
 /***/ },
 
-/***/ 507:
+/***/ 509:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1274,7 +1286,7 @@ var core_1 = __webpack_require__(0);
 var platform_browser_1 = __webpack_require__(12);
 var router_1 = __webpack_require__(22);
 var Observable_1 = __webpack_require__(4);
-__webpack_require__(283);
+__webpack_require__(284);
 var Draft_class_1 = __webpack_require__(165);
 var DraftService_service_1 = __webpack_require__(167);
 var ArticleService_service_1 = __webpack_require__(66);
@@ -1338,7 +1350,7 @@ exports.DraftsComponent = DraftsComponent;
 
 /***/ },
 
-/***/ 508:
+/***/ 510:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1355,7 +1367,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = __webpack_require__(0);
 var router_1 = __webpack_require__(22);
 var platform_browser_1 = __webpack_require__(12);
-var HomeService_service_1 = __webpack_require__(383);
+var HomeService_service_1 = __webpack_require__(384);
 var HomeComponent = (function () {
     function HomeComponent(homeService, route, router, titleService) {
         this.homeService = homeService;
@@ -1385,7 +1397,7 @@ exports.HomeComponent = HomeComponent;
 
 /***/ },
 
-/***/ 509:
+/***/ 511:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1401,9 +1413,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = __webpack_require__(0);
 var platform_browser_1 = __webpack_require__(12);
-var Dropzone_component_1 = __webpack_require__(381);
+var Dropzone_component_1 = __webpack_require__(382);
 var Image_class_1 = __webpack_require__(166);
-var ImageService_service_1 = __webpack_require__(384);
+var ImageService_service_1 = __webpack_require__(385);
 var ImagesComponent = (function () {
     function ImagesComponent(imageService, titleService) {
         this.imageService = imageService;
@@ -1457,7 +1469,7 @@ exports.ImagesComponent = ImagesComponent;
 
 /***/ },
 
-/***/ 510:
+/***/ 512:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1515,7 +1527,7 @@ exports.LoginComponent = LoginComponent;
 
 /***/ },
 
-/***/ 511:
+/***/ 513:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1555,7 +1567,7 @@ exports.OneRocketRoadComponent = OneRocketRoadComponent;
 
 /***/ },
 
-/***/ 512:
+/***/ 514:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1606,7 +1618,7 @@ exports.SignUpComponent = SignUpComponent;
 
 /***/ },
 
-/***/ 513:
+/***/ 515:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1644,7 +1656,7 @@ exports.StyleGuideComponent = StyleGuideComponent;
 
 /***/ },
 
-/***/ 514:
+/***/ 516:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1739,7 +1751,7 @@ exports.ArticleRouterLinkDirective = ArticleRouterLinkDirective;
 
 /***/ },
 
-/***/ 515:
+/***/ 517:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1801,7 +1813,7 @@ exports.ContentEditableDirective = ContentEditableDirective;
 
 /***/ },
 
-/***/ 516:
+/***/ 518:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1863,7 +1875,7 @@ exports.DraggableDirective = DraggableDirective;
 
 /***/ },
 
-/***/ 517:
+/***/ 519:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1951,7 +1963,7 @@ exports.DroppableDirective = DroppableDirective;
 
 /***/ },
 
-/***/ 518:
+/***/ 520:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1991,7 +2003,7 @@ exports.HeroDirective = HeroDirective;
 
 /***/ },
 
-/***/ 519:
+/***/ 521:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2040,7 +2052,7 @@ exports.HighlightOnClickDirective = HighlightOnClickDirective;
 
 /***/ },
 
-/***/ 520:
+/***/ 522:
 /***/ function(module, exports) {
 
 "use strict";
@@ -2054,7 +2066,7 @@ var DraftViewState = exports.DraftViewState;
 
 /***/ },
 
-/***/ 521:
+/***/ 523:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2070,7 +2082,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = __webpack_require__(0);
 var platform_browser_1 = __webpack_require__(12);
-var Remarkable = __webpack_require__(282); // No typings yet
+var Remarkable = __webpack_require__(283); // No typings yet
 var MediaType;
 (function (MediaType) {
     MediaType[MediaType["RichImage"] = 1] = "RichImage";
@@ -2304,7 +2316,7 @@ exports.MarkdownPipe = MarkdownPipe;
 
 /***/ },
 
-/***/ 522:
+/***/ 524:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2359,7 +2371,7 @@ exports.TagService = TagService;
 
 /***/ },
 
-/***/ 523:
+/***/ 525:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2399,23 +2411,23 @@ exports.TaggableService = TaggableService;
 
 /***/ },
 
-/***/ 524:
+/***/ 526:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
 var router_1 = __webpack_require__(22);
-var AuthenticatedGuard_guard_1 = __webpack_require__(382);
-var Home_component_1 = __webpack_require__(508);
-var Articles_component_1 = __webpack_require__(505);
-var Article_component_1 = __webpack_require__(504);
-var About_component_1 = __webpack_require__(503);
-var Drafts_component_1 = __webpack_require__(507);
-var Draft_component_1 = __webpack_require__(506);
-var Images_component_1 = __webpack_require__(509);
-var SignUp_component_1 = __webpack_require__(512);
-var Login_component_1 = __webpack_require__(510);
-var StyleGuide_component_1 = __webpack_require__(513);
+var AuthenticatedGuard_guard_1 = __webpack_require__(383);
+var Home_component_1 = __webpack_require__(510);
+var Articles_component_1 = __webpack_require__(507);
+var Article_component_1 = __webpack_require__(506);
+var About_component_1 = __webpack_require__(505);
+var Drafts_component_1 = __webpack_require__(509);
+var Draft_component_1 = __webpack_require__(508);
+var Images_component_1 = __webpack_require__(511);
+var SignUp_component_1 = __webpack_require__(514);
+var Login_component_1 = __webpack_require__(512);
+var StyleGuide_component_1 = __webpack_require__(515);
 var appRoutes = [
     //  Public routes
     { path: '', component: Home_component_1.HomeComponent },
@@ -2437,19 +2449,19 @@ exports.routedComponents = [Home_component_1.HomeComponent, Articles_component_1
 
 /***/ },
 
-/***/ 581:
+/***/ 588:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
 var Observable_1 = __webpack_require__(4);
-var fromEvent_1 = __webpack_require__(589);
+var fromEvent_1 = __webpack_require__(596);
 Observable_1.Observable.fromEvent = fromEvent_1.fromEvent;
 //# sourceMappingURL=fromEvent.js.map
 
 /***/ },
 
-/***/ 585:
+/***/ 592:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2588,18 +2600,18 @@ exports.FromEventObservable = FromEventObservable;
 
 /***/ },
 
-/***/ 589:
+/***/ 596:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
-var FromEventObservable_1 = __webpack_require__(585);
+var FromEventObservable_1 = __webpack_require__(592);
 exports.fromEvent = FromEventObservable_1.FromEventObservable.create;
 //# sourceMappingURL=fromEvent.js.map
 
 /***/ },
 
-/***/ 607:
+/***/ 615:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2625,7 +2637,7 @@ bootstrap(OneRocketRoadComponent, [
 ]).catch((err: any) => console.error(err));*/
 "use strict";
 var platform_browser_dynamic_1 = __webpack_require__(112);
-var app_module_1 = __webpack_require__(400);
+var app_module_1 = __webpack_require__(402);
 platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1.AppModule)
     .then(function (success) { return console.log("Bootstrap success"); })
     .catch(function (error) { return console.log(error); });
@@ -2864,4 +2876,4 @@ exports.AuthenticationService = AuthenticationService;
 
 /***/ }
 
-},[607]);
+},[615]);

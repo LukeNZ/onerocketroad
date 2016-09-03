@@ -1,7 +1,17 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
 import Dropzone = require('dropzone');
+var ColorThief = require('color-thief');
 import {Observable} from "rxjs/Observable";
 import 'rxjs/add/observable/fromEvent';
+
+interface ImageBitmap {
+    height: number;
+    width: number;
+}
+
+interface Window {
+    createImageBitmap(file: File) : Promise<ImageBitmap>;
+}
 
 @Component({
     selector: 'dropzone',
@@ -9,6 +19,8 @@ import 'rxjs/add/observable/fromEvent';
 })
 export class DropzoneComponent implements OnInit {
     public dropzone : Dropzone;
+
+    public file: File;
 
     constructor(private el: ElementRef) {}
 
@@ -33,6 +45,10 @@ export class DropzoneComponent implements OnInit {
                 "Authorization": this.getAuthToken()
             }
         });
+
+        this.dropzone.on("thumbnail", (file, dataUrl) => {
+            this.file = file;
+        });
     }
 
     /**
@@ -45,12 +61,22 @@ export class DropzoneComponent implements OnInit {
      * @returns Observable<any>
      */
     public upload(detailsToAdd: {}) : Observable<XMLHttpRequest> {
-        this.dropzone.on("sending", (file, xhr, formData: FormData) => {
-            Object.keys(detailsToAdd).forEach(key => {
-                formData.append(key, detailsToAdd[key]);
-            })
+        (<any>window).createImageBitmap(this.file).then(img => {
+
+            let colorThief = new ColorThief();
+            let colors = colorThief.getColor(img);
+            console.log(colors);
+
+            this.dropzone.on("sending", (file, xhr, formData: FormData) => {
+                Object.keys(detailsToAdd).forEach(key => {
+                    formData.append(key, detailsToAdd[key]);
+                });
+                formData.append("color", `rgb(${colors[0]},${colors[1]},${colors[2]})`);
+            });
+
+            this.dropzone.processQueue();
         });
-        this.dropzone.processQueue();
+
         return Observable.fromEvent(this.dropzone, "complete").map((response: any) => {
             return response.xhr;
         });

@@ -21,3 +21,4 @@ import 'rxjs/add/operator/switchMap';
 import "remarkable";
 import "moment";
 import "dropzone";
+import "color-thief";

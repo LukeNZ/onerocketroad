@@ -28,10 +28,7 @@ class ImageStore implements ImageStoreInterface {
         $image->attribution = $data['attribution'];
         $image->size = $data['file']->getClientSize();
         $image->user_id = Auth::user()->id;
-
-        // Set the predominant color
-        $color = ColorThief::getColor($data["file"]->path());
-        $image->color = "rgb({$color[0]}, {$color[1]}, {$color[2]})";
+        $image->color = $data['color'];
 
         $image->save();
         
