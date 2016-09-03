@@ -31,8 +31,8 @@ class ArticleStore implements ArticleStoreInterface {
         $article = new Article();
         $article->title = $data['title'];
         $article->body = $data['body'];
-        /* $article->author = Auth::user(); */
-        $article->author_name = /* Auth::user()->fullname(); */ "Esteban Winsmore";
+        $article->author_id = Auth::user()->id;
+        $article->author_name = Auth::user()->fullname;
         $article->save();
 
         return $article;

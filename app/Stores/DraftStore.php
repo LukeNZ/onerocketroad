@@ -30,8 +30,8 @@ class DraftStore implements DraftStoreInterface {
     function create(array $data) {
         $draft = new Draft();
         $draft->title = $data['title'];
-        /* $draft->author = Auth::user(); */
-        $draft->author_name = "Esteban Winsmore"; // Auth::user()->fullname()
+        $draft->author_id = Auth::user()->id;
+        $draft->author_name = Auth::user()->fullname;
         $draft->save();
 
         return $draft;
