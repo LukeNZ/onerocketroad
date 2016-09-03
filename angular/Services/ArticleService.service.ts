@@ -1,8 +1,8 @@
 import {Injectable} from "@angular/core";
 import {Http} from "@angular/http";
-import {AbstractService} from "../services";
-import {Article} from "../classes";
 import {Observable} from "rxjs/Observable";
+import {AbstractService} from "./AbstractService.service";
+import {Article} from "../Classes/Article.class";
 
 @Injectable()
 export class ArticleService extends AbstractService {

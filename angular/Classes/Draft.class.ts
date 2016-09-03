@@ -1,4 +1,6 @@
-import {User, Image, Tag} from "../classes";
+import {User} from "./User.class";
+import {Image} from "./Image.class";
+import {Tag} from "./Tag.class";
 
 export class Draft {
     public id: number;

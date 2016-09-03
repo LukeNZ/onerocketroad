@@ -1,5 +1,4 @@
-import {Directive, Input, ElementRef, OnInit, HostListener} from "@angular/core";
-import {DomSanitizationService} from "@angular/platform-browser";
+import {Directive, Input, ElementRef, OnInit} from "@angular/core";
 @Directive({
     selector: 'hero[image]'
 })

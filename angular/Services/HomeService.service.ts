@@ -1,10 +1,10 @@
 import {Injectable} from "@angular/core";
 import {Http} from "@angular/http";
 
-import {AbstractService} from "../services";
-import {Home, Article} from "../classes";
-
 import {Observable} from "rxjs/Observable";
+import {AbstractService} from "./AbstractService.service";
+import {Home} from "../Classes/Home.class";
+import {Article} from "../Classes/Article.class";
 
 @Injectable()
 export class HomeService extends AbstractService {

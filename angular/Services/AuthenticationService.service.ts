@@ -1,11 +1,21 @@
 import {Injectable} from "@angular/core";
 import {Http} from "@angular/http";
-import {AbstractService} from "../services";
 import {Observable} from "rxjs/Rx";
+import {AbstractService} from "./AbstractService.service";
 
 @Injectable()
 export class AuthenticationService extends AbstractService {
     private _isLoggedIn: boolean = false;
+
+    /**
+     * Construct the service
+     *
+     * @param http
+     */
+    constructor(private http: Http) {
+        super();
+        this._isLoggedIn = !!localStorage.getItem('authtoken');
+    }
 
     /**
      * Retrieves whether the user is logged in or not.
@@ -14,16 +24,6 @@ export class AuthenticationService extends AbstractService {
      */
     get isLoggedIn() : boolean {
         return this._isLoggedIn;
-    }
-
-    /**
-     * Construct the ser
-     *
-     * @param http
-     */
-    constructor(private http: Http) {
-        super();
-        this._isLoggedIn = !!localStorage.getItem('authtoken');
     }
 
     /**

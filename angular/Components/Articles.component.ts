@@ -1,17 +1,12 @@
 import {Component} from '@angular/core';
 import {Title} from "@angular/platform-browser";
-import {ActivatedRoute, Router, ROUTER_DIRECTIVES} from "@angular/router";
-import {Article} from "../classes";
-import {ArticleService} from "../services";
-import {MarkdownPipe} from "../pipes";
-import {ArticleRouterLinkDirective} from "../directives";
+import {ActivatedRoute, Router} from "@angular/router";
+import {Article} from "../Classes/Article.class";
+import {ArticleService} from "../Services/ArticleService.service";
 
 @Component({
     selector: 'articles',
-    templateUrl: '/angular/views/articles.template.html',
-    pipes: [MarkdownPipe],
-    directives: [ROUTER_DIRECTIVES, ArticleRouterLinkDirective],
-    providers: [ArticleService]
+    templateUrl: '/angular/views/articles.template.html'
 })
 export class ArticlesComponent {
     public cursor: number = 0;

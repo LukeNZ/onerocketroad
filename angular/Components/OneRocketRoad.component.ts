@@ -1,11 +1,9 @@
-import {Component, Type} from '@angular/core';
-import {ROUTER_DIRECTIVES} from '@angular/router';
-import {AuthenticationService} from '../services';
+import {Component} from '@angular/core';
+import {AuthenticationService} from "../Services/AuthenticationService.service";
 
 @Component({
     selector: 'body',
-    templateUrl: '/angular/views/onerocketroad.template.html',
-    directives: [ROUTER_DIRECTIVES]
+    templateUrl: '/angular/views/onerocketroad.template.html'
 })
 export class OneRocketRoadComponent {
 
@@ -14,6 +12,7 @@ export class OneRocketRoadComponent {
     constructor(private authenticationService: AuthenticationService) {}
 
     public onActivate(event: any): void {
-        this.isArticle = event.route && (event.route.component.name == "DraftComponent" || event.route.component.name == "ArticleComponent");
+        this.isArticle = event.route && (event.route.component.name == "DraftComponent"
+            || event.route.component.name == "ArticleComponent");
     }
 }

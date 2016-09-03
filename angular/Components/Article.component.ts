@@ -1,16 +1,12 @@
 import {Component, OnInit} from "@angular/core";
 import {Title} from "@angular/platform-browser";
-import {ActivatedRoute, Router, ROUTER_DIRECTIVES} from "@angular/router";
-import {ArticleService} from "../services";
-import {MarkdownPipe} from "../pipes";
-import {Article} from "../classes";
+import {ActivatedRoute, Router} from "@angular/router";
+import {Article} from "../Classes/Article.class";
+import {ArticleService} from "../Services/ArticleService.service";
 
 @Component({
     selector: 'article',
     templateUrl: '/angular/views/article.template.html',
-    directives: [ROUTER_DIRECTIVES],
-    providers: [ArticleService],
-    pipes: [MarkdownPipe]
 })
 export class ArticleComponent implements OnInit {
     public article: Article;

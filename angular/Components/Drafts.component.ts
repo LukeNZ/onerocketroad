@@ -1,17 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {Title} from '@angular/platform-browser';
-import {ROUTER_DIRECTIVES, Router, ActivatedRoute} from '@angular/router';
-import {Draft, Article} from "../classes";
-import {DraftService, ArticleService} from "../services";
-import {DraggableDirective, DroppableDirective} from "../directives";
+import {Router, ActivatedRoute} from '@angular/router';
 import {Observable} from "rxjs/Observable";
 import 'rxjs/add/observable/forkJoin';
+import {Draft} from "../Classes/Draft.class";
+import {Article} from "../Classes/Article.class";
+import {DraftService} from "../Services/DraftService.service";
+import {ArticleService} from "../Services/ArticleService.service";
 
 @Component({
     selector: 'drafts',
     templateUrl: '/angular/views/drafts.template.html',
-    directives: [ROUTER_DIRECTIVES, DraggableDirective, DroppableDirective],
-    providers: [DraftService, ArticleService],
 })
 
 /**

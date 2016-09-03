@@ -1,24 +1,21 @@
 import {Component, OnInit} from "@angular/core";
 import {Title} from '@angular/platform-browser';
-import {ActivatedRoute, Router, ROUTER_DIRECTIVES} from "@angular/router";
-import {FORM_DIRECTIVES, FormControl, REACTIVE_FORM_DIRECTIVES} from '@angular/forms';
-import {DraftService, ArticleService, TaggableService} from "../services";
-import {Draft, Article, Tag} from "../classes";
-import {ContentEditableDirective, DraggableDirective, DroppableDirective, HeroDirective} from "../directives";
-import {DraftViewState} from "../enums";
-import {MarkdownPipe} from "../pipes";
+import {ActivatedRoute, Router} from "@angular/router";
+import {FormControl} from '@angular/forms';
 
 import {Subscription} from "rxjs/Subscription";
 import {Observable} from "rxjs/Observable";
 import {Subject} from "rxjs/Subject";
+import {Draft} from "../Classes/Draft.class";
+import {DraftViewState} from "../Enums/DraftViewState.enum";
+import {ArticleService} from "../Services/ArticleService.service";
+import {DraftService} from "../Services/DraftService.service";
+import {Tag} from "../Classes/Tag.class";
+import {Article} from "../Classes/Article.class";
 
 @Component({
     selector: 'draft',
-    templateUrl: '/angular/views/draft.template.html',
-    directives: [ContentEditableDirective, DraggableDirective, DroppableDirective, HeroDirective,
-        ROUTER_DIRECTIVES, FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
-    providers: [DraftService, ArticleService, TaggableService],
-    pipes: [MarkdownPipe]
+    templateUrl: '/angular/views/draft.template.html'
 })
 export class DraftComponent implements OnInit {
     private _draft: Draft;

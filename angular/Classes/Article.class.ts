@@ -1,5 +1,5 @@
-import {Draft} from "../classes";
 import * as moment from "moment";
+import {Draft} from "./Draft.class";
 
 export class Article {
     public id: number;

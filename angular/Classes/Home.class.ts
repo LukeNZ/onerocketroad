@@ -1,4 +1,4 @@
-import {Article} from '../classes';
+import {Article} from "./Article.class";
 
 interface MidTierArticleLayout {
     first : Article;

@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {Title} from "@angular/platform-browser";
-import {AuthenticationService} from "../services";
 import {Router} from "@angular/router";
+import {AuthenticationService} from "../Services/AuthenticationService.service";
 
 @Component({
     selector: 'signup',

@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {DomSanitizationService, SafeHtml} from '@angular/platform-browser';
+import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 var Remarkable = require('remarkable'); // No typings yet
 
 enum MediaType {
@@ -19,7 +19,7 @@ interface Token {
 export class MarkdownPipe implements PipeTransform {
     public remarkable;
 
-    constructor(private sanitizer: DomSanitizationService) {
+    constructor(private sanitizer: DomSanitizer) {
         // Typegrpaher enables quotes beautification
         this.remarkable = new Remarkable({
             typographer: true

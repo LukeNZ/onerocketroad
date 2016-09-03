@@ -1,8 +1,8 @@
 import {Directive, Input, HostListener, HostBinding, OnChanges, OnDestroy} from '@angular/core';
 import {ActivatedRoute, Router, UrlTree, NavigationEnd} from "@angular/router";
-import {LocationStrategy} from "@angular/common";
-import {Article} from "../classes";
+import {LocationStrategy} from "@angular/common";;
 import {Subscription} from "rxjs/Subscription";
+import {Article} from "../Classes/Article.class";
 
 @Directive({
     selector: 'a[articleRouterLink]',

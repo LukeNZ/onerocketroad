@@ -1,15 +1,12 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Title} from "@angular/platform-browser";
-import {Image} from "../classes";
-import {DropzoneComponent} from "../components";
-import {ImageService} from "../services";
-import {HighlightOnClickDirective} from "../directives";
+import {DropzoneComponent} from "./Dropzone.component";
+import {Image} from "../Classes/Image.class";
+import {ImageService} from "../Services/ImageService.service";
 
 @Component({
     selector: 'images',
-    templateUrl: '/angular/views/images.template.html',
-    providers: [ImageService],
-    directives: [DropzoneComponent, HighlightOnClickDirective]
+    templateUrl: '/angular/views/images.template.html'
 })
 export class ImagesComponent implements OnInit {
 

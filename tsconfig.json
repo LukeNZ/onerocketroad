@@ -15,5 +15,11 @@
     "node_modules",
     "vendor",
     "typings"
+  ],
+  "typeRoots": [
+    "../node_modules/@types"
+  ],
+  "types": [
+    "core-js"
   ]
 }

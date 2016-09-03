@@ -1,15 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router, ROUTER_DIRECTIVES} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Title} from "@angular/platform-browser";
-import {HomeService} from "../services";
-import {Home} from "../classes";
-import {ArticleRouterLinkDirective} from "../directives";
+import {Home} from "../Classes/Home.class";
+import {HomeService} from "../Services/HomeService.service";
 
 @Component({
     selector: 'home',
-    templateUrl: '/angular/views/home.template.html',
-    directives: [ROUTER_DIRECTIVES, ArticleRouterLinkDirective],
-    providers: [HomeService]
+    templateUrl: '/angular/views/home.template.html'
 })
 export class HomeComponent implements OnInit {
     public home: Home;
