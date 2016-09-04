@@ -9,14 +9,15 @@
 
     <!-- Item Metadata. Constrained to the top 50px, intruding on the main photo. -->
     <aside class="item-metadata">
-        <p class="low-visibility author"><span class="translucent penned-by">Penned by </span>{{ draft.authorName }}</p>
-
         <div class="link-back-container">
-            <a class="low-visibility link-back" [routerLink]="['/drafts']">< Back to Drafts</a>
+            <a class="low-visibility link-back" [routerLink]="['/drafts']"><i class="fa fa-arrow-circle-left"></i> Back to Drafts</a>
         </div>
 
+        <p class="low-visibility author"><span class="low-visibility translucent penned-by">Penned by </span>{{ draft.authorName }}</p>
+
+        <p class="is-saving-draft" [hidden]="!isSaving">Saving...</p>
+
         <p class="word-count" [class.warning]="showWordCountWarning()">{{ wordCountStatement() }}</p>
-        <p [hidden]="!isSaving">Saving...</p>
     </aside>
 
     <!-- Item Detail -->
@@ -33,14 +34,16 @@
                       [ngModel]="draft.body" (ngModelChange)="autosaveDraftBody($event)" [formControl]="bodyFormControl" *ngIf="viewState == draftViewState.Edit">
             </textarea>
 
-            <section class="draft-preview" *ngIf="viewState != draftViewState.Edit" [innerHTML]="bodyFormControl.value | markdown">
+            <section class="draft-preview markdown" *ngIf="viewState != draftViewState.Edit" [innerHTML]="bodyFormControl.value | markdown">
             </section>
 
             <!-- Actions -->
-            <button type="submit" [disabled]="!draft.isPublishable() || isPublishing" (click)="publishDraft()">
-                {{ isPublishing ? 'Publishing...' : 'Publish as Article' }}
-            </button>
-            <button type="submit" (click)="deleteDraft()" *ngIf="showWordCountWarning()">Delete Draft</button>
+            <div class="draft-actions">
+                <button type="submit" class="publish-draft-button" [disabled]="!draft.isPublishable() || isPublishing" (click)="publishDraft()">
+                    {{ isPublishing ? 'Publishing...' : 'Publish as Article' }}
+                </button>
+                <button type="submit" class="delete-draft-button warning-button" (click)="deleteDraft()" *ngIf="showWordCountWarning()">Delete Draft</button>
+            </div>
         </div>
 
         <!-- Item Supporting -->

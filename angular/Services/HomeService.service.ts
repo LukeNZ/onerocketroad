@@ -25,8 +25,7 @@ export class HomeService extends AbstractService {
             .map(models => {
                 if (models != null) {
                     let articles = models.map(model => {
-                        return new Article(model.id, model.title, model.body, model.authorName, model.createdAt,
-                            model.updatedAt);
+                        return Article.create(model);
                     });
                     return new Home(articles);
                 }

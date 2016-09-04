@@ -27,16 +27,19 @@ $pull: 50px;
 
     .link-back-container {
         @include span-columns(2);
+        height:$pull - $padding;
     }
 
     .link-back {
         text-transform: uppercase;
         font-size:small;
+        line-height:$pull - ($padding * 2);
+
         @include fancy-link();
     }
 
     .author {
-        @include span-columns(4);
+        @include span-columns(2);
         font-style:italic;
 
         .penned-by {
@@ -47,7 +50,8 @@ $pull: 50px;
 
     .word-count {
         @include span-columns(1);
-        @include shift(5);
+        text-align:right;
+        float:right;
     }
 }
 

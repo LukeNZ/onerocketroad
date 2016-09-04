@@ -30,7 +30,9 @@ button {
     cursor:pointer;
     text-transform:uppercase;
     padding:$defaultFormElementPadding;
+    margin:$defaultFormElementPadding;
     background-color:transparent;
+    @include transition-fast(all);
 
     &:disabled {
         border-color: $lightgrey;
@@ -39,8 +41,8 @@ button {
     }
 
     &:hover:not(:disabled) {
-        border-color:darken($azure, 10%);
-        color:darken($azure, 10%);
+        border-color:darken($azure, 20%);
+        color:darken($azure, 20%);
     }
 
     &:active:not(:disabled) {
@@ -48,7 +50,13 @@ button {
         color:$canyon;
     }
 
-    .warning {
+    &.warning-button {
+        border-color:$canyon;
+        color:$canyon;
 
+        &:hover:not(:disabled) {
+            border-color:darken($canyon, 20%);
+            color:darken($canyon, 20%);
+        }
     }
 }

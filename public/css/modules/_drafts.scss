@@ -1,3 +1,8 @@
+.is-saving-draft {
+    @include span-columns(1);
+    @include shift(6);
+}
+
 .draft-view-selector {
     width:100%;
 
@@ -24,4 +29,12 @@
 
 .draft-preview {
     width:100%;
+}
+
+.draft-actions {
+    margin-top:10px;
+
+    .delete-draft-button {
+        float:right;
+    }
 }

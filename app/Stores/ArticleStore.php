@@ -83,10 +83,15 @@ class ArticleStore implements ArticleStoreInterface {
     function retrieveByUrl($year, $month, $day, $slug) {
         $dateOfArticle = Carbon::createFromDate(intval($year), intval($month), intval($day));
 
-        return Article::whereDate('created_at', '=', $dateOfArticle->toDateString())->get()
-            ->firstOrFail(function($key, $article) use($slug) {
+        $article = Article::whereDate('created_at', '=', $dateOfArticle->toDateString())
+            ->get()->first(function($key, $article) use($slug) {
                 return $slug === str_slug($article->title);
             });
+
+        if ($article == null) {
+            throw new ModelNotFoundException();
+        }
+        return $article;
     }
 
     /**

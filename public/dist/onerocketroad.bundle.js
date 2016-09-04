@@ -199,7 +199,7 @@ var Draft = (function () {
      */
     Draft.prototype.isPublishable = function () {
         return this.title != null && this.body != null
-            && this.title.length > 0 && this.wordCount() > 100
+            && this.title.length > 0 && this.wordCount() > 200
             && this.hero != null;
     };
     return Draft;
@@ -592,7 +592,7 @@ var HomeService = (function (_super) {
             .map(function (models) {
             if (models != null) {
                 var articles = models.map(function (model) {
-                    return new Article_class_1.Article(model.id, model.title, model.body, model.authorName, model.createdAt, model.updatedAt);
+                    return Article_class_1.Article.create(model);
                 });
                 return new Home_class_1.Home(articles);
             }

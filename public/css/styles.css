@@ -78,7 +78,7 @@ header, router-outlet + * {
 articles, about, article, draft, drafts, home, images, login, signup, styleguide {
   display: block; }
 
-h1, h2, h3, h4, h5, h6, p, ul, li, span {
+h1, h2, h3, h4, h5, h6, p, ul, ol, li, span {
   color: #21272b; }
 
 header {
@@ -95,6 +95,9 @@ h1 {
 p {
   font-size: 18px;
   line-height: 1.5; }
+
+[hidden] {
+  display: none !important; }
 
 .header-container {
   background-color: #21272b; }
@@ -118,8 +121,8 @@ header {
 #logo {
   float: left;
   display: block;
-  margin-right: 1.26947%;
-  width: 24.04789%;
+  margin-right: 1.61735%;
+  width: 23.78699%;
   background-color: #CC7555;
   font-size: 24px; }
   #logo:last-child {
@@ -151,15 +154,15 @@ header {
 nav {
   float: left;
   display: block;
-  margin-right: 1.26947%;
-  width: 74.68263%; }
+  margin-right: 1.61735%;
+  width: 74.59566%; }
   nav:last-child {
     margin-right: 0; }
   nav ul li {
     float: left;
     display: block;
-    margin-right: 1.26947%;
-    width: 15.60877%;
+    margin-right: 1.61735%;
+    width: 15.31888%;
     text-align: center; }
     nav ul li:last-child {
       margin-right: 0; }
@@ -216,13 +219,15 @@ nav {
   .item-metadata .link-back-container {
     float: left;
     display: block;
-    margin-right: 1.26947%;
-    width: 15.60877%; }
+    margin-right: 1.61735%;
+    width: 15.31888%;
+    height: 40px; }
     .item-metadata .link-back-container:last-child {
       margin-right: 0; }
   .item-metadata .link-back {
     text-transform: uppercase;
     font-size: small;
+    line-height: 30px;
     text-decoration: none;
     border-bottom: 3px solid transparent;
     transition: border-bottom ease 0.2s; }
@@ -231,8 +236,8 @@ nav {
   .item-metadata .author {
     float: left;
     display: block;
-    margin-right: 1.26947%;
-    width: 32.48702%;
+    margin-right: 1.61735%;
+    width: 15.31888%;
     font-style: italic; }
     .item-metadata .author:last-child {
       margin-right: 0; }
@@ -242,25 +247,26 @@ nav {
   .item-metadata .word-count {
     float: left;
     display: block;
-    margin-right: 1.26947%;
-    width: 7.16965%;
-    margin-left: 42.19561%; }
+    margin-right: 1.61735%;
+    width: 6.85076%;
+    text-align: right;
+    float: right; }
     .item-metadata .word-count:last-child {
       margin-right: 0; }
 
 .item-detail .item-content {
   float: left;
   display: block;
-  margin-right: 1.26947%;
-  width: 74.68263%;
+  margin-right: 1.61735%;
+  width: 74.59566%;
   overflow: hidden; }
   .item-detail .item-content:last-child {
     margin-right: 0; }
 .item-detail .item-supporting {
   float: left;
   display: block;
-  margin-right: 1.26947%;
-  width: 24.04789%; }
+  margin-right: 1.61735%;
+  width: 23.78699%; }
   .item-detail .item-supporting:last-child {
     margin-right: 0; }
 
@@ -288,17 +294,25 @@ button {
   cursor: pointer;
   text-transform: uppercase;
   padding: 5px 10px;
-  background-color: transparent; }
+  margin: 5px 10px;
+  background-color: transparent;
+  transition: all ease 0.2s; }
   button:disabled {
     border-color: #DDDDDD;
     color: #DDDDDD;
     cursor: default; }
   button:hover:not(:disabled) {
-    border-color: #0099cc;
-    color: #0099cc; }
+    border-color: #007399;
+    color: #007399; }
   button:active:not(:disabled) {
     border-color: #CC7555;
     color: #CC7555; }
+  button.warning-button {
+    border-color: #CC7555;
+    color: #CC7555; }
+    button.warning-button:hover:not(:disabled) {
+      border-color: #90462b;
+      color: #90462b; }
 
 dropzone {
   display: block;
@@ -315,13 +329,22 @@ dropzone {
   width: 50px;
   height: 50px; }
 
+.is-saving-draft {
+  float: left;
+  display: block;
+  margin-right: 1.61735%;
+  width: 6.85076%;
+  margin-left: 50.80867%; }
+  .is-saving-draft:last-child {
+    margin-right: 0; }
+
 .draft-view-selector {
   width: 100%; }
   .draft-view-selector .draft-view-option {
     float: left;
     display: block;
-    margin-right: 1.26947%;
-    width: 49.36526%;
+    margin-right: 1.61735%;
+    width: 49.19133%;
     cursor: pointer;
     text-align: center;
     padding: 10px;
@@ -345,3 +368,70 @@ dropzone {
 
 .draft-preview {
   width: 100%; }
+
+.draft-actions {
+  margin-top: 10px; }
+  .draft-actions .delete-draft-button {
+    float: right; }
+
+.markdown h1 {
+  font-size: 36px; }
+.markdown h2 {
+  font-size: 28px; }
+.markdown h3 {
+  font-size: 22px; }
+.markdown h4 {
+  font-size: 18px; }
+.markdown h5 {
+  font-size: 16px;
+  font-weight: bold; }
+.markdown h6 {
+  font-size: 16px;
+  font-style: italic; }
+.markdown strong {
+  font-weight: bold; }
+.markdown em {
+  font-style: italic; }
+.markdown p {
+  margin: 20px 0; }
+.markdown > ul > li, .markdown > ol > li {
+  margin-left: 10px; }
+.markdown ul, .markdown ol {
+  font-size: 18px;
+  list-style-position: inside; }
+  .markdown ul li, .markdown ol li {
+    margin: 10px 0 10px 40px; }
+.markdown ul li {
+  list-style-type: disc; }
+  .markdown ul li ul li {
+    list-style-type: circle; }
+    .markdown ul li ul li ul li {
+      list-style-type: square; }
+.markdown ol li {
+  list-style-type: decimal; }
+  .markdown ol li ol li {
+    list-style-type: lower-alpha; }
+    .markdown ol li ol li ol li {
+      list-style-type: lower-roman; }
+.markdown blockquote {
+  border-left: 5px solid #CC7555;
+  background-color: rgba(204, 117, 85, 0.1);
+  font-style: italic;
+  overflow: hidden;
+  padding-left: 20px; }
+.markdown code {
+  font-family: "Source Code Pro", monospace;
+  color: #CC7555;
+  background-color: #DDDDDD;
+  padding: 2px 5px;
+  font-size: 14px;
+  border-radius: 3px; }
+.markdown pre {
+  background-color: #DDDDDD;
+  padding: 20px;
+  margin: 20px 0; }
+.markdown hr {
+  border: 0;
+  border-top: 2px dotted #CC7555; }
+.markdown a {
+  color: #CC7555; }

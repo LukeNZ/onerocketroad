@@ -4,7 +4,7 @@
 // Grid Settings
 @import "../../node_modules/bourbon-neat/app/assets/stylesheets/neat-helpers";
 $max-width:1400px;
-$gutter: 0.75em;
+$gutter: 1em;
 
 // Breakpoints
 
@@ -21,3 +21,4 @@ $gutter: 0.75em;
 @import "modules/dropzone";
 @import "modules/images";
 @import "modules/drafts";
+@import "modules/markdown";

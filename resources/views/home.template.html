@@ -2,9 +2,9 @@
 
 <div *ngIf="home">
     <h2>The latest</h2>
-    <article *ngIf="home.leadArticle">
+    <div *ngIf="home.leadArticle">
         <p><a [articleRouterLink]="home.leadArticle">{{ home.leadArticle.title }}</a></p>
-    </article>
+    </div>
 
     <h2>Also...</h2>
     <section *ngIf="home.midTierArticles">
