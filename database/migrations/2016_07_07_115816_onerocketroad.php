@@ -17,11 +17,11 @@ class Onerocketroad extends Migration
         if (!Schema::hasTable('users')) {
             Schema::create('users', function(Blueprint $table) {
                 $table->increments('id');
-                $table->string('firstname');
-                $table->string('lastname');
+                $table->string('firstname')->nullable();
+                $table->string('lastname')->nullable();
                 $table->string('email');
                 $table->string('password');
-                $table->string('twitter');
+                $table->string('twitter')->nullable();
                 $table->timestamps();
             });
         }
