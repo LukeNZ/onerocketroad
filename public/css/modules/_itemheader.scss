@@ -21,8 +21,8 @@ $itemHeaderHeight: 500px;
 
     h1 span {
         color:$white;
-        padding:0 10px;
-        background-color:transparentize($slate, 0.7);
+        padding:0 $padding;
+        background-color:transparentize($slate, 0.25);
 
             -webkit-box-decoration-break:clone;
         box-decoration-break: clone;

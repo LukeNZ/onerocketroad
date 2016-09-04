@@ -199,7 +199,7 @@ var Draft = (function () {
      */
     Draft.prototype.isPublishable = function () {
         return this.title != null && this.body != null
-            && this.title.length > 0 && this.body.length > 0
+            && this.title.length > 0 && this.wordCount() > 100
             && this.hero != null;
     };
     return Draft;
@@ -1171,13 +1171,13 @@ var DraftComponent = (function () {
     DraftComponent.prototype.deleteTag = function (value) {
     };
     /**
-     * If the body of the draft is less than 200 words, highlight the word count tracker in
+     * If the body of the draft is less than 200 words, we should highlight the word count tracker in
      * red to represent an extremely short draft (less than approximately 3 paragraphs).
      *
-     * @returns {string} The color the word count should be highlighted in.
+     * @returns {boolean} Whether we should display the word count warning.
      */
     DraftComponent.prototype.showWordCountWarning = function () {
-        return this.draft.wordCount() > 200 ? "black" : "red";
+        return this.draft.wordCount() <= 200;
     };
     /**
      * A human-readable statement representing the current wordcount of the draft body. Mainly

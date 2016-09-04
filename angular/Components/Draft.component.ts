@@ -139,13 +139,13 @@ export class DraftComponent implements OnInit {
     }
 
     /**
-     * If the body of the draft is less than 200 words, highlight the word count tracker in
+     * If the body of the draft is less than 200 words, we should highlight the word count tracker in
      * red to represent an extremely short draft (less than approximately 3 paragraphs).
      *
-     * @returns {string} The color the word count should be highlighted in.
+     * @returns {boolean} Whether we should display the word count warning.
      */
-    public showWordCountWarning(): string {
-        return this.draft.wordCount() > 200 ? "black" : "red";
+    public showWordCountWarning(): boolean {
+        return this.draft.wordCount() <= 200;
     }
 
     /**

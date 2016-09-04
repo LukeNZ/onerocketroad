@@ -20,13 +20,7 @@ header {
 
     a {
         color:$white;
-        text-decoration:none;
-        border-bottom:3px solid transparent;
-        @include transition-fast(border-bottom);
-
-        &:hover {
-            border-bottom:3px solid $canyon;
-        }
+        @include fancy-link();
     }
 }
 
@@ -42,7 +36,7 @@ header {
         display:inline-block;
         height:$headerHeight;
         background-color:$canyon;
-        width:calc(((100% - #{$max-width}) / 2) + #{$containerPadding});
+        width:calc(((100% - #{$max-width}) / 2) + #{$padding});
         position:absolute;
         left:0;
         min-width:10px;

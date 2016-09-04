@@ -80,7 +80,7 @@ export class Draft {
      */
     public isPublishable() : boolean {
         return this.title != null && this.body != null
-            && this.title.length > 0 && this.body.length > 0
+            && this.title.length > 0 && this.wordCount() > 100
             && this.hero != null;
     }
 }

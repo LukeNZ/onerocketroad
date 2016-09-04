@@ -1,0 +1,63 @@
+$pull: 50px;
+
+.item-container {
+    margin-top:-$pull;
+    background-color:white;
+    padding:$padding;
+    position:relative;
+    left:-$padding;
+    width:calc(100% + 2 * #{$padding});
+
+    &:before {
+        content:"";
+        display:block;
+        height:$pull;
+        width:100%;
+        z-index:-1;
+        box-shadow:0 0 10px transparentize($slate, 0.7);
+        position:absolute;
+        top:0;
+        left:0;
+    }
+}
+
+.item-metadata {
+    color:$grey;
+    height:50px - $padding;
+
+    .link-back-container {
+        @include span-columns(2);
+    }
+
+    .link-back {
+        text-transform: uppercase;
+        font-size:small;
+        @include fancy-link();
+    }
+
+    .author {
+        @include span-columns(4);
+        font-style:italic;
+
+        .penned-by {
+            font-size:small;
+            padding-right:3px;
+        }
+    }
+
+    .word-count {
+        @include span-columns(1);
+        @include shift(5);
+    }
+}
+
+.item-detail {
+    .item-content {
+        @include span-columns(9);
+        overflow:hidden;
+    }
+
+    .item-supporting {
+        @include span-columns(3);
+    }
+}

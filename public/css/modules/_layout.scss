@@ -1,8 +1,7 @@
 // Variables
 $headerHeight: 100px;
-$containerPadding: 10px;
 
-// Sensible degaults
+// Sensible defaults
 html {
     font-family:$cairo;
 }
@@ -10,12 +9,16 @@ html {
 // Set outer containers for bourbon-neat
 header, router-outlet + * {
     @include outer-container;
-    padding:0 $containerPadding;
+    padding:0 $padding;
 }
 
 // Set angular 2 components to have a block display setting
 articles, about, article, draft, drafts, home, images, login, signup, styleguide {
     display:block;
+}
+
+h1, h2, h3, h4, h5, h6, p, ul, li, span {
+    color:$slate;
 }
 
 // Header

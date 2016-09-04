@@ -1,15 +1,60 @@
 // Colors
 $canyon: #CC7555;
+$azure: #00BFFF;
 $slate: #21272b;
+$grey: #849199;
+$lightgrey: #DDDDDD;
 $white: #F5F5F5;
 
 // Fonts
-@import 'https://fonts.googleapis.com/css?family=Cairo:300,400,600|Montserrat';
+@import 'https://fonts.googleapis.com/css?family=Cairo:300,400,600|Montserrat|Source+Code+Pro';
 
 $cairo: 'Cairo', sans-serif;
 $montserrat: 'Montserrat', sans-serif;
 $brandongrotesque: 'Brandon Grotesque';
+$sourcecodepro: 'Source Code Pro', monospace;
 
+// Design
+$padding: 10px;
+
+// Mixins
 @mixin transition-fast($property) {
     transition:$property ease 0.2s;
+}
+
+@mixin transition-slow($property) {
+    transition:$property ease 0.5s;
+}
+
+@mixin fancy-link() {
+    text-decoration:none;
+    border-bottom:3px solid transparent;
+    @include transition-fast(border-bottom);
+
+    &:hover {
+        border-bottom:3px solid $canyon;
+    }
+}
+
+@mixin fancy-active-state() {
+    text-decoration:none;
+    border-bottom:3px solid transparent;
+    @include transition-fast(border-bottom);
+
+    &:hover, &.active {
+        border-bottom:3px solid $canyon;
+    }
+}
+
+.low-visibility {
+    color:$grey;
+    font-weight:lighter;
+}
+
+.translucent {
+    opacity:0.75;
+}
+
+.warning {
+    color:$canyon;
 }

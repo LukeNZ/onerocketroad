@@ -1,0 +1,54 @@
+$defaultFormElementPadding: 5px 10px;
+$buttonHeight:35px;
+
+input, textarea {
+    border:1px solid $lightgrey;
+    border-radius:3px;
+    padding:$defaultFormElementPadding;
+    @include transition-slow(border-color);
+
+    &:focus {
+        border-color:$azure;
+    }
+}
+
+input {
+    font-size:16px;
+}
+
+textarea {
+    font-family:$sourcecodepro;
+    font-size:13px;
+}
+
+button {
+    border:2px solid $azure;
+    color:$azure;
+    min-width:100px;
+    height:$buttonHeight;
+    border-radius:$buttonHeight;
+    cursor:pointer;
+    text-transform:uppercase;
+    padding:$defaultFormElementPadding;
+    background-color:transparent;
+
+    &:disabled {
+        border-color: $lightgrey;
+        color:$lightgrey;
+        cursor:default;
+    }
+
+    &:hover:not(:disabled) {
+        border-color:darken($azure, 10%);
+        color:darken($azure, 10%);
+    }
+
+    &:active:not(:disabled) {
+        border-color:$canyon;
+        color:$canyon;
+    }
+
+    .warning {
+
+    }
+}
