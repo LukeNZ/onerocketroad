@@ -21,6 +21,7 @@ import {ImageService} from "./Services/ImageService.service";
 import {TaggableService} from "./Services/TaggableService.service";
 import {TagService} from "./Services/TagService.service";
 import {EditorComponent} from "./Components/Editor.component";
+import {StyleGuideService} from "./Services/StyleGuideService.service";
 
 @NgModule({
     declarations: [
@@ -32,7 +33,8 @@ import {EditorComponent} from "./Components/Editor.component";
         ArticleRouterLinkDirective, ContentEditableDirective, DraggableDirective, DroppableDirective, HeroDirective, HighlightOnClickDirective
     ],
     imports:      [FormsModule, ReactiveFormsModule, HttpModule, BrowserModule, routing],
-    providers:    [AuthenticatedGuard, ArticleService, AuthenticationService, DraftService, HomeService, ImageService, TaggableService, TagService, Title],
+    providers:    [AuthenticatedGuard, ArticleService, AuthenticationService, DraftService,
+        HomeService, ImageService, TaggableService, TagService, Title, StyleGuideService],
     bootstrap:    [OneRocketRoadComponent]
 })
 export class AppModule {}

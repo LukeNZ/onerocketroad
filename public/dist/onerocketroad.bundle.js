@@ -724,6 +724,7 @@ var ImageService_service_1 = __webpack_require__(385);
 var TaggableService_service_1 = __webpack_require__(524);
 var TagService_service_1 = __webpack_require__(523);
 var Editor_component_1 = __webpack_require__(616);
+var StyleGuideService_service_1 = __webpack_require__(618);
 var AppModule = (function () {
     function AppModule() {
     }
@@ -738,7 +739,8 @@ var AppModule = (function () {
                 ArticleRouterLink_directive_1.ArticleRouterLinkDirective, ContentEditable_directive_1.ContentEditableDirective, Draggable_directive_1.DraggableDirective, Droppable_directive_1.DroppableDirective, Hero_directive_1.HeroDirective, HighlightOnClick_directive_1.HighlightOnClickDirective
             ],
             imports: [forms_1.FormsModule, forms_1.ReactiveFormsModule, http_1.HttpModule, platform_browser_1.BrowserModule, app_routes_1.routing],
-            providers: [AuthenticatedGuard_guard_1.AuthenticatedGuard, ArticleService_service_1.ArticleService, AuthenticationService_service_1.AuthenticationService, DraftService_service_1.DraftService, HomeService_service_1.HomeService, ImageService_service_1.ImageService, TaggableService_service_1.TaggableService, TagService_service_1.TagService, platform_browser_1.Title],
+            providers: [AuthenticatedGuard_guard_1.AuthenticatedGuard, ArticleService_service_1.ArticleService, AuthenticationService_service_1.AuthenticationService, DraftService_service_1.DraftService,
+                HomeService_service_1.HomeService, ImageService_service_1.ImageService, TaggableService_service_1.TaggableService, TagService_service_1.TagService, platform_browser_1.Title, StyleGuideService_service_1.StyleGuideService],
             bootstrap: [OneRocketRoad_component_1.OneRocketRoadComponent]
         }), 
         __metadata('design:paramtypes', [])
@@ -1623,22 +1625,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = __webpack_require__(0);
 var platform_browser_1 = __webpack_require__(12);
+var StyleGuideService_service_1 = __webpack_require__(618);
 var StyleGuideComponent = (function () {
-    function StyleGuideComponent(titleService) {
+    function StyleGuideComponent(titleService, styleGuideService) {
         this.titleService = titleService;
+        this.styleGuideService = styleGuideService;
         this.titleService.setTitle("One Rocket Road | Style Guide");
     }
+    /**
+     * Fetches the markdown style guide defined in a markdown file in the publicly accessible /angular/views
+     * directory.
+     */
     StyleGuideComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.styleGuideService.getStyleGuide().subscribe(function (doc) {
+            _this.markdownElementReference = doc;
+        });
     };
     StyleGuideComponent = __decorate([
         core_1.Component({
             selector: 'orr-style-guide',
             templateUrl: '/angular/views/styleguide.template.html',
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof platform_browser_1.Title !== 'undefined' && platform_browser_1.Title) === 'function' && _a) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof platform_browser_1.Title !== 'undefined' && platform_browser_1.Title) === 'function' && _a) || Object, (typeof (_b = typeof StyleGuideService_service_1.StyleGuideService !== 'undefined' && StyleGuideService_service_1.StyleGuideService) === 'function' && _b) || Object])
     ], StyleGuideComponent);
     return StyleGuideComponent;
-    var _a;
+    var _a, _b;
 }());
 exports.StyleGuideComponent = StyleGuideComponent;
 
@@ -2693,6 +2705,49 @@ exports.EditorComponent = EditorComponent;
     ViewState[ViewState["Preview"] = 2] = "Preview";
 })(exports.ViewState || (exports.ViewState = {}));
 var ViewState = exports.ViewState;
+
+
+/***/ },
+
+/***/ 618:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+"use strict";
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var http_1 = __webpack_require__(21);
+var core_1 = __webpack_require__(0);
+var AbstractService_service_1 = __webpack_require__(43);
+var StyleGuideService = (function (_super) {
+    __extends(StyleGuideService, _super);
+    function StyleGuideService(http) {
+        _super.call(this);
+        this.http = http;
+    }
+    StyleGuideService.prototype.getStyleGuide = function () {
+        return this.http.get('/angular/views/markdownelementreference.md').map(function (response) { return response.text(); });
+    };
+    StyleGuideService = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof http_1.Http !== 'undefined' && http_1.Http) === 'function' && _a) || Object])
+    ], StyleGuideService);
+    return StyleGuideService;
+    var _a;
+}(AbstractService_service_1.AbstractService));
+exports.StyleGuideService = StyleGuideService;
 
 
 /***/ },

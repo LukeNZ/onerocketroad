@@ -75,7 +75,8 @@ header, router-outlet + * {
     content: "";
     display: block; }
 
-articles, about, article, draft, drafts, home, images, login, signup, styleguide {
+orr-articles, orr-about, orr-article, orr-draft, orr-drafts, orr-home, orr-images,
+orr-login, orr-signup, orr-style-guide {
   display: block; }
 
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, span {
@@ -92,7 +93,7 @@ h1, h2, h3, h4, h5, h6 {
 h1 {
   font-size: 48px; }
 
-p {
+p, li {
   font-size: 18px;
   line-height: 1.5; }
 
