@@ -25,15 +25,15 @@ export class MarkdownPipe implements PipeTransform {
             typographer: true
         });
 
+        // Enable support for subscript and superscript formatting via
+        // the ^ (19^th^) and ~ (H~2~O) operators.
+        this.remarkable.inline.ruler.enable(['sub', 'sup']);
+
         // Enable parsing of rich media
         //this.remarkable.use(this.parseRichImages);
         this.remarkable.use(md => this.parseVideos(md));
         this.remarkable.use(md => this.parseTweets(md));
         this.remarkable.use(md => this.parseRichImages(md));
-
-        // Enable support for subscript and superscript formatting via
-        // the ^ (19^th^) and ~ (H~2~O) operators.
-        this.remarkable.inline.ruler.enable(['sub', 'sup']);
     }
 
     /***

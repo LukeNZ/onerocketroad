@@ -2084,14 +2084,14 @@ var MarkdownPipe = (function () {
         this.remarkable = new Remarkable({
             typographer: true
         });
+        // Enable support for subscript and superscript formatting via
+        // the ^ (19^th^) and ~ (H~2~O) operators.
+        this.remarkable.inline.ruler.enable(['sub', 'sup']);
         // Enable parsing of rich media
         //this.remarkable.use(this.parseRichImages);
         this.remarkable.use(function (md) { return _this.parseVideos(md); });
         this.remarkable.use(function (md) { return _this.parseTweets(md); });
         this.remarkable.use(function (md) { return _this.parseRichImages(md); });
-        // Enable support for subscript and superscript formatting via
-        // the ^ (19^th^) and ~ (H~2~O) operators.
-        this.remarkable.inline.ruler.enable(['sub', 'sup']);
     }
     /***
      * Transforms a markdown-enabled string into rendered markdown.

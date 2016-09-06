@@ -43,6 +43,16 @@ p, li {
     line-height:1.5;
 }
 
+sup {
+    vertical-align: super;
+    font-size: smaller;
+}
+
+sub {
+    vertical-align: sub;
+    font-size: smaller;
+}
+
 [hidden] {
     display:none !important;
 }

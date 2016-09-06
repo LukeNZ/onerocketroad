@@ -97,6 +97,14 @@ p, li {
   font-size: 18px;
   line-height: 1.5; }
 
+sup {
+  vertical-align: super;
+  font-size: smaller; }
+
+sub {
+  vertical-align: sub;
+  font-size: smaller; }
+
 [hidden] {
   display: none !important; }
 
@@ -398,9 +406,12 @@ dropzone {
   font-size: 14px;
   border-radius: 3px; }
 .markdown pre {
+  border-left: 5px solid #CC7555;
   background-color: #DDDDDD;
   padding: 20px;
   margin: 20px 0; }
+.markdown del {
+  color: #919191; }
 .markdown hr {
   border: 0;
   border-top: 2px dotted #CC7555; }
@@ -437,3 +448,7 @@ dropzone {
 
 .editor-preview {
   width: 100%; }
+
+.styleguide-markdown .markdown {
+  background-color: #F5F5F5;
+  padding: 10px; }

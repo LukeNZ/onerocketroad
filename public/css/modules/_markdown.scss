@@ -89,6 +89,7 @@ $markdownFontSize: 18px;
     }
 
      pre {
+         border-left:5px solid $canyon;
          background-color:$lightgrey;
          padding:20px;
          margin:20px 0;
@@ -97,6 +98,10 @@ $markdownFontSize: 18px;
 
          }
      }
+
+    del {
+        color:darken($lightgrey, 30%);
+    }
 
     hr {
         border:0;
