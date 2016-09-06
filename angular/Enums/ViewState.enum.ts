@@ -1,4 +1,4 @@
-export enum DraftViewState {
+export enum ViewState {
     Edit = 1,
     Preview = 2
 }

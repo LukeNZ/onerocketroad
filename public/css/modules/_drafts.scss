@@ -3,34 +3,6 @@
     @include shift(6);
 }
 
-.draft-view-selector {
-    width:100%;
-
-    .draft-view-option {
-        @include span-columns(6);
-        cursor:pointer;
-        text-align:center;
-        padding:$padding;
-        margin-bottom:$padding / 2;
-        font-weight:bold;
-        font-size:20px;
-        text-transform: uppercase;
-
-        @include fancy-active-state();
-    }
-}
-
-.draft-skeleton {
-    width:100%;
-    border-radius:0px;
-    min-height:400px;
-    resize:vertical;
-}
-
-.draft-preview {
-    width:100%;
-}
-
 .draft-actions {
     margin-top:10px;
 

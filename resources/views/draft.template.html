@@ -25,17 +25,8 @@
 
         <!-- Item Content -->
         <div class="item-content">
-            <ul class="draft-view-selector">
-                <li class="draft-view-option" (click)="setViewState(draftViewState.Edit)" [class.active]="viewState == draftViewState.Edit">Edit</li>
-                <li class="draft-view-option" (click)="setViewState(draftViewState.Preview)" [class.active]="viewState == draftViewState.Preview">Preview</li>
-            </ul>
 
-            <textarea class="draft-skeleton" placeholder="Remember to follow the style guide!"
-                      [ngModel]="draft.body" (ngModelChange)="autosaveDraftBody($event)" [formControl]="bodyFormControl" *ngIf="viewState == draftViewState.Edit">
-            </textarea>
-
-            <section class="draft-preview markdown" *ngIf="viewState != draftViewState.Edit" [innerHTML]="bodyFormControl.value | markdown">
-            </section>
+            <orr-editor [model]="draft.body" (onModelChange)="autosaveDraftBody($event)"></orr-editor>
 
             <!-- Actions -->
             <div class="draft-actions">

@@ -15,10 +15,15 @@ $gutter: 1em;
 @import "modules/design";
 @import "modules/layout";
 @import "modules/header";
-@import "modules/itemheader";
+@import "modules/hero";
 @import "modules/item";
 @import "modules/forms";
 @import "modules/dropzone";
+// Styles for the images page.
 @import "modules/images";
+// Styles for the draft page and related componentry.
 @import "modules/drafts";
+// Styles for markdown in articles.
 @import "modules/markdown";
+// The editor that defines where articles and drafts are editable and previewable.
+@import "modules/editor";

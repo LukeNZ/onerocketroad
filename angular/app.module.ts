@@ -20,11 +20,12 @@ import {HomeService} from "./Services/HomeService.service";
 import {ImageService} from "./Services/ImageService.service";
 import {TaggableService} from "./Services/TaggableService.service";
 import {TagService} from "./Services/TagService.service";
+import {EditorComponent} from "./Components/Editor.component";
 
 @NgModule({
     declarations: [
         // Components
-        OneRocketRoadComponent, DropzoneComponent, routedComponents,
+        OneRocketRoadComponent, DropzoneComponent, EditorComponent, routedComponents,
         // Pipes
         MarkdownPipe,
         // Directives

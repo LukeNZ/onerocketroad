@@ -418,7 +418,7 @@ var core_1 = __webpack_require__(0);
 var Dropzone = __webpack_require__(282);
 var ColorThief = __webpack_require__(281);
 var Observable_1 = __webpack_require__(4);
-__webpack_require__(588);
+__webpack_require__(587);
 var DropzoneComponent = (function () {
     function DropzoneComponent(el) {
         this.el = el;
@@ -706,8 +706,8 @@ var platform_browser_1 = __webpack_require__(12);
 var forms_1 = __webpack_require__(111);
 var http_1 = __webpack_require__(21);
 var OneRocketRoad_component_1 = __webpack_require__(513);
-var app_routes_1 = __webpack_require__(526);
-var MarkdownPipe_pipe_1 = __webpack_require__(523);
+var app_routes_1 = __webpack_require__(525);
+var MarkdownPipe_pipe_1 = __webpack_require__(522);
 var Dropzone_component_1 = __webpack_require__(382);
 var AuthenticatedGuard_guard_1 = __webpack_require__(383);
 var ArticleRouterLink_directive_1 = __webpack_require__(516);
@@ -721,8 +721,9 @@ var AuthenticationService_service_1 = __webpack_require__(67);
 var DraftService_service_1 = __webpack_require__(167);
 var HomeService_service_1 = __webpack_require__(384);
 var ImageService_service_1 = __webpack_require__(385);
-var TaggableService_service_1 = __webpack_require__(525);
-var TagService_service_1 = __webpack_require__(524);
+var TaggableService_service_1 = __webpack_require__(524);
+var TagService_service_1 = __webpack_require__(523);
+var Editor_component_1 = __webpack_require__(616);
 var AppModule = (function () {
     function AppModule() {
     }
@@ -730,7 +731,7 @@ var AppModule = (function () {
         core_1.NgModule({
             declarations: [
                 // Components
-                OneRocketRoad_component_1.OneRocketRoadComponent, Dropzone_component_1.DropzoneComponent, app_routes_1.routedComponents,
+                OneRocketRoad_component_1.OneRocketRoadComponent, Dropzone_component_1.DropzoneComponent, Editor_component_1.EditorComponent, app_routes_1.routedComponents,
                 // Pipes
                 MarkdownPipe_pipe_1.MarkdownPipe,
                 // Directives
@@ -1058,7 +1059,6 @@ var router_1 = __webpack_require__(22);
 var forms_1 = __webpack_require__(111);
 var Subject_1 = __webpack_require__(36);
 var Draft_class_1 = __webpack_require__(165);
-var DraftViewState_enum_1 = __webpack_require__(522);
 var ArticleService_service_1 = __webpack_require__(66);
 var DraftService_service_1 = __webpack_require__(167);
 var Tag_class_1 = __webpack_require__(504);
@@ -1081,8 +1081,6 @@ var DraftComponent = (function () {
         this.router = router;
         this.isSaving = false;
         this.isPublishing = false;
-        this.draftViewState = DraftViewState_enum_1.DraftViewState;
-        this.viewState = DraftViewState_enum_1.DraftViewState.Edit;
         this.bodyFormControl = new forms_1.FormControl();
         this.draftSubject = new Subject_1.Subject();
         this.draftStream = this.draftSubject.asObservable();
@@ -1123,15 +1121,6 @@ var DraftComponent = (function () {
                 .debounceTime(1000)
                 .subscribe(function () { return _this.autosave(); });
         }, function (error) { return console.log(error); });
-    };
-    /**
-     * Sets the view state on the draft component. Is either one of DraftViewState.Edit or
-     * DraftViewState.View.
-     *
-     * @param state The state to set.
-     */
-    DraftComponent.prototype.setViewState = function (state) {
-        this.viewState = state;
     };
     /**
      * Sets the draft hero image. Immediately sets it for responsiveness, then sends a request to
@@ -2053,20 +2042,6 @@ exports.HighlightOnClickDirective = HighlightOnClickDirective;
 /***/ },
 
 /***/ 522:
-/***/ function(module, exports) {
-
-"use strict";
-"use strict";
-(function (DraftViewState) {
-    DraftViewState[DraftViewState["Edit"] = 1] = "Edit";
-    DraftViewState[DraftViewState["Preview"] = 2] = "Preview";
-})(exports.DraftViewState || (exports.DraftViewState = {}));
-var DraftViewState = exports.DraftViewState;
-
-
-/***/ },
-
-/***/ 523:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2316,7 +2291,7 @@ exports.MarkdownPipe = MarkdownPipe;
 
 /***/ },
 
-/***/ 524:
+/***/ 523:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2371,7 +2346,7 @@ exports.TagService = TagService;
 
 /***/ },
 
-/***/ 525:
+/***/ 524:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2411,7 +2386,7 @@ exports.TaggableService = TaggableService;
 
 /***/ },
 
-/***/ 526:
+/***/ 525:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2449,19 +2424,19 @@ exports.routedComponents = [Home_component_1.HomeComponent, Articles_component_1
 
 /***/ },
 
-/***/ 588:
+/***/ 587:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
 var Observable_1 = __webpack_require__(4);
-var fromEvent_1 = __webpack_require__(596);
+var fromEvent_1 = __webpack_require__(595);
 Observable_1.Observable.fromEvent = fromEvent_1.fromEvent;
 //# sourceMappingURL=fromEvent.js.map
 
 /***/ },
 
-/***/ 592:
+/***/ 591:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2600,18 +2575,18 @@ exports.FromEventObservable = FromEventObservable;
 
 /***/ },
 
-/***/ 596:
+/***/ 595:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
-var FromEventObservable_1 = __webpack_require__(592);
+var FromEventObservable_1 = __webpack_require__(591);
 exports.fromEvent = FromEventObservable_1.FromEventObservable.create;
 //# sourceMappingURL=fromEvent.js.map
 
 /***/ },
 
-/***/ 615:
+/***/ 614:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2641,6 +2616,83 @@ var app_module_1 = __webpack_require__(402);
 platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1.AppModule)
     .then(function (success) { return console.log("Bootstrap success"); })
     .catch(function (error) { return console.log(error); });
+
+
+/***/ },
+
+/***/ 616:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = __webpack_require__(0);
+var ViewState_enum_1 = __webpack_require__(617);
+var EditorComponent = (function () {
+    function EditorComponent() {
+        this.bodyModelChange = new core_1.EventEmitter();
+        this.viewState = ViewState_enum_1.ViewState;
+        this.currentViewState = ViewState_enum_1.ViewState.Edit;
+    }
+    /**
+     * Sets the view state on the editable item. Is either one of ViewState.Edit or
+     * ViewState.View.
+     *
+     * @param state The state to set.
+     */
+    EditorComponent.prototype.setViewState = function (state) {
+        this.currentViewState = state;
+    };
+    /**
+     * Called when the model is changed in the editor, and subsequently emits and event
+     * to the parent component.
+     *
+     * @param body The newly updated body.
+     */
+    EditorComponent.prototype.modelChange = function (body) {
+        this.body = body;
+        this.bodyModelChange.emit(body);
+    };
+    __decorate([
+        core_1.Input('model'), 
+        __metadata('design:type', String)
+    ], EditorComponent.prototype, "body", void 0);
+    __decorate([
+        core_1.Output('onModelChange'), 
+        __metadata('design:type', Object)
+    ], EditorComponent.prototype, "bodyModelChange", void 0);
+    EditorComponent = __decorate([
+        core_1.Component({
+            selector: 'orr-editor',
+            templateUrl: '/angular/views/editor.template.html'
+        }), 
+        __metadata('design:paramtypes', [])
+    ], EditorComponent);
+    return EditorComponent;
+}());
+exports.EditorComponent = EditorComponent;
+
+
+/***/ },
+
+/***/ 617:
+/***/ function(module, exports) {
+
+"use strict";
+"use strict";
+(function (ViewState) {
+    ViewState[ViewState["Edit"] = 1] = "Edit";
+    ViewState[ViewState["Preview"] = 2] = "Preview";
+})(exports.ViewState || (exports.ViewState = {}));
+var ViewState = exports.ViewState;
 
 
 /***/ },
@@ -2876,4 +2928,4 @@ exports.AuthenticationService = AuthenticationService;
 
 /***/ }
 
-},[615]);
+},[614]);

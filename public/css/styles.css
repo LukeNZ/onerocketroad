@@ -339,37 +339,6 @@ dropzone {
   .is-saving-draft:last-child {
     margin-right: 0; }
 
-.draft-view-selector {
-  width: 100%; }
-  .draft-view-selector .draft-view-option {
-    float: left;
-    display: block;
-    margin-right: 1.61735%;
-    width: 49.19133%;
-    cursor: pointer;
-    text-align: center;
-    padding: 10px;
-    margin-bottom: 5px;
-    font-weight: bold;
-    font-size: 20px;
-    text-transform: uppercase;
-    text-decoration: none;
-    border-bottom: 3px solid transparent;
-    transition: border-bottom ease 0.2s; }
-    .draft-view-selector .draft-view-option:last-child {
-      margin-right: 0; }
-    .draft-view-selector .draft-view-option:hover, .draft-view-selector .draft-view-option.active {
-      border-bottom: 3px solid #CC7555; }
-
-.draft-skeleton {
-  width: 100%;
-  border-radius: 0px;
-  min-height: 400px;
-  resize: vertical; }
-
-.draft-preview {
-  width: 100%; }
-
 .draft-actions {
   margin-top: 10px; }
   .draft-actions .delete-draft-button {
@@ -436,3 +405,34 @@ dropzone {
   border-top: 2px dotted #CC7555; }
 .markdown a {
   color: #CC7555; }
+
+.editor-view-selector {
+  width: 100%; }
+  .editor-view-selector .editor-view-option {
+    float: left;
+    display: block;
+    margin-right: 1.61735%;
+    width: 49.19133%;
+    cursor: pointer;
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 20px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-bottom: 3px solid transparent;
+    transition: border-bottom ease 0.2s; }
+    .editor-view-selector .editor-view-option:last-child {
+      margin-right: 0; }
+    .editor-view-selector .editor-view-option:hover, .editor-view-selector .editor-view-option.active {
+      border-bottom: 3px solid #CC7555; }
+
+.editor-skeleton {
+  width: 100%;
+  border-radius: 0px;
+  min-height: 400px;
+  resize: vertical; }
+
+.editor-preview {
+  width: 100%; }

@@ -7,7 +7,6 @@ import {Subscription} from "rxjs/Subscription";
 import {Observable} from "rxjs/Observable";
 import {Subject} from "rxjs/Subject";
 import {Draft} from "../Classes/Draft.class";
-import {DraftViewState} from "../Enums/DraftViewState.enum";
 import {ArticleService} from "../Services/ArticleService.service";
 import {DraftService} from "../Services/DraftService.service";
 import {Tag} from "../Classes/Tag.class";
@@ -21,8 +20,6 @@ export class DraftComponent implements OnInit {
     private _draft: Draft;
     public isSaving: boolean = false;
     public isPublishing: boolean = false;
-    public draftViewState = DraftViewState;
-    public viewState: DraftViewState = DraftViewState.Edit;
 
     public bodyFormControl = new FormControl();
 
@@ -82,16 +79,6 @@ export class DraftComponent implements OnInit {
             },
             error => console.log(error)
         );
-    }
-
-    /**
-     * Sets the view state on the draft component. Is either one of DraftViewState.Edit or
-     * DraftViewState.View.
-     *
-     * @param state The state to set.
-     */
-    public setViewState(state:DraftViewState) {
-        this.viewState = state;
     }
 
     /**

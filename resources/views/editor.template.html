@@ -1,0 +1,11 @@
+<ul class="editor-view-selector">
+    <li class="editor-view-option" (click)="setViewState(viewState.Edit)" [class.active]="currentViewState == viewState.Edit">Edit</li>
+    <li class="editor-view-option" (click)="setViewState(viewState.Preview)" [class.active]="currentViewState == viewState.Preview">Preview</li>
+</ul>
+
+<textarea class="editor-skeleton" placeholder="Remember to follow the style guide!"
+          [ngModel]="body" (ngModelChange)="modelChange($event)" *ngIf="currentViewState == viewState.Edit">
+            </textarea>
+
+<section class="editor-preview markdown" *ngIf="currentViewState != viewState.Edit" [innerHTML]="body | markdown">
+</section>
