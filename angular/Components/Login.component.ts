@@ -4,7 +4,7 @@ import {Router} from "@angular/router";
 import {AuthenticationService} from "../Services/AuthenticationService.service";
 
 @Component({
-    selector: 'login',
+    selector: 'orr-login',
     templateUrl: '/angular/views/login.template.html'
 })
 export class LoginComponent {

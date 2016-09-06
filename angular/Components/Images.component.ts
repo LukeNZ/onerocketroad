@@ -5,7 +5,7 @@ import {Image} from "../Classes/Image.class";
 import {ImageService} from "../Services/ImageService.service";
 
 @Component({
-    selector: 'images',
+    selector: 'orr-images',
     templateUrl: '/angular/views/images.template.html'
 })
 export class ImagesComponent implements OnInit {

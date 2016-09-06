@@ -4,7 +4,7 @@ import {Router} from "@angular/router";
 import {AuthenticationService} from "../Services/AuthenticationService.service";
 
 @Component({
-    selector: 'signup',
+    selector: 'orr-signup',
     templateUrl: '/angular/views/signup.template.html'
 })
 export class SignUpComponent {

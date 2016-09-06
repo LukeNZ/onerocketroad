@@ -9,7 +9,7 @@ import {DraftService} from "../Services/DraftService.service";
 import {ArticleService} from "../Services/ArticleService.service";
 
 @Component({
-    selector: 'drafts',
+    selector: 'orr-drafts',
     templateUrl: '/angular/views/drafts.template.html',
 })
 

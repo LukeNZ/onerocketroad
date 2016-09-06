@@ -5,7 +5,7 @@ import {Home} from "../Classes/Home.class";
 import {HomeService} from "../Services/HomeService.service";
 
 @Component({
-    selector: 'home',
+    selector: 'orr-home',
     templateUrl: '/angular/views/home.template.html'
 })
 export class HomeComponent implements OnInit {

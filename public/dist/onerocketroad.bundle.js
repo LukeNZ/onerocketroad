@@ -502,7 +502,7 @@ var DropzoneComponent = (function () {
     };
     DropzoneComponent = __decorate([
         core_1.Component({
-            selector: 'dropzone',
+            selector: 'orr-dropzone',
             template: ''
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof core_1.ElementRef !== 'undefined' && core_1.ElementRef) === 'function' && _a) || Object])
@@ -906,7 +906,7 @@ var AboutComponent = (function () {
     }
     AboutComponent = __decorate([
         core_1.Component({
-            selector: 'about',
+            selector: 'orr-about',
             templateUrl: '/angular/views/about.template.html'
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof platform_browser_1.Title !== 'undefined' && platform_browser_1.Title) === 'function' && _a) || Object])
@@ -963,7 +963,7 @@ var ArticleComponent = (function () {
     };
     ArticleComponent = __decorate([
         core_1.Component({
-            selector: 'article',
+            selector: 'orr-article',
             templateUrl: '/angular/views/article.template.html',
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof ArticleService_service_1.ArticleService !== 'undefined' && ArticleService_service_1.ArticleService) === 'function' && _a) || Object, (typeof (_b = typeof platform_browser_1.Title !== 'undefined' && platform_browser_1.Title) === 'function' && _b) || Object, (typeof (_c = typeof router_1.ActivatedRoute !== 'undefined' && router_1.ActivatedRoute) === 'function' && _c) || Object, (typeof (_d = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _d) || Object])
@@ -1026,7 +1026,7 @@ var ArticlesComponent = (function () {
     };
     ArticlesComponent = __decorate([
         core_1.Component({
-            selector: 'articles',
+            selector: 'orr-articles',
             templateUrl: '/angular/views/articles.template.html'
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof ArticleService_service_1.ArticleService !== 'undefined' && ArticleService_service_1.ArticleService) === 'function' && _a) || Object, (typeof (_b = typeof platform_browser_1.Title !== 'undefined' && platform_browser_1.Title) === 'function' && _b) || Object, (typeof (_c = typeof router_1.ActivatedRoute !== 'undefined' && router_1.ActivatedRoute) === 'function' && _c) || Object, (typeof (_d = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _d) || Object])
@@ -1244,7 +1244,7 @@ var DraftComponent = (function () {
     };
     DraftComponent = __decorate([
         core_1.Component({
-            selector: 'draft',
+            selector: 'orr-draft',
             templateUrl: '/angular/views/draft.template.html'
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof DraftService_service_1.DraftService !== 'undefined' && DraftService_service_1.DraftService) === 'function' && _a) || Object, (typeof (_b = typeof ArticleService_service_1.ArticleService !== 'undefined' && ArticleService_service_1.ArticleService) === 'function' && _b) || Object, (typeof (_c = typeof platform_browser_1.Title !== 'undefined' && platform_browser_1.Title) === 'function' && _c) || Object, (typeof (_d = typeof router_1.ActivatedRoute !== 'undefined' && router_1.ActivatedRoute) === 'function' && _d) || Object, (typeof (_e = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _e) || Object])
@@ -1326,7 +1326,7 @@ var DraftsComponent = (function () {
     };
     DraftsComponent = __decorate([
         core_1.Component({
-            selector: 'drafts',
+            selector: 'orr-drafts',
             templateUrl: '/angular/views/drafts.template.html',
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof DraftService_service_1.DraftService !== 'undefined' && DraftService_service_1.DraftService) === 'function' && _a) || Object, (typeof (_b = typeof ArticleService_service_1.ArticleService !== 'undefined' && ArticleService_service_1.ArticleService) === 'function' && _b) || Object, (typeof (_c = typeof router_1.ActivatedRoute !== 'undefined' && router_1.ActivatedRoute) === 'function' && _c) || Object, (typeof (_d = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _d) || Object, (typeof (_e = typeof platform_browser_1.Title !== 'undefined' && platform_browser_1.Title) === 'function' && _e) || Object])
@@ -1373,7 +1373,7 @@ var HomeComponent = (function () {
     };
     HomeComponent = __decorate([
         core_1.Component({
-            selector: 'home',
+            selector: 'orr-home',
             templateUrl: '/angular/views/home.template.html'
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof HomeService_service_1.HomeService !== 'undefined' && HomeService_service_1.HomeService) === 'function' && _a) || Object, (typeof (_b = typeof router_1.ActivatedRoute !== 'undefined' && router_1.ActivatedRoute) === 'function' && _b) || Object, (typeof (_c = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _c) || Object, (typeof (_d = typeof platform_browser_1.Title !== 'undefined' && platform_browser_1.Title) === 'function' && _d) || Object])
@@ -1445,7 +1445,7 @@ var ImagesComponent = (function () {
     ], ImagesComponent.prototype, "dropzoneComponent", void 0);
     ImagesComponent = __decorate([
         core_1.Component({
-            selector: 'images',
+            selector: 'orr-images',
             templateUrl: '/angular/views/images.template.html'
         }), 
         __metadata('design:paramtypes', [(typeof (_b = typeof ImageService_service_1.ImageService !== 'undefined' && ImageService_service_1.ImageService) === 'function' && _b) || Object, (typeof (_c = typeof platform_browser_1.Title !== 'undefined' && platform_browser_1.Title) === 'function' && _c) || Object])
@@ -1503,7 +1503,7 @@ var LoginComponent = (function () {
     };
     LoginComponent = __decorate([
         core_1.Component({
-            selector: 'login',
+            selector: 'orr-login',
             templateUrl: '/angular/views/login.template.html'
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof AuthenticationService_service_1.AuthenticationService !== 'undefined' && AuthenticationService_service_1.AuthenticationService) === 'function' && _a) || Object, (typeof (_b = typeof platform_browser_1.Title !== 'undefined' && platform_browser_1.Title) === 'function' && _b) || Object, (typeof (_c = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _c) || Object])
@@ -1594,7 +1594,7 @@ var SignUpComponent = (function () {
     };
     SignUpComponent = __decorate([
         core_1.Component({
-            selector: 'signup',
+            selector: 'orr-signup',
             templateUrl: '/angular/views/signup.template.html'
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof platform_browser_1.Title !== 'undefined' && platform_browser_1.Title) === 'function' && _a) || Object, (typeof (_b = typeof AuthenticationService_service_1.AuthenticationService !== 'undefined' && AuthenticationService_service_1.AuthenticationService) === 'function' && _b) || Object, (typeof (_c = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _c) || Object])
@@ -1632,7 +1632,7 @@ var StyleGuideComponent = (function () {
     };
     StyleGuideComponent = __decorate([
         core_1.Component({
-            selector: 'style-guide',
+            selector: 'orr-style-guide',
             templateUrl: '/angular/views/styleguide.template.html',
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof platform_browser_1.Title !== 'undefined' && platform_browser_1.Title) === 'function' && _a) || Object])

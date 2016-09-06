@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {Title} from "@angular/platform-browser";
 
 @Component({
-    selector: 'style-guide',
+    selector: 'orr-style-guide',
     templateUrl: '/angular/views/styleguide.template.html',
 })
 export class StyleGuideComponent {

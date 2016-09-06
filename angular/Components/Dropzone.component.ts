@@ -14,7 +14,7 @@ interface Window {
 }
 
 @Component({
-    selector: 'dropzone',
+    selector: 'orr-dropzone',
     template: ''
 })
 export class DropzoneComponent implements OnInit {

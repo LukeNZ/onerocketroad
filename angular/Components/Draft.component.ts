@@ -13,7 +13,7 @@ import {Tag} from "../Classes/Tag.class";
 import {Article} from "../Classes/Article.class";
 
 @Component({
-    selector: 'draft',
+    selector: 'orr-draft',
     templateUrl: '/angular/views/draft.template.html'
 })
 export class DraftComponent implements OnInit {

@@ -5,7 +5,7 @@ import {Article} from "../Classes/Article.class";
 import {ArticleService} from "../Services/ArticleService.service";
 
 @Component({
-    selector: 'articles',
+    selector: 'orr-articles',
     templateUrl: '/angular/views/articles.template.html'
 })
 export class ArticlesComponent {

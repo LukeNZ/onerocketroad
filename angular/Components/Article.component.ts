@@ -5,7 +5,7 @@ import {Article} from "../Classes/Article.class";
 import {ArticleService} from "../Services/ArticleService.service";
 
 @Component({
-    selector: 'article',
+    selector: 'orr-article',
     templateUrl: '/angular/views/article.template.html',
 })
 export class ArticleComponent implements OnInit {
