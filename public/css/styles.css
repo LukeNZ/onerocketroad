@@ -93,6 +93,22 @@ h1, h2, h3, h4, h5, h6 {
 h1 {
   font-size: 48px; }
 
+h2 {
+  font-size: 36px; }
+
+h3 {
+  font-size: 28px; }
+
+h4 {
+  font-size: 22px; }
+
+h5 {
+  font-size: 18px; }
+
+h6 {
+  font-size: 16px;
+  font-weight: bold; }
+
 p, li {
   font-size: 18px;
   line-height: 1.5; }
@@ -107,6 +123,89 @@ sub {
 
 [hidden] {
   display: none !important; }
+
+dropzone {
+  display: block;
+  width: 200px;
+  height: 200px;
+  border: 3px dashed dodgerblue;
+  border-radius: 10px;
+  background-color: #F9F9F9; }
+
+.editor-view-selector {
+  width: 100%; }
+  .editor-view-selector .editor-view-option {
+    float: left;
+    display: block;
+    margin-right: 1.61735%;
+    width: 49.19133%;
+    cursor: pointer;
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 20px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-bottom: 3px solid transparent;
+    transition: border-bottom ease 0.2s; }
+    .editor-view-selector .editor-view-option:last-child {
+      margin-right: 0; }
+    .editor-view-selector .editor-view-option:hover, .editor-view-selector .editor-view-option.active {
+      border-bottom: 3px solid #CC7555; }
+
+.editor-skeleton {
+  width: 100%;
+  border-radius: 0px;
+  min-height: 400px;
+  resize: vertical; }
+
+.editor-preview {
+  width: 100%; }
+
+input, textarea {
+  border: 1px solid #DDDDDD;
+  border-radius: 3px;
+  padding: 5px 10px;
+  transition: border-color ease 0.5s; }
+  input:focus, textarea:focus {
+    border-color: #00BFFF; }
+
+input {
+  font-size: 16px; }
+
+textarea {
+  font-family: "Source Code Pro", monospace;
+  font-size: 13px; }
+
+button {
+  border: 2px solid #00BFFF;
+  color: #00BFFF;
+  min-width: 100px;
+  height: 35px;
+  border-radius: 35px;
+  cursor: pointer;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  margin: 5px 10px;
+  background-color: transparent;
+  transition: all ease 0.2s; }
+  button:disabled {
+    border-color: #DDDDDD;
+    color: #DDDDDD;
+    cursor: default; }
+  button:hover:not(:disabled) {
+    border-color: #007399;
+    color: #007399; }
+  button:active:not(:disabled) {
+    border-color: #CC7555;
+    color: #CC7555; }
+  button.warning-button {
+    border-color: #CC7555;
+    color: #CC7555; }
+    button.warning-button:hover:not(:disabled) {
+      border-color: #90462b;
+      color: #90462b; }
 
 .header-container {
   background-color: #21272b; }
@@ -197,14 +296,15 @@ nav {
     background-color: #9aa8b1;
     background-position: 50% 50%;
     background-size: cover; }
-  .item-header h1 span {
-    color: #F5F5F5;
-    padding: 0 10px;
-    background-color: rgba(33, 39, 43, 0.75);
-    outline: 0;
-    -webkit-box-decoration-break: clone;
-    box-decoration-break: clone;
-    line-height: normal; }
+
+.overlay-text {
+  color: #F5F5F5;
+  padding: 0 10px;
+  background-color: rgba(33, 39, 43, 0.75);
+  outline: 0;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  line-height: normal; }
 
 .item-container {
   margin-top: -50px;
@@ -281,79 +381,6 @@ nav {
   .item-detail .item-supporting:last-child {
     margin-right: 0; }
 
-input, textarea {
-  border: 1px solid #DDDDDD;
-  border-radius: 3px;
-  padding: 5px 10px;
-  transition: border-color ease 0.5s; }
-  input:focus, textarea:focus {
-    border-color: #00BFFF; }
-
-input {
-  font-size: 16px; }
-
-textarea {
-  font-family: "Source Code Pro", monospace;
-  font-size: 13px; }
-
-button {
-  border: 2px solid #00BFFF;
-  color: #00BFFF;
-  min-width: 100px;
-  height: 35px;
-  border-radius: 35px;
-  cursor: pointer;
-  text-transform: uppercase;
-  padding: 5px 10px;
-  margin: 5px 10px;
-  background-color: transparent;
-  transition: all ease 0.2s; }
-  button:disabled {
-    border-color: #DDDDDD;
-    color: #DDDDDD;
-    cursor: default; }
-  button:hover:not(:disabled) {
-    border-color: #007399;
-    color: #007399; }
-  button:active:not(:disabled) {
-    border-color: #CC7555;
-    color: #CC7555; }
-  button.warning-button {
-    border-color: #CC7555;
-    color: #CC7555; }
-    button.warning-button:hover:not(:disabled) {
-      border-color: #90462b;
-      color: #90462b; }
-
-dropzone {
-  display: block;
-  width: 200px;
-  height: 200px;
-  border: 3px dashed dodgerblue;
-  border-radius: 10px;
-  background-color: #F9F9F9; }
-
-.all-images div.image img {
-  max-width: 300px;
-  max-height: 300px; }
-.all-images div.image .swatch {
-  width: 50px;
-  height: 50px; }
-
-.is-saving-draft {
-  float: left;
-  display: block;
-  margin-right: 1.61735%;
-  width: 6.85076%;
-  margin-left: 50.80867%; }
-  .is-saving-draft:last-child {
-    margin-right: 0; }
-
-.draft-actions {
-  margin-top: 10px; }
-  .draft-actions .delete-draft-button {
-    float: right; }
-
 .markdown h1 {
   font-size: 36px; }
 .markdown h2 {
@@ -419,36 +446,35 @@ dropzone {
 .markdown a {
   color: #CC7555; }
 
-.editor-view-selector {
-  width: 100%; }
-  .editor-view-selector .editor-view-option {
-    float: left;
-    display: block;
-    margin-right: 1.61735%;
-    width: 49.19133%;
-    cursor: pointer;
-    text-align: center;
-    padding: 10px;
-    margin-bottom: 5px;
-    font-weight: bold;
-    font-size: 20px;
-    text-transform: uppercase;
-    text-decoration: none;
-    border-bottom: 3px solid transparent;
-    transition: border-bottom ease 0.2s; }
-    .editor-view-selector .editor-view-option:last-child {
-      margin-right: 0; }
-    .editor-view-selector .editor-view-option:hover, .editor-view-selector .editor-view-option.active {
-      border-bottom: 3px solid #CC7555; }
+.is-saving-draft {
+  float: left;
+  display: block;
+  margin-right: 1.61735%;
+  width: 6.85076%;
+  margin-left: 50.80867%; }
+  .is-saving-draft:last-child {
+    margin-right: 0; }
 
-.editor-skeleton {
+.draft-actions {
+  margin-top: 10px; }
+  .draft-actions .delete-draft-button {
+    float: right; }
+
+.lead-article {
+  float: left;
+  display: block;
+  margin-right: 1.61735%;
   width: 100%;
-  border-radius: 0px;
-  min-height: 400px;
-  resize: vertical; }
+  height: 500px; }
+  .lead-article:last-child {
+    margin-right: 0; }
 
-.editor-preview {
-  width: 100%; }
+.all-images div.image img {
+  max-width: 300px;
+  max-height: 300px; }
+.all-images div.image .swatch {
+  width: 50px;
+  height: 50px; }
 
 .styleguide-markdown .markdown {
   background-color: #F5F5F5;

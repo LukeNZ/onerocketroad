@@ -1,3 +1,5 @@
+// Hero design used on article and draft pages.
+//-------------------------------------------------------------------------------
 $itemHeaderHeight: 500px;
 
 .item-header {
@@ -18,15 +20,15 @@ $itemHeaderHeight: 500px;
         background-position:50% 50%;
         background-size:cover;
     }
+}
 
-    h1 span {
-        color:$white;
-        padding:0 $padding;
-        background-color:transparentize($slate, 0.25);
-        outline:0;
+.overlay-text {
+    color:$white;
+    padding:0 $padding;
+    background-color:transparentize($slate, 0.25);
+    outline:0;
 
-            -webkit-box-decoration-break:clone;
-        box-decoration-break: clone;
-        line-height:normal;
-    }
+    -webkit-box-decoration-break:clone;
+    box-decoration-break: clone;
+    line-height:normal;
 }

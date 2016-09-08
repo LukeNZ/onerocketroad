@@ -1,6 +1,8 @@
 <!-- Item Header. Includes the hero image, and the article title. -->
 <section *ngIf="draft" class="item-header">
-    <h1><span spellcheck="false" [contentEditableModel]="draft.title" (contentEditableModelChange)="autosaveDraftTitle($event)"></span></h1>
+    <h1>
+        <span class="overlay-text" spellcheck="false" [contentEditableModel]="draft.title" (contentEditableModelChange)="autosaveDraftTitle($event)"></span>
+    </h1>
     <hero [image]="draft.hero?.getUrl()"></hero> <!-- Include article hero attribution here -->
 </section>
 

@@ -1,12 +1,14 @@
-<h1>Welcome to One Rocket Road</h1>
+<div *ngIf="home" class="home">
+    <p>The latest news and discussion about the aerospace industry-leading company SpaceX,
+        and the up and coming newspace movement that is making affordable spaceflight a reality.</p>
 
-<div *ngIf="home">
-    <h2>The latest</h2>
-    <article *ngIf="home.leadArticle">
-        <p><a [articleRouterLink]="home.leadArticle">{{ home.leadArticle.title }}</a></p>
-    </article>
+    <div class="lead-article" *ngIf="home.leadArticle">
+        <a [articleRouterLink]="home.leadArticle"></a>
+        <h1><span class="overlay-text">{{ home.leadArticle.title }}</span></h1>
 
-    <h2>Also...</h2>
+    </div>
+
+    <h1>Also...</h1>
     <section *ngIf="home.midTierArticles">
         <article>
             <p><a [articleRouterLink]="home.midTierArticles.first">{{ home.midTierArticles.first.title }}</a></p>
@@ -16,7 +18,7 @@
         </article>
     </section>
 
-    <h2>More</h2>
+    <h1>More</h1>
     <section *ngIf="home.moreArticles">
         <article>
             <p><a [articleRouterLink]="home.moreArticles.first">{{ home.moreArticles.first.title }}</a></p>

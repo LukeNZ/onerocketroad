@@ -1,0 +1,6 @@
+// Homepage and landing page of the application.
+//-------------------------------------------------------------------------------
+.lead-article {
+    @include span-columns(12);
+    height:500px;
+}

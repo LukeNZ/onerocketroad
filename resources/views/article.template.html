@@ -1,5 +1,5 @@
 <section *ngIf="article" class="item-header">
-    <h1><span>{{ article.title }}</span></h1>
+    <h1><span class="overlay-text">{{ article.title }}</span></h1>
     <hero [image]="article.hero?.getUrl()"></hero> <!-- Include article hero attribution here -->
 </section>
 
@@ -20,8 +20,7 @@
     <div class="item-detail">
 
         <div class="item-content">
-            <section class="markdown" [innerHTML]="article.body | markdown">
-            </section>
+            <section class="markdown" [innerHTML]="article.body | markdown"></section>
         </div>
 
         <div class="item-supporting">

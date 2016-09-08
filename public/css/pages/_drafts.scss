@@ -1,0 +1,15 @@
+// Individual & group draft page where drafts an be edited & reviewed before publication.
+//-------------------------------------------------------------------------------
+
+.is-saving-draft {
+    @include span-columns(1);
+    @include shift(6);
+}
+
+.draft-actions {
+    margin-top:10px;
+
+    .delete-draft-button {
+        float:right;
+    }
+}
