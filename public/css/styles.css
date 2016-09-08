@@ -172,7 +172,8 @@ nav {
     display: block;
     margin-right: 1.61735%;
     width: 15.31888%;
-    text-align: center; }
+    text-align: center;
+    line-height: 100px; }
     nav ul li:last-child {
       margin-right: 0; }
     nav ul li.align-right {

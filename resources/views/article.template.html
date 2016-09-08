@@ -1,11 +1,36 @@
-<div *ngIf="article">
-    <h1>{{ article.title }}</h1>
-    <aside>
-        <ul>
-            <li>By {{ article.authorName }}</li>
-            <li>{{ article.acronymCount() }} acronyms</li>
-            <li>{{ article.readingLength() }}</li>
-        </ul>
+<section *ngIf="article" class="item-header">
+    <h1><span>{{ article.title }}</span></h1>
+    <hero [image]="article.hero?.getUrl()"></hero> <!-- Include article hero attribution here -->
+</section>
+
+<section class="item-container" *ngIf="article">
+
+    <aside class="item-metadata">
+        <div class="link-back-container">
+            <a class="low-visibility link-back" [routerLink]="['/articles']"><i class="fa fa-arrow-circle-left"></i> All Articles</a>
+        </div>
+
+        <p class="low-visibility author"><span class="low-visibility translucent penned-by">Penned by </span>{{ article.authorName }}</p>
+
+        <p>{{ article.acronymCount() }} acronyms</p>
+
+        <p>{{ article.readingLength() }}</p>
     </aside>
-    <section id="content" [innerHTML]="article.body | markdown"></section>
+
+    <div class="item-detail">
+
+        <div class="item-content">
+            <section class="markdown" [innerHTML]="article.body | markdown">
+            </section>
+        </div>
+
+        <div class="item-supporting">
+            <!-- Previous, next articles -->
+        </div>
+
+    </div>
+</section>
+
+<div *ngIf="article">
+
 </div>

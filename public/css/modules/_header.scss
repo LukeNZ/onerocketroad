@@ -68,6 +68,7 @@ nav {
     ul li {
         @include span-columns(2);
         text-align:center;
+        line-height:$headerHeight;
 
         &.align-right {
             float:right;
