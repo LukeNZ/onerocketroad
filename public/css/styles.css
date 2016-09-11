@@ -275,7 +275,8 @@ header {
     display: block;
     width: 100%;
     position: relative;
-    border-bottom: none; }
+    border-bottom: none;
+    font-size: larger; }
   #logo a:after {
     content: "";
     display: inline-block;

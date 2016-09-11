@@ -1,13 +1,10 @@
 <h1>Drafts</h1>
-
-<h2>Create a draft</h2>
 <section class="new-draft">
-    <form id="create-draft-form" (ngSubmit)="createDraft()" #createDraftForm="ngForm">
-        <label>Title</label>
-
+    <form id="create-draft-form" (ngSubmit)="createDraft()" #createDraftForm="ngForm" novalidate>
         <input type="text" name="new-draft-title" id="new-draft-title"
                [(ngModel)]="newDraftModel.title"
                #title="ngModel"
+               placeholder="The title of your draft"
                required />
 
         <button type="submit"
@@ -15,7 +12,7 @@
     </form>
 </section>
 
-<h2>Current Drafts<i class="fa fa-trash" isDroppable (dropped)="deleteDraft($event)" *ngIf="drafts.length > 0"></i></h2>
+<h2>{{ drafts.length }} Current Drafts <i class="fa fa-trash" isDroppable (dropped)="deleteDraft($event)" *ngIf="drafts.length > 0"></i></h2>
 <section>
     <ol>
         <li *ngFor="let draft of drafts" [isDraggable]="draft">
@@ -28,7 +25,7 @@
     <p *ngIf="drafts.length == 0">Nothing here!</p>
 </section>
 
-<h2>Published Articles</h2>
+<h2>{{ articles.length }} Published Articles</h2>
 <section>
     <ol>
         <li *ngFor="let article of articles">
