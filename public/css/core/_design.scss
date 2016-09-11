@@ -61,3 +61,14 @@ $padding: 10px;
 .warning {
     color:$canyon;
 }
+
+@mixin label() {
+    color:$grey;
+    font-weight:bold;
+    text-transform:uppercase;
+    font-size:smaller;
+}
+
+.label {
+    @include label();
+}

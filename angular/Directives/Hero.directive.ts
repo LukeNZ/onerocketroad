@@ -1,9 +1,9 @@
 import {Directive, Input, ElementRef, OnInit} from "@angular/core";
 @Directive({
-    selector: 'hero[image]'
+    selector: '[heroImage]'
 })
 export class HeroDirective implements OnInit {
-    @Input('image') data : any;
+    @Input('heroImage') data : any;
 
     constructor(private el : ElementRef) {}
 

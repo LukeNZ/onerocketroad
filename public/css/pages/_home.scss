@@ -2,5 +2,14 @@
 //-------------------------------------------------------------------------------
 .lead-article {
     @include span-columns(12);
+    background-color:lighten($slate, 50%);
     height:500px;
+}
+
+.second-tier-article {
+    @include span-columns(6);
+
+    img {
+        width:100%;
+    }
 }

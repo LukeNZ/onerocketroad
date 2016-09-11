@@ -1,8 +1,9 @@
-import {Component, ElementRef, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, Output, Input} from '@angular/core';
 import Dropzone = require('dropzone');
 var ColorThief = require('color-thief');
 import {Observable} from "rxjs/Observable";
 import 'rxjs/add/observable/fromEvent';
+import {EventEmitter} from "@angular/common/src/facade/async";
 
 interface ImageBitmap {
     height: number;
@@ -15,9 +16,11 @@ interface Window {
 
 @Component({
     selector: 'orr-dropzone',
-    template: ''
+    template: `<div class="dz-message" data-dz-message><span>Drag an image here, or click to upload an image from your computer.</span></div>`
 })
 export class DropzoneComponent implements OnInit {
+    @Input() public url: string;
+    @Output('onUploadCompletion') public uploadCompletion = new EventEmitter<any>();
     public dropzone : Dropzone;
 
     public file: File;
@@ -34,7 +37,7 @@ export class DropzoneComponent implements OnInit {
         this.el.nativeElement.style.display = "block";
 
         this.dropzone = new Dropzone(this.el.nativeElement, {
-            url: '/api/images/create',
+            url: this.url,
             method: "post",
             maxFilesize: 32,
             uploadMultiple: false,
@@ -49,6 +52,10 @@ export class DropzoneComponent implements OnInit {
         this.dropzone.on("thumbnail", (file, dataUrl) => {
             this.file = file;
         });
+
+        this.dropzone.on("complete", (file) => {
+            this.uploadCompletion.emit(file);
+        });
     }
 
     /**
@@ -60,7 +67,7 @@ export class DropzoneComponent implements OnInit {
      *
      * @returns Observable<any>
      */
-    public upload(detailsToAdd: {}) : Observable<XMLHttpRequest> {
+    public upload(detailsToAdd: {}) : void {
         (<any>window).createImageBitmap(this.file).then(img => {
 
             let colorThief = new ColorThief();
@@ -75,10 +82,6 @@ export class DropzoneComponent implements OnInit {
             });
 
             this.dropzone.processQueue();
-        });
-
-        return Observable.fromEvent(this.dropzone, "complete").map((response: any) => {
-            return response.xhr;
         });
     }
 

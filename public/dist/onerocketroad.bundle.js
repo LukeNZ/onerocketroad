@@ -6,6 +6,7 @@ webpackJsonp([0],{
 "use strict";
 "use strict";
 var moment = __webpack_require__(1);
+var Image_class_1 = __webpack_require__(107);
 var Article = (function () {
     /**
      * Article constructor.
@@ -17,11 +18,12 @@ var Article = (function () {
      * @param createdAt
      * @param updatedAt
      */
-    function Article(id, title, body, authorName, createdAt, updatedAt) {
+    function Article(id, title, body, authorName, hero, createdAt, updatedAt) {
         this.id = id;
         this.title = title;
         this.body = body;
         this.authorName = authorName;
+        this.hero = hero;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -33,7 +35,7 @@ var Article = (function () {
      */
     Article.createFromDraft = function (draft) {
         var now = moment().utc().toDate();
-        return new Article(draft.id, draft.title, draft.body, draft.authorName, now, now);
+        return new Article(draft.id, draft.title, draft.body, draft.authorName, draft.hero, now, now);
     };
     /**
      * Static helper method to create an article instance from a plain object.
@@ -42,7 +44,7 @@ var Article = (function () {
      * @returns {Article}
      */
     Article.create = function (model) {
-        return new Article(model.id, model.title, model.body, model.authorName, model.createdAt, model.updatedAt);
+        return new Article(model.id, model.title, model.body, model.authorName, Image_class_1.Image.create(model.hero), model.createdAt, model.updatedAt);
     };
     /**
      * Returns the publication year of the article in UTC, formatted as a string.
@@ -136,80 +138,7 @@ exports.Article = Article;
 
 /***/ },
 
-/***/ 165:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-"use strict";
-var Image_class_1 = __webpack_require__(166);
-var Draft = (function () {
-    /**
-     * Draft constructor
-     *
-     * @param id
-     * @param title
-     * @param body
-     * @param author
-     * @param authorName
-     * @param heroId
-     * @param hero
-     * @param tags
-     * @param dueAt
-     * @param createdAt
-     * @param updatedAt
-     */
-    function Draft(id, title, body, author, authorName, heroId, hero, tags, dueAt, createdAt, updatedAt) {
-        this.id = id;
-        this.title = title;
-        this.body = body;
-        this.author = author;
-        this.authorName = authorName;
-        this.heroId = heroId;
-        this.hero = hero;
-        this.tags = tags == null ? [] : tags;
-        this.dueAt = dueAt;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-    }
-    /**
-     * Static helper method to create a draft instance from a plain object.
-     *
-     * @param model
-     * @returns {Draft}
-     */
-    Draft.create = function (model) {
-        if (model != null) {
-            return new Draft(model.id, model.title, model.body, model.author, model.authorName, model.heroId, Image_class_1.Image.create(model.hero), model.tags, model.dueAt, model.createdAt, model.updatedAt);
-        }
-        return new Draft();
-    };
-    /**
-     * Calculates and returns number of words present within the draft.
-     *
-     * @returns {number}
-     */
-    Draft.prototype.wordCount = function () {
-        var matches = this.body.match(/[\w\d]+/gi);
-        return matches ? matches.length : 0;
-    };
-    /**
-     * Determines if the draft is in a publishable state for it to be converted into an Article.
-     *
-     * @returns {boolean}
-     */
-    Draft.prototype.isPublishable = function () {
-        return this.title != null && this.body != null
-            && this.title.length > 0 && this.wordCount() > 200
-            && this.hero != null;
-    };
-    return Draft;
-}());
-exports.Draft = Draft;
-
-
-/***/ },
-
-/***/ 166:
+/***/ 107:
 /***/ function(module, exports) {
 
 "use strict";
@@ -280,6 +209,79 @@ exports.Image = Image;
 
 /***/ },
 
+/***/ 166:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+"use strict";
+var Image_class_1 = __webpack_require__(107);
+var Draft = (function () {
+    /**
+     * Draft constructor
+     *
+     * @param id
+     * @param title
+     * @param body
+     * @param author
+     * @param authorName
+     * @param heroId
+     * @param hero
+     * @param tags
+     * @param dueAt
+     * @param createdAt
+     * @param updatedAt
+     */
+    function Draft(id, title, body, author, authorName, heroId, hero, tags, dueAt, createdAt, updatedAt) {
+        this.id = id;
+        this.title = title;
+        this.body = body;
+        this.author = author;
+        this.authorName = authorName;
+        this.heroId = heroId;
+        this.hero = hero;
+        this.tags = tags == null ? [] : tags;
+        this.dueAt = dueAt;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+    /**
+     * Static helper method to create a draft instance from a plain object.
+     *
+     * @param model
+     * @returns {Draft}
+     */
+    Draft.create = function (model) {
+        if (model != null) {
+            return new Draft(model.id, model.title, model.body, model.author, model.authorName, model.heroId, Image_class_1.Image.create(model.hero), model.tags, model.dueAt, model.createdAt, model.updatedAt);
+        }
+        return new Draft();
+    };
+    /**
+     * Calculates and returns number of words present within the draft.
+     *
+     * @returns {number}
+     */
+    Draft.prototype.wordCount = function () {
+        var matches = this.body.match(/[\w\d]+/gi);
+        return matches ? matches.length : 0;
+    };
+    /**
+     * Determines if the draft is in a publishable state for it to be converted into an Article.
+     *
+     * @returns {boolean}
+     */
+    Draft.prototype.isPublishable = function () {
+        return this.title != null && this.body != null
+            && this.title.length > 0 && this.wordCount() > 200
+            && this.hero != null;
+    };
+    return Draft;
+}());
+exports.Draft = Draft;
+
+
+/***/ },
+
 /***/ 167:
 /***/ function(module, exports, __webpack_require__) {
 
@@ -301,8 +303,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = __webpack_require__(0);
 var http_1 = __webpack_require__(21);
-var AbstractService_service_1 = __webpack_require__(43);
-var Draft_class_1 = __webpack_require__(165);
+var AbstractService_service_1 = __webpack_require__(41);
+var Draft_class_1 = __webpack_require__(166);
 var DraftService = (function (_super) {
     __extends(DraftService, _super);
     function DraftService(http) {
@@ -417,11 +419,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = __webpack_require__(0);
 var Dropzone = __webpack_require__(282);
 var ColorThief = __webpack_require__(281);
-var Observable_1 = __webpack_require__(4);
-__webpack_require__(587);
+__webpack_require__(591);
+var async_1 = __webpack_require__(415);
 var DropzoneComponent = (function () {
     function DropzoneComponent(el) {
         this.el = el;
+        this.uploadCompletion = new async_1.EventEmitter();
     }
     /**
      * On component initializtion, apply an ID of "ng2-dropzone" and style the element as a block.
@@ -433,7 +436,7 @@ var DropzoneComponent = (function () {
         this.el.nativeElement.id = "ng2-dropzone";
         this.el.nativeElement.style.display = "block";
         this.dropzone = new Dropzone(this.el.nativeElement, {
-            url: '/api/images/create',
+            url: this.url,
             method: "post",
             maxFilesize: 32,
             uploadMultiple: false,
@@ -446,6 +449,9 @@ var DropzoneComponent = (function () {
         });
         this.dropzone.on("thumbnail", function (file, dataUrl) {
             _this.file = file;
+        });
+        this.dropzone.on("complete", function (file) {
+            _this.uploadCompletion.emit(file);
         });
     };
     /**
@@ -470,9 +476,6 @@ var DropzoneComponent = (function () {
                 formData.append("color", "rgb(" + colors[0] + "," + colors[1] + "," + colors[2] + ")");
             });
             _this.dropzone.processQueue();
-        });
-        return Observable_1.Observable.fromEvent(this.dropzone, "complete").map(function (response) {
-            return response.xhr;
         });
     };
     DropzoneComponent.prototype.clear = function () {
@@ -500,10 +503,18 @@ var DropzoneComponent = (function () {
         var authToken = localStorage.getItem('authtoken');
         return "bearer " + authToken;
     };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], DropzoneComponent.prototype, "url", void 0);
+    __decorate([
+        core_1.Output('onUploadCompletion'), 
+        __metadata('design:type', Object)
+    ], DropzoneComponent.prototype, "uploadCompletion", void 0);
     DropzoneComponent = __decorate([
         core_1.Component({
             selector: 'orr-dropzone',
-            template: ''
+            template: "<div class=\"dz-message\" data-dz-message><span>Drag an image here, or click to upload an image from your computer.</span></div>"
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof core_1.ElementRef !== 'undefined' && core_1.ElementRef) === 'function' && _a) || Object])
     ], DropzoneComponent);
@@ -571,8 +582,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = __webpack_require__(0);
 var http_1 = __webpack_require__(21);
-var AbstractService_service_1 = __webpack_require__(43);
-var Home_class_1 = __webpack_require__(503);
+var AbstractService_service_1 = __webpack_require__(41);
+var Home_class_1 = __webpack_require__(505);
 var Article_class_1 = __webpack_require__(106);
 var HomeService = (function (_super) {
     __extends(HomeService, _super);
@@ -633,8 +644,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = __webpack_require__(0);
 var http_1 = __webpack_require__(21);
-var AbstractService_service_1 = __webpack_require__(43);
-var Image_class_1 = __webpack_require__(166);
+var AbstractService_service_1 = __webpack_require__(41);
+var Image_class_1 = __webpack_require__(107);
 var ImageService = (function (_super) {
     __extends(ImageService, _super);
     function ImageService(http) {
@@ -687,7 +698,50 @@ exports.ImageService = ImageService;
 
 /***/ },
 
-/***/ 402:
+/***/ 386:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+"use strict";
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var http_1 = __webpack_require__(21);
+var core_1 = __webpack_require__(0);
+var AbstractService_service_1 = __webpack_require__(41);
+var StyleGuideService = (function (_super) {
+    __extends(StyleGuideService, _super);
+    function StyleGuideService(http) {
+        _super.call(this);
+        this.http = http;
+    }
+    StyleGuideService.prototype.getStyleGuide = function () {
+        return this.http.get('/angular/views/markdownelementreference.md').map(function (response) { return response.text(); });
+    };
+    StyleGuideService = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof http_1.Http !== 'undefined' && http_1.Http) === 'function' && _a) || Object])
+    ], StyleGuideService);
+    return StyleGuideService;
+    var _a;
+}(AbstractService_service_1.AbstractService));
+exports.StyleGuideService = StyleGuideService;
+
+
+/***/ },
+
+/***/ 403:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -703,28 +757,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = __webpack_require__(0);
 var platform_browser_1 = __webpack_require__(12);
-var forms_1 = __webpack_require__(111);
+var forms_1 = __webpack_require__(112);
 var http_1 = __webpack_require__(21);
-var OneRocketRoad_component_1 = __webpack_require__(513);
-var app_routes_1 = __webpack_require__(525);
-var MarkdownPipe_pipe_1 = __webpack_require__(522);
+var OneRocketRoad_component_1 = __webpack_require__(516);
+var app_routes_1 = __webpack_require__(529);
+var MarkdownPipe_pipe_1 = __webpack_require__(526);
 var Dropzone_component_1 = __webpack_require__(382);
 var AuthenticatedGuard_guard_1 = __webpack_require__(383);
-var ArticleRouterLink_directive_1 = __webpack_require__(516);
-var ContentEditable_directive_1 = __webpack_require__(517);
-var Draggable_directive_1 = __webpack_require__(518);
-var Droppable_directive_1 = __webpack_require__(519);
-var Hero_directive_1 = __webpack_require__(520);
-var HighlightOnClick_directive_1 = __webpack_require__(521);
+var ArticleRouterLink_directive_1 = __webpack_require__(519);
+var ContentEditable_directive_1 = __webpack_require__(520);
+var Draggable_directive_1 = __webpack_require__(521);
+var Droppable_directive_1 = __webpack_require__(522);
+var Hero_directive_1 = __webpack_require__(523);
+var HighlightOnClick_directive_1 = __webpack_require__(524);
 var ArticleService_service_1 = __webpack_require__(66);
 var AuthenticationService_service_1 = __webpack_require__(67);
 var DraftService_service_1 = __webpack_require__(167);
 var HomeService_service_1 = __webpack_require__(384);
 var ImageService_service_1 = __webpack_require__(385);
-var TaggableService_service_1 = __webpack_require__(524);
-var TagService_service_1 = __webpack_require__(523);
-var Editor_component_1 = __webpack_require__(616);
-var StyleGuideService_service_1 = __webpack_require__(618);
+var TaggableService_service_1 = __webpack_require__(528);
+var TagService_service_1 = __webpack_require__(527);
+var Editor_component_1 = __webpack_require__(512);
+var StyleGuideService_service_1 = __webpack_require__(386);
 var AppModule = (function () {
     function AppModule() {
     }
@@ -752,7 +806,7 @@ exports.AppModule = AppModule;
 
 /***/ },
 
-/***/ 43:
+/***/ 41:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -829,7 +883,130 @@ exports.AbstractService = AbstractService;
 
 /***/ },
 
-/***/ 503:
+/***/ 415:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Subject__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_Subject__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__);
+
+/* harmony export */ __webpack_require__.d(exports, "EventEmitter", function() { return EventEmitter; });/* harmony reexport */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__, "Observable")) __webpack_require__.d(exports, "Observable", function() { return __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__["Observable"]; });
+/* harmony reexport */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0_rxjs_Subject__, "Subject")) __webpack_require__.d(exports, "Subject", function() { return __WEBPACK_IMPORTED_MODULE_0_rxjs_Subject__["Subject"]; });
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+
+
+
+/**
+ * Use by directives and components to emit custom Events.
+ *
+ * ### Examples
+ *
+ * In the following example, `Zippy` alternatively emits `open` and `close` events when its
+ * title gets clicked:
+ *
+ * ```
+ * @Component({
+ *   selector: 'zippy',
+ *   template: `
+ *   <div class="zippy">
+ *     <div (click)="toggle()">Toggle</div>
+ *     <div [hidden]="!visible">
+ *       <ng-content></ng-content>
+ *     </div>
+ *  </div>`})
+ * export class Zippy {
+ *   visible: boolean = true;
+ *   @Output() open: EventEmitter<any> = new EventEmitter();
+ *   @Output() close: EventEmitter<any> = new EventEmitter();
+ *
+ *   toggle() {
+ *     this.visible = !this.visible;
+ *     if (this.visible) {
+ *       this.open.emit(null);
+ *     } else {
+ *       this.close.emit(null);
+ *     }
+ *   }
+ * }
+ * ```
+ *
+ * The events payload can be accessed by the parameter `$event` on the components output event
+ * handler:
+ *
+ * ```
+ * <zippy (open)="onOpen($event)" (close)="onClose($event)"></zippy>
+ * ```
+ *
+ * Uses Rx.Observable but provides an adapter to make it work as specified here:
+ * https://github.com/jhusain/observable-spec
+ *
+ * Once a reference implementation of the spec is available, switch to it.
+ * @stable
+ */
+var EventEmitter = (function (_super) {
+    __extends(EventEmitter, _super);
+    /**
+     * Creates an instance of [EventEmitter], which depending on [isAsync],
+     * delivers events synchronously or asynchronously.
+     */
+    function EventEmitter(isAsync) {
+        if (isAsync === void 0) { isAsync = false; }
+        _super.call(this);
+        this.__isAsync = isAsync;
+    }
+    EventEmitter.prototype.emit = function (value) { _super.prototype.next.call(this, value); };
+    EventEmitter.prototype.subscribe = function (generatorOrNext, error, complete) {
+        var schedulerFn;
+        var errorFn = function (err) { return null; };
+        var completeFn = function () { return null; };
+        if (generatorOrNext && typeof generatorOrNext === 'object') {
+            schedulerFn = this.__isAsync ? function (value /** TODO #9100 */) {
+                setTimeout(function () { return generatorOrNext.next(value); });
+            } : function (value /** TODO #9100 */) { generatorOrNext.next(value); };
+            if (generatorOrNext.error) {
+                errorFn = this.__isAsync ? function (err) { setTimeout(function () { return generatorOrNext.error(err); }); } :
+                    function (err) { generatorOrNext.error(err); };
+            }
+            if (generatorOrNext.complete) {
+                completeFn = this.__isAsync ? function () { setTimeout(function () { return generatorOrNext.complete(); }); } :
+                    function () { generatorOrNext.complete(); };
+            }
+        }
+        else {
+            schedulerFn = this.__isAsync ? function (value /** TODO #9100 */) {
+                setTimeout(function () { return generatorOrNext(value); });
+            } : function (value /** TODO #9100 */) { generatorOrNext(value); };
+            if (error) {
+                errorFn =
+                    this.__isAsync ? function (err) { setTimeout(function () { return error(err); }); } : function (err) { error(err); };
+            }
+            if (complete) {
+                completeFn =
+                    this.__isAsync ? function () { setTimeout(function () { return complete(); }); } : function () { complete(); };
+            }
+        }
+        return _super.prototype.subscribe.call(this, schedulerFn, errorFn, completeFn);
+    };
+    return EventEmitter;
+}(__WEBPACK_IMPORTED_MODULE_0_rxjs_Subject__["Subject"]));
+//# sourceMappingURL=async.js.map
+
+/***/ },
+
+/***/ 505:
 /***/ function(module, exports) {
 
 "use strict";
@@ -858,7 +1035,7 @@ exports.Home = Home;
 
 /***/ },
 
-/***/ 504:
+/***/ 506:
 /***/ function(module, exports) {
 
 "use strict";
@@ -885,7 +1062,7 @@ exports.Tag = Tag;
 
 /***/ },
 
-/***/ 505:
+/***/ 507:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -921,7 +1098,7 @@ exports.AboutComponent = AboutComponent;
 
 /***/ },
 
-/***/ 506:
+/***/ 508:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -978,7 +1155,7 @@ exports.ArticleComponent = ArticleComponent;
 
 /***/ },
 
-/***/ 507:
+/***/ 509:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1041,7 +1218,7 @@ exports.ArticlesComponent = ArticlesComponent;
 
 /***/ },
 
-/***/ 508:
+/***/ 510:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1058,12 +1235,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = __webpack_require__(0);
 var platform_browser_1 = __webpack_require__(12);
 var router_1 = __webpack_require__(22);
-var forms_1 = __webpack_require__(111);
-var Subject_1 = __webpack_require__(36);
-var Draft_class_1 = __webpack_require__(165);
+var forms_1 = __webpack_require__(112);
+var Subject_1 = __webpack_require__(23);
+var Draft_class_1 = __webpack_require__(166);
 var ArticleService_service_1 = __webpack_require__(66);
 var DraftService_service_1 = __webpack_require__(167);
-var Tag_class_1 = __webpack_require__(504);
+var Tag_class_1 = __webpack_require__(506);
 var Article_class_1 = __webpack_require__(106);
 var DraftComponent = (function () {
     /**
@@ -1259,7 +1436,7 @@ exports.DraftComponent = DraftComponent;
 
 /***/ },
 
-/***/ 509:
+/***/ 511:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1278,7 +1455,7 @@ var platform_browser_1 = __webpack_require__(12);
 var router_1 = __webpack_require__(22);
 var Observable_1 = __webpack_require__(4);
 __webpack_require__(284);
-var Draft_class_1 = __webpack_require__(165);
+var Draft_class_1 = __webpack_require__(166);
 var DraftService_service_1 = __webpack_require__(167);
 var ArticleService_service_1 = __webpack_require__(66);
 var DraftsComponent = (function () {
@@ -1341,7 +1518,70 @@ exports.DraftsComponent = DraftsComponent;
 
 /***/ },
 
-/***/ 510:
+/***/ 512:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = __webpack_require__(0);
+var ViewState_enum_1 = __webpack_require__(525);
+var EditorComponent = (function () {
+    function EditorComponent() {
+        this.bodyModelChange = new core_1.EventEmitter();
+        this.viewState = ViewState_enum_1.ViewState;
+        this.currentViewState = ViewState_enum_1.ViewState.Edit;
+    }
+    /**
+     * Sets the view state on the editable item. Is either one of ViewState.Edit or
+     * ViewState.View.
+     *
+     * @param state The state to set.
+     */
+    EditorComponent.prototype.setViewState = function (state) {
+        this.currentViewState = state;
+    };
+    /**
+     * Called when the model is changed in the editor, and subsequently emits and event
+     * to the parent component.
+     *
+     * @param body The newly updated body.
+     */
+    EditorComponent.prototype.modelChange = function (body) {
+        this.body = body;
+        this.bodyModelChange.emit(body);
+    };
+    __decorate([
+        core_1.Input('model'), 
+        __metadata('design:type', String)
+    ], EditorComponent.prototype, "body", void 0);
+    __decorate([
+        core_1.Output('onModelChange'), 
+        __metadata('design:type', Object)
+    ], EditorComponent.prototype, "bodyModelChange", void 0);
+    EditorComponent = __decorate([
+        core_1.Component({
+            selector: 'orr-editor',
+            templateUrl: '/angular/views/editor.template.html'
+        }), 
+        __metadata('design:paramtypes', [])
+    ], EditorComponent);
+    return EditorComponent;
+}());
+exports.EditorComponent = EditorComponent;
+
+
+/***/ },
+
+/***/ 513:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1388,7 +1628,7 @@ exports.HomeComponent = HomeComponent;
 
 /***/ },
 
-/***/ 511:
+/***/ 514:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1405,12 +1645,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = __webpack_require__(0);
 var platform_browser_1 = __webpack_require__(12);
 var Dropzone_component_1 = __webpack_require__(382);
-var Image_class_1 = __webpack_require__(166);
+var Image_class_1 = __webpack_require__(107);
 var ImageService_service_1 = __webpack_require__(385);
 var ImagesComponent = (function () {
-    function ImagesComponent(imageService, titleService) {
+    function ImagesComponent(imageService, titleService, change) {
         this.imageService = imageService;
         this.titleService = titleService;
+        this.change = change;
         this.imageToUpload = Image_class_1.Image.create();
         this.images = [];
         this.isSubmitting = false;
@@ -1423,23 +1664,24 @@ var ImagesComponent = (function () {
         });
     };
     /**
-     * Uploads a new image, storing it on the server, before clearing the upload form and
-     * adding the newly-created image to the images array.
+     * Sends a command to upload a new image.
      */
     ImagesComponent.prototype.uploadNewImage = function () {
-        var _this = this;
         this.isSubmitting = true;
-        this.dropzoneComponent.upload(this.imageToUpload).subscribe(function (xmlHttpRequest) {
-            // Allow easier access to the image from the xhr.
-            var image = JSON.parse(xmlHttpRequest.response);
-            // Reset the upload form.
-            _this.imageToUpload = Image_class_1.Image.create();
-            _this.isSubmitting = false;
-            // push the newly created image onto the images array.
-            _this.images.push(Image_class_1.Image.create(image));
-            // Clear the Dropzone.
-            _this.dropzoneComponent.clear();
-        });
+        this.dropzoneComponent.upload(this.imageToUpload);
+    };
+    ImagesComponent.prototype.createImage = function (data) {
+        var image = JSON.parse(data.xhr.response);
+        // Reset the upload form.
+        this.imageToUpload = Image_class_1.Image.create();
+        this.isSubmitting = false;
+        // push the newly created image onto the images array.
+        this.images.push(Image_class_1.Image.create(image));
+        // Clear the Dropzone.
+        this.dropzoneComponent.clear();
+        // We have to detect changes for some reason here.
+        // TODO: Figure out how to fix.
+        this.change.detectChanges();
     };
     __decorate([
         core_1.ViewChild(Dropzone_component_1.DropzoneComponent), 
@@ -1450,17 +1692,17 @@ var ImagesComponent = (function () {
             selector: 'orr-images',
             templateUrl: '/angular/views/images.template.html'
         }), 
-        __metadata('design:paramtypes', [(typeof (_b = typeof ImageService_service_1.ImageService !== 'undefined' && ImageService_service_1.ImageService) === 'function' && _b) || Object, (typeof (_c = typeof platform_browser_1.Title !== 'undefined' && platform_browser_1.Title) === 'function' && _c) || Object])
+        __metadata('design:paramtypes', [(typeof (_b = typeof ImageService_service_1.ImageService !== 'undefined' && ImageService_service_1.ImageService) === 'function' && _b) || Object, (typeof (_c = typeof platform_browser_1.Title !== 'undefined' && platform_browser_1.Title) === 'function' && _c) || Object, (typeof (_d = typeof core_1.ChangeDetectorRef !== 'undefined' && core_1.ChangeDetectorRef) === 'function' && _d) || Object])
     ], ImagesComponent);
     return ImagesComponent;
-    var _a, _b, _c;
+    var _a, _b, _c, _d;
 }());
 exports.ImagesComponent = ImagesComponent;
 
 
 /***/ },
 
-/***/ 512:
+/***/ 515:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1518,7 +1760,7 @@ exports.LoginComponent = LoginComponent;
 
 /***/ },
 
-/***/ 513:
+/***/ 516:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1558,7 +1800,7 @@ exports.OneRocketRoadComponent = OneRocketRoadComponent;
 
 /***/ },
 
-/***/ 514:
+/***/ 517:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1609,7 +1851,7 @@ exports.SignUpComponent = SignUpComponent;
 
 /***/ },
 
-/***/ 515:
+/***/ 518:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1625,7 +1867,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = __webpack_require__(0);
 var platform_browser_1 = __webpack_require__(12);
-var StyleGuideService_service_1 = __webpack_require__(618);
+var StyleGuideService_service_1 = __webpack_require__(386);
 var StyleGuideComponent = (function () {
     function StyleGuideComponent(titleService, styleGuideService) {
         this.titleService = titleService;
@@ -1657,7 +1899,7 @@ exports.StyleGuideComponent = StyleGuideComponent;
 
 /***/ },
 
-/***/ 516:
+/***/ 519:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1752,7 +1994,7 @@ exports.ArticleRouterLinkDirective = ArticleRouterLinkDirective;
 
 /***/ },
 
-/***/ 517:
+/***/ 520:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1814,7 +2056,7 @@ exports.ContentEditableDirective = ContentEditableDirective;
 
 /***/ },
 
-/***/ 518:
+/***/ 521:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1876,7 +2118,7 @@ exports.DraggableDirective = DraggableDirective;
 
 /***/ },
 
-/***/ 519:
+/***/ 522:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1964,7 +2206,7 @@ exports.DroppableDirective = DroppableDirective;
 
 /***/ },
 
-/***/ 520:
+/***/ 523:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1987,12 +2229,12 @@ var HeroDirective = (function () {
         this.el.nativeElement.style.backgroundImage = "url(" + this.data + ")";
     };
     __decorate([
-        core_1.Input('image'), 
+        core_1.Input('heroImage'), 
         __metadata('design:type', Object)
     ], HeroDirective.prototype, "data", void 0);
     HeroDirective = __decorate([
         core_1.Directive({
-            selector: 'hero[image]'
+            selector: '[heroImage]'
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof core_1.ElementRef !== 'undefined' && core_1.ElementRef) === 'function' && _a) || Object])
     ], HeroDirective);
@@ -2004,7 +2246,7 @@ exports.HeroDirective = HeroDirective;
 
 /***/ },
 
-/***/ 521:
+/***/ 524:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2053,7 +2295,21 @@ exports.HighlightOnClickDirective = HighlightOnClickDirective;
 
 /***/ },
 
-/***/ 522:
+/***/ 525:
+/***/ function(module, exports) {
+
+"use strict";
+"use strict";
+(function (ViewState) {
+    ViewState[ViewState["Edit"] = 1] = "Edit";
+    ViewState[ViewState["Preview"] = 2] = "Preview";
+})(exports.ViewState || (exports.ViewState = {}));
+var ViewState = exports.ViewState;
+
+
+/***/ },
+
+/***/ 526:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2303,7 +2559,7 @@ exports.MarkdownPipe = MarkdownPipe;
 
 /***/ },
 
-/***/ 523:
+/***/ 527:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2324,7 +2580,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var http_1 = __webpack_require__(21);
 var core_1 = __webpack_require__(0);
-var AbstractService_service_1 = __webpack_require__(43);
+var AbstractService_service_1 = __webpack_require__(41);
 var TagService = (function (_super) {
     __extends(TagService, _super);
     function TagService(http) {
@@ -2358,7 +2614,7 @@ exports.TagService = TagService;
 
 /***/ },
 
-/***/ 524:
+/***/ 528:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2379,7 +2635,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var http_1 = __webpack_require__(21);
 var core_1 = __webpack_require__(0);
-var AbstractService_service_1 = __webpack_require__(43);
+var AbstractService_service_1 = __webpack_require__(41);
 var TaggableService = (function (_super) {
     __extends(TaggableService, _super);
     function TaggableService(http) {
@@ -2398,23 +2654,23 @@ exports.TaggableService = TaggableService;
 
 /***/ },
 
-/***/ 525:
+/***/ 529:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
 var router_1 = __webpack_require__(22);
 var AuthenticatedGuard_guard_1 = __webpack_require__(383);
-var Home_component_1 = __webpack_require__(510);
-var Articles_component_1 = __webpack_require__(507);
-var Article_component_1 = __webpack_require__(506);
-var About_component_1 = __webpack_require__(505);
-var Drafts_component_1 = __webpack_require__(509);
-var Draft_component_1 = __webpack_require__(508);
-var Images_component_1 = __webpack_require__(511);
-var SignUp_component_1 = __webpack_require__(514);
-var Login_component_1 = __webpack_require__(512);
-var StyleGuide_component_1 = __webpack_require__(515);
+var Home_component_1 = __webpack_require__(513);
+var Articles_component_1 = __webpack_require__(509);
+var Article_component_1 = __webpack_require__(508);
+var About_component_1 = __webpack_require__(507);
+var Drafts_component_1 = __webpack_require__(511);
+var Draft_component_1 = __webpack_require__(510);
+var Images_component_1 = __webpack_require__(514);
+var SignUp_component_1 = __webpack_require__(517);
+var Login_component_1 = __webpack_require__(515);
+var StyleGuide_component_1 = __webpack_require__(518);
 var appRoutes = [
     //  Public routes
     { path: '', component: Home_component_1.HomeComponent },
@@ -2436,19 +2692,19 @@ exports.routedComponents = [Home_component_1.HomeComponent, Articles_component_1
 
 /***/ },
 
-/***/ 587:
+/***/ 591:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
 var Observable_1 = __webpack_require__(4);
-var fromEvent_1 = __webpack_require__(595);
+var fromEvent_1 = __webpack_require__(599);
 Observable_1.Observable.fromEvent = fromEvent_1.fromEvent;
 //# sourceMappingURL=fromEvent.js.map
 
 /***/ },
 
-/***/ 591:
+/***/ 595:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2461,7 +2717,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 var Observable_1 = __webpack_require__(4);
 var tryCatch_1 = __webpack_require__(279);
 var isFunction_1 = __webpack_require__(278);
-var errorObject_1 = __webpack_require__(109);
+var errorObject_1 = __webpack_require__(110);
 var Subscription_1 = __webpack_require__(45);
 function isNodeStyleEventEmmitter(sourceObj) {
     return !!sourceObj && typeof sourceObj.addListener === 'function' && typeof sourceObj.removeListener === 'function';
@@ -2587,18 +2843,18 @@ exports.FromEventObservable = FromEventObservable;
 
 /***/ },
 
-/***/ 595:
+/***/ 599:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
-var FromEventObservable_1 = __webpack_require__(591);
+var FromEventObservable_1 = __webpack_require__(595);
 exports.fromEvent = FromEventObservable_1.FromEventObservable.create;
 //# sourceMappingURL=fromEvent.js.map
 
 /***/ },
 
-/***/ 614:
+/***/ 618:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2623,131 +2879,11 @@ bootstrap(OneRocketRoadComponent, [
     AuthenticationService
 ]).catch((err: any) => console.error(err));*/
 "use strict";
-var platform_browser_dynamic_1 = __webpack_require__(112);
-var app_module_1 = __webpack_require__(402);
+var platform_browser_dynamic_1 = __webpack_require__(113);
+var app_module_1 = __webpack_require__(403);
 platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1.AppModule)
     .then(function (success) { return console.log("Bootstrap success"); })
     .catch(function (error) { return console.log(error); });
-
-
-/***/ },
-
-/***/ 616:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var core_1 = __webpack_require__(0);
-var ViewState_enum_1 = __webpack_require__(617);
-var EditorComponent = (function () {
-    function EditorComponent() {
-        this.bodyModelChange = new core_1.EventEmitter();
-        this.viewState = ViewState_enum_1.ViewState;
-        this.currentViewState = ViewState_enum_1.ViewState.Edit;
-    }
-    /**
-     * Sets the view state on the editable item. Is either one of ViewState.Edit or
-     * ViewState.View.
-     *
-     * @param state The state to set.
-     */
-    EditorComponent.prototype.setViewState = function (state) {
-        this.currentViewState = state;
-    };
-    /**
-     * Called when the model is changed in the editor, and subsequently emits and event
-     * to the parent component.
-     *
-     * @param body The newly updated body.
-     */
-    EditorComponent.prototype.modelChange = function (body) {
-        this.body = body;
-        this.bodyModelChange.emit(body);
-    };
-    __decorate([
-        core_1.Input('model'), 
-        __metadata('design:type', String)
-    ], EditorComponent.prototype, "body", void 0);
-    __decorate([
-        core_1.Output('onModelChange'), 
-        __metadata('design:type', Object)
-    ], EditorComponent.prototype, "bodyModelChange", void 0);
-    EditorComponent = __decorate([
-        core_1.Component({
-            selector: 'orr-editor',
-            templateUrl: '/angular/views/editor.template.html'
-        }), 
-        __metadata('design:paramtypes', [])
-    ], EditorComponent);
-    return EditorComponent;
-}());
-exports.EditorComponent = EditorComponent;
-
-
-/***/ },
-
-/***/ 617:
-/***/ function(module, exports) {
-
-"use strict";
-"use strict";
-(function (ViewState) {
-    ViewState[ViewState["Edit"] = 1] = "Edit";
-    ViewState[ViewState["Preview"] = 2] = "Preview";
-})(exports.ViewState || (exports.ViewState = {}));
-var ViewState = exports.ViewState;
-
-
-/***/ },
-
-/***/ 618:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-"use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var http_1 = __webpack_require__(21);
-var core_1 = __webpack_require__(0);
-var AbstractService_service_1 = __webpack_require__(43);
-var StyleGuideService = (function (_super) {
-    __extends(StyleGuideService, _super);
-    function StyleGuideService(http) {
-        _super.call(this);
-        this.http = http;
-    }
-    StyleGuideService.prototype.getStyleGuide = function () {
-        return this.http.get('/angular/views/markdownelementreference.md').map(function (response) { return response.text(); });
-    };
-    StyleGuideService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof http_1.Http !== 'undefined' && http_1.Http) === 'function' && _a) || Object])
-    ], StyleGuideService);
-    return StyleGuideService;
-    var _a;
-}(AbstractService_service_1.AbstractService));
-exports.StyleGuideService = StyleGuideService;
 
 
 /***/ },
@@ -2774,7 +2910,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = __webpack_require__(0);
 var http_1 = __webpack_require__(21);
 var Observable_1 = __webpack_require__(4);
-var AbstractService_service_1 = __webpack_require__(43);
+var AbstractService_service_1 = __webpack_require__(41);
 var Article_class_1 = __webpack_require__(106);
 var ArticleService = (function (_super) {
     __extends(ArticleService, _super);
@@ -2894,7 +3030,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = __webpack_require__(0);
 var http_1 = __webpack_require__(21);
-var AbstractService_service_1 = __webpack_require__(43);
+var AbstractService_service_1 = __webpack_require__(41);
 var AuthenticationService = (function (_super) {
     __extends(AuthenticationService, _super);
     /**
@@ -2983,4 +3119,4 @@ exports.AuthenticationService = AuthenticationService;
 
 /***/ }
 
-},[614]);
+},[618]);

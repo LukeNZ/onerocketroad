@@ -1,6 +1,6 @@
 <section *ngIf="article" class="item-header">
     <h1><span class="overlay-text">{{ article.title }}</span></h1>
-    <hero [image]="article.hero?.getUrl()"></hero> <!-- Include article hero attribution here -->
+    <div [heroImage]="article.hero?.getUrl()"></div> <!-- Include article hero attribution here -->
 </section>
 
 <section class="item-container" *ngIf="article">

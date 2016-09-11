@@ -1,13 +1,14 @@
 // Form, input, & button related UX design.
 //-------------------------------------------------------------------------------
-
 $defaultFormElementPadding: 5px 10px;
 $buttonHeight:35px;
 
+// Individual inputs
 input, textarea {
     border:1px solid $lightgrey;
     border-radius:3px;
     padding:$defaultFormElementPadding;
+    min-width:300px;
     @include transition-slow(border-color);
 
     &:focus {
@@ -61,5 +62,19 @@ button {
             border-color:darken($canyon, 20%);
             color:darken($canyon, 20%);
         }
+    }
+}
+
+label {
+    display:inline-block;
+    min-width:100px;
+    text-align:left;
+    margin-right:$padding;
+    @include label();
+}
+
+form {
+    li {
+        padding:$padding 0;
     }
 }

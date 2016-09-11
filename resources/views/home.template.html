@@ -2,33 +2,33 @@
     <p>The latest news and discussion about the aerospace industry-leading company SpaceX,
         and the up and coming newspace movement that is making affordable spaceflight a reality.</p>
 
-    <div class="lead-article" *ngIf="home.leadArticle">
+    <div class="lead-article" *ngIf="home.leadArticle" [heroImage]="home.leadArticle.h">
         <a [articleRouterLink]="home.leadArticle"></a>
         <h1><span class="overlay-text">{{ home.leadArticle.title }}</span></h1>
-
     </div>
 
-    <h1>Also...</h1>
+    <h2>Also...</h2>
     <section *ngIf="home.midTierArticles">
-        <article>
+        <div class="second-tier-article">
             <p><a [articleRouterLink]="home.midTierArticles.first">{{ home.midTierArticles.first.title }}</a></p>
-        </article>
-        <article>
+            <img src="{{ home.midTierArticles.first.hero.getUrl() }}" />
+        </div>
+        <div class="second-tier-article">
             <p><a [articleRouterLink]="home.midTierArticles.second">{{ home.midTierArticles.second.title }}</a></p>
-        </article>
+        </div>
     </section>
 
-    <h1>More</h1>
+    <h2>More</h2>
     <section *ngIf="home.moreArticles">
-        <article>
+        <div class="third-tier-article">
             <p><a [articleRouterLink]="home.moreArticles.first">{{ home.moreArticles.first.title }}</a></p>
-        </article>
-        <article>
+        </div>
+        <div class="third-tier-article">
             <p><a [articleRouterLink]="home.moreArticles.second">{{ home.moreArticles.second.title }}</a></p>
-        </article>
-        <article>
+        </div>
+        <div class="third-tier-article">
             <p><a [articleRouterLink]="home.moreArticles.third">{{ home.moreArticles.third.title }}</a></p>
-        </article>
+        </div>
     </section>
 
     <p><a [routerLink]="['/articles']">All articles...</a></p>

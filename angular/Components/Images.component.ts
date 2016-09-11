@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild, ChangeDetectorRef} from '@angular/core';
 import {Title} from "@angular/platform-browser";
 import {DropzoneComponent} from "./Dropzone.component";
 import {Image} from "../Classes/Image.class";
@@ -17,7 +17,7 @@ export class ImagesComponent implements OnInit {
     public images: Image[] = [];
     public isSubmitting: boolean = false;
 
-    constructor(private imageService: ImageService, private titleService: Title) {
+    constructor(private imageService: ImageService, private titleService: Title, private change: ChangeDetectorRef) {
         this.titleService.setTitle("One Rocket Road | Images");
     }
 
@@ -28,25 +28,28 @@ export class ImagesComponent implements OnInit {
     }
 
     /**
-     * Uploads a new image, storing it on the server, before clearing the upload form and
-     * adding the newly-created image to the images array.
+     * Sends a command to upload a new image.
      */
     public uploadNewImage() {
         this.isSubmitting = true;
-        this.dropzoneComponent.upload(this.imageToUpload).subscribe(xmlHttpRequest => {
+        this.dropzoneComponent.upload(this.imageToUpload);
+    }
 
-            // Allow easier access to the image from the xhr.
-            let image = JSON.parse(xmlHttpRequest.response);
+    public createImage(data: any) : void {
+        let image = JSON.parse(data.xhr.response);
 
-            // Reset the upload form.
-            this.imageToUpload = Image.create();
-            this.isSubmitting = false;
+        // Reset the upload form.
+        this.imageToUpload = Image.create();
+        this.isSubmitting = false;
 
-            // push the newly created image onto the images array.
-            this.images.push(Image.create(image));
+        // push the newly created image onto the images array.
+        this.images.push(Image.create(image));
 
-            // Clear the Dropzone.
-            this.dropzoneComponent.clear();
-        });
+        // Clear the Dropzone.
+        this.dropzoneComponent.clear();
+
+        // We have to detect changes for some reason here.
+        // TODO: Figure out how to fix.
+        this.change.detectChanges();
     }
 }

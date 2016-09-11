@@ -3,7 +3,7 @@
     <h1>
         <span class="overlay-text" spellcheck="false" [contentEditableModel]="draft.title" (contentEditableModelChange)="autosaveDraftTitle($event)"></span>
     </h1>
-    <hero [image]="draft.hero?.getUrl()"></hero> <!-- Include article hero attribution here -->
+    <div [heroImage]="draft.hero?.getUrl()"></div> <!-- Include article hero attribution here -->
 </section>
 
 <!-- Item Container. Holds everything else within. -->

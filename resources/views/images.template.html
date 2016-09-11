@@ -1,18 +1,16 @@
 <h1>Images</h1>
-
-<h2>Upload Image</h2>
-<form (ngSubmit)="uploadNewImage()" #imageForm="ngForm">
+<form class="image-upload-form" (ngSubmit)="uploadNewImage()" #imageForm="ngForm" novalidate>
     <ul>
         <li>
-            <orr-dropzone></orr-dropzone>
+            <orr-dropzone [url]="'/api/images/create'" (onUploadCompletion)="createImage($event)"></orr-dropzone>
         </li>
-        <li>
-            <span>Summary</span>
-            <textarea [(ngModel)]="imageToUpload.summary" name="summary" required></textarea>
+        <li class="image-upload-summary">
+            <label for="summary">Summary</label>
+            <textarea [(ngModel)]="imageToUpload.summary" id="summary" name="summary" required></textarea>
         </li>
-        <li>
-            <span>Attribution</span>
-            <input [(ngModel)]="imageToUpload.attribution" type="text" name="attribution" required />
+        <li class="image-upload-attribution">
+            <label for="attribution">Attribution</label>
+            <input [(ngModel)]="imageToUpload.attribution" type="text" id="attribution" name="attribution" required />
         </li>
         <li>
             <button type="submit" [disabled]="!imageForm.form.valid || isSubmitting">
@@ -22,19 +20,24 @@
     </ul>
 </form>
 
-<h2>Recently Added</h2>
+<h2>{{ images.length }} Recently Added</h2>
 <div class="all-images" *ngFor="let image of images">
 
     <div class="image">
-        <img [src]="image.getThumbUrl()" [alt]="image.summary" />
-        <div [style.backgroundColor]="image.color" class="swatch"></div>
+        <p><span class="label">Image ID</span> {{ image.id }}</p>
+
+        <div class="displayable">
+            <img [src]="image.getThumbUrl()" [alt]="image.summary" />
+            <div [style.backgroundColor]="image.color" class="swatch"></div>
+        </div>
+
         <ul>
             <li>
-                <label>Full image:</label>
+                <label class="label">Full image</label>
                 <input type="text" [highlightOnClick] [value]="image.getUrl()" readonly />
             </li>
             <li>
-                <label>Thumbnail:</label>
+                <label>Thumbnail</label>
                 <input type="text" [highlightOnClick] [value]="image.getThumbUrl()" readonly />
             </li>
         </ul>

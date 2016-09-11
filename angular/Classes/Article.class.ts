@@ -1,11 +1,13 @@
 import * as moment from "moment";
 import {Draft} from "./Draft.class";
+import {Image} from "./Image.class";
 
 export class Article {
     public id: number;
     public title: string;
     public body: string;
     public authorName: string;
+    public hero: Image;
     public createdAt: Date;
     public updatedAt: Date;
 
@@ -17,7 +19,7 @@ export class Article {
      */
     public static createFromDraft(draft: Draft) : Article {
         let now = moment().utc().toDate();
-        return new Article(draft.id, draft.title, draft.body, draft.authorName, now, now);
+        return new Article(draft.id, draft.title, draft.body, draft.authorName, draft.hero, now, now);
     }
 
     /**
@@ -27,12 +29,12 @@ export class Article {
      * @returns {Article}
      */
     public static create(model?: any) : Article {
-        return new Article(model.id, model.title, model.body, model.authorName,
+        return new Article(model.id, model.title, model.body, model.authorName, Image.create(model.hero),
             model.createdAt, model.updatedAt)
     }
 
     constructor();
-    constructor(id: number, title: string, body: string, authorName: string, createdAt: Date, updatedAt: Date);
+    constructor(id: number, title: string, body: string, authorName: string, hero: Image, createdAt: Date, updatedAt: Date);
 
     /**
      * Article constructor.
@@ -44,11 +46,12 @@ export class Article {
      * @param createdAt
      * @param updatedAt
      */
-    constructor(id?: number, title?: string, body?: string, authorName?: string, createdAt?: Date, updatedAt?: Date) {
+    constructor(id?: number, title?: string, body?: string, authorName?: string, hero?: Image, createdAt?: Date, updatedAt?: Date) {
         this.id = id;
         this.title = title;
         this.body = body;
         this.authorName = authorName;
+        this.hero = hero;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
